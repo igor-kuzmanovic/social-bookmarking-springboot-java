@@ -1,31 +1,6 @@
-.gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-classes/
-
-### NetBeans ###
-nbproject/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-/bin/
-
-### Bower ###
-src/main/resources/static/bower_components
-/src/main/resources/static/nbproject/private/
+bin/
+bower_components/
+node_modules/
+package-lock.json
+gradle*
+.nb-gradle
