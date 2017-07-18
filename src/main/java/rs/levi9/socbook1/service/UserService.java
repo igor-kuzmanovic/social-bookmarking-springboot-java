@@ -19,6 +19,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User findByUserName(String name) {
+        return userRepository.findByUsername(name);
+    }
+
     public User findOne(Long id) {
         return userRepository.findOne(id);
     }
