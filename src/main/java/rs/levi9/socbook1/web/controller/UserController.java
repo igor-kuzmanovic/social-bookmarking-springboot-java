@@ -33,6 +33,9 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public User save(@RequestBody User user) {
-        return userService.save(user);
+        User current = userService.findOne(1L);
+        user.setRoles(current.getRoles());
+        user.setUserStatus(current.getUserStatus());
+    	return userService.save(user);
     }
 }
