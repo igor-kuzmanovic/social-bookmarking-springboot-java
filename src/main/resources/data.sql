@@ -1,7 +1,0 @@
---INSERT INTO `socbook1`.`role`(`type`) VALUES ('ROLE_ADMIN');
---INSERT INTO `socbook1`.`role`(`type`) VALUES ('ROLE_USER');
---
---INSERT INTO `socbook1`.`socbook1_user`(`username`,`password`) VALUES ('admin','admin');
---
---INSERT INTO `socbook1`.`socbook1_user_roles`(`user_id`,`role_id`) VALUES (1,1);
---INSERT INTO `socbook1`.`socbook1_user_roles`(`user_id`,`role_id`) VALUES (1,2);
