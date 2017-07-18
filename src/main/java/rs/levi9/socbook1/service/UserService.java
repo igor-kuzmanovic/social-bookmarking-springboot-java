@@ -2,6 +2,7 @@ package rs.levi9.socbook1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -14,7 +15,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    public UserRepository(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
