@@ -44,21 +44,21 @@
 					  <fieldset class="register-form">
 					    <legend>Don't have account? Register now</legend>
 					    	<div class="form-group">
-							  <input class="form-control" id="focusedInput" type="text" placeholder="First Name" ng-click="vm.user.firstName">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="First Name" required ng-model="vm.user.firstName">
 							</div>
 							<div class="form-group">
-							  <input class="form-control" id="focusedInput" type="text" placeholder="Last Name" ng-click="vm.user.lastName">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Last Name" required ng-model="vm.user.lastName">
 							</div>
 							<div class="form-group">
-							  <input class="form-control" id="focusedInput" type="text" placeholder="Email" ng-click="vm.user.email">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Email" required ng-model="vm.user.email">
 							</div>
 							<div class="form-group">
-							  <input class="form-control" id="focusedInput" type="text" placeholder="Username" ng-click="vm.user.username">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Username" required ng-model="vm.user.username">
 							</div>
 							<div class="form-group">
-							  <input class="form-control" id="focusedInput" type="text" placeholder="Password" ng-click="vm.user.password">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Password" required ng-model="vm.user.password">
 							</div>
-							<button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.user)">Sign up</button>	    
+							<button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.user)">Sign up</button>  
 					  </fieldset>
 					</div>
 					<div class="space1"></div>

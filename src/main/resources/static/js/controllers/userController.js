@@ -7,14 +7,10 @@
     function UserController(UserService) {
         
         var vm = this;
-        vm.saveUser = saveUser;
-        vm.operation;   
-        
-        vm.user = {};
-        
+        vm.saveUser = saveUser; 
+
         function saveUser(user){
             UserService.saveUser(user);
-
         }
     };
 })();
