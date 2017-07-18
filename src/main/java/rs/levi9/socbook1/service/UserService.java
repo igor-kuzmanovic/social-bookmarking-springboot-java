@@ -15,7 +15,7 @@ public class UserService {
 
     @Autowired
     public UserRepository(UserRepository userRepository) {
-        this.userRepository = UserRepository;
+        this.userRepository = userRepository;
     }
 
     public User findOne(Long id) {

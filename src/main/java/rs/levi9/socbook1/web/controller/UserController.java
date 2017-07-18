@@ -19,11 +19,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<User> findAll() {
-        return userService.findAll();
-    }
-
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> findOne(@PathVariable("id") Long id) {
         User user = userService.findOne(id);
@@ -37,17 +32,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public User save(@RequestBody User user) {
-        return userService.save(user);
-    }
-
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@PathVariable("id") Long id) {
-        userService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT)
-    public User update(@RequestBody User user) {
         return userService.save(user);
     }
 }
