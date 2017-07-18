@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+    
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Social bookmarking</title>
+        <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    </head>
+    <body ng-controller="MainController as vm" class="ng-cloak">
+        <div class="wrapper">
+                <header>
+                    <nav class="navbar navbar-default navbar-fixed-top">
+                        <div class="container">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand">Social bookmarking</a>                            
+                            </div>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li ng-class="{ 'active': vm.isActive('/') }"><a href="#/">Home </a></li>
+                            
+                                </ul>
+     
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+                <div class="container">
+                    <div ng-view></div>
+                   <div class="space"></div>
+                   	<div class="form-containter">
+					  <fieldset class="register-form">
+					    <legend>Don't have account? Register now</legend>
+					    	<div class="form-group">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="First Name">
+							</div>
+							<div class="form-group">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Last Name">
+							</div>
+							<div class="form-group">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Email">
+							</div>
+							<div class="form-group">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Username">
+							</div>
+							<div class="form-group">
+							  <input class="form-control" id="focusedInput" type="text" placeholder="Password">
+							</div>
+							<button type="submit" class="btn btn-primary onclick="">Sign up</button>	    
+					  </fieldset>
+					</div>
+					<div class="space1"></div>
+					<div class="form-container1">
+						<p>Have an account?<a href="views/login.html"> Log in</a></p>
+					</div>
+                    <footer>
+                        
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+ 
+        <!-- angularjs -->
+     
+        <!-- controllers -->
+        
+        <!-- services -->
+        
+        <script src="js/routes/mainRoute.js" type="text/javascript"></script>
+    </body>
+</html>
