@@ -17,6 +17,7 @@
 *.iml
 *.ipr
 classes/
+out/
 
 ### NetBeans ###
 nbproject/
