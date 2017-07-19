@@ -7,19 +7,22 @@
     function UserController(UserService) {
         
         var vm = this;
-        vm.saveUser = saveUser;
-        vm.userStatus = {};
-        vm.userStatus.id = 1;
-        vm.userStatus.type = "STATUS_ACTIVE";
-        vm.role = {};
-        vm.role.id = 2;
-        vm.role.type = "ROLE_USER";
-        vm.roles = [vm.role];
-        
+        vm.saveUser = saveUser;     
+        var userStatus = {id: 1, type:"STATUS_ACTIVE"};
+        var role = {id: 2, type:"ROLE_USER"};
+        vm.roles = [role];
+
         function saveUser(user){
-        	user.userStatus = vm.userStatus;
-        	user.roles = vm.roles;
-            UserService.saveUser(user);
+            user.userStatus = userStatus;
+            user.roles = vm.roles;
+            UserService.saveUser(user).then(handleSuccessUser,
+                function(error){
+                    alert("Username already exists!");
+                });
+        }
+        
+        function handleSuccessUser(data, status) {
+            alert("User created!");
         }
     };
 })();
