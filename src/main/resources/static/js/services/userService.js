@@ -16,7 +16,7 @@
             var def = $q.defer();
             var req = {
                 method: 'POST',
-                url: "user",
+                url: "users",
                 data: user}
             $http(req).success(function (data) {
                 def.resolve(data);

@@ -38,7 +38,7 @@
             var base64Credential = btoa(credentials.username + ':' + credentials.password);
 
             // calling GET request for getting the user details
-            $http.get('user', {
+            $http.get('users/login', {
                 headers: {
                     // setting the Authorization Header
                     'Authorization': 'Basic ' + base64Credential

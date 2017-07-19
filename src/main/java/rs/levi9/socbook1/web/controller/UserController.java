@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
@@ -48,7 +48,7 @@ public class UserController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
     
-    @RequestMapping("/user")
+    @RequestMapping("/login")
     public Map<String, Object> user(Authentication authentication) {
     	Map<String, Object> map = new LinkedHashMap<String, Object>();
     	map.put("name", authentication.getName());

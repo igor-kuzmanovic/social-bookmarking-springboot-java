@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // starts authorizing configurations
             .authorizeRequests()
             // ignore the static files
-            .antMatchers("/", "/user", "/bower_components/**", "/css/**", "/js/**", "/views/**", "/images/**").permitAll()
+            .antMatchers("/", "/users", "/bower_components/**", "/css/**", "/js/**", "/views/**", "/images/**").permitAll()
             // authenticate all remaining URLS
             .anyRequest().fullyAuthenticated().and()
             // enabling the basic authentication
