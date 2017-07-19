@@ -2,12 +2,13 @@
     angular.module('app')
     .controller('UserController', UserController);   
     
-    UserController.$inject = ['UserService'];
+    UserController.$inject = ['UserService', '$location', '$http', '$route'];
     
-    function UserController(UserService) {
+    function UserController(UserService, $location, $http, $route) {
         
         var vm = this;
         vm.registration = false;
+        vm.login = login;
         vm.saveUser = saveUser;
         vm.showLogin = showLogin;
         
@@ -31,6 +32,27 @@
         function showLogin() {
             vm.registration = !vm.registration;
         }
-        
+
+        function login(credentials) {
+            // creating base64 encoded String from username and password
+            var base64Credential = btoa(credentials.username + ':' + credentials.password);
+
+            // calling GET request for getting the user details
+            $http.get('user', {
+                headers: {
+                    // setting the Authorization Header
+                    'Authorization': 'Basic ' + base64Credential
+                }
+            }).success(function (response) {
+                vm.credentials.password = null;
+                vm.message = '';
+                // setting the same header value for all request calling from this app
+                $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
+                vm.user = response;
+            }).error(function (error) {
+                vm.error = 'Bad credentials!';
+            });
+        }
+
     };
 })();

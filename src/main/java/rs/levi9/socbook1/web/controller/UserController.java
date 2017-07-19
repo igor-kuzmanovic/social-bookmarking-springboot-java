@@ -3,6 +3,7 @@ package rs.levi9.socbook1.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> findOne(@PathVariable("id") Long id) {
         User user = userService.findOne(id);
@@ -54,7 +54,8 @@ public class UserController {
     	map.put("name", authentication.getName());
     	map.put("roles", AuthorityUtils.authorityListToSet((authentication)
     			.getAuthorities()));
-    	return map;
+
+        return map;
     }
     
 }

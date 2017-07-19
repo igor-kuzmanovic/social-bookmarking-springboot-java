@@ -5,12 +5,12 @@
             <fieldset class="login-form">
                 <legend>Log In</legend>
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="text" placeholder="Username" required ng-model="vm.user.username">
+                    <input class="form-control" id="focusedInput" type="text" placeholder="Username" required ng-model="vm.credentials.username">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="password" placeholder="Password" required ng-model="vm.user.password">
+                    <input class="form-control" id="focusedInput" type="password" placeholder="Password" required ng-model="vm.credentials.password">
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.user)">Log in</button>
+                <button type="submit" class="btn btn-primary" ng-click="vm.login(vm.credentials)">Log in</button>
             </fieldset>
         </div>
         <div class="space1"></div>
