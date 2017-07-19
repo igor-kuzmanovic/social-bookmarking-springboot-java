@@ -50,11 +50,11 @@ public class UserController {
     
     @RequestMapping("/user")
     public Map<String, Object> user(Authentication authentication) {
-      Map<String, Object> map = new LinkedHashMap<String, Object>();
-      map.put("name", authentication.getName());
-      map.put("roles", AuthorityUtils.authorityListToSet((authentication)
-          .getAuthorities()));
-      return map;
+    	Map<String, Object> map = new LinkedHashMap<String, Object>();
+    	map.put("name", authentication.getName());
+    	map.put("roles", AuthorityUtils.authorityListToSet((authentication)
+    			.getAuthorities()));
+    	return map;
     }
     
 }
