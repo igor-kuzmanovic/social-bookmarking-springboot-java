@@ -33,6 +33,12 @@
 	margin: 0 auto;
 	position: relative;
 }
+.error-container {
+	width: 380px;
+	height: 50px;
+	margin: 14px auto 0px auto;
+	position: relative:
+}
 .register-form {
 	width: 350px;
 	height: 380px;

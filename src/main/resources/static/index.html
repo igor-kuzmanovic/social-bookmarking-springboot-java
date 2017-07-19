@@ -26,6 +26,9 @@
 		                        </button>
 		                        <a class="navbar-brand">Social bookmarking</a>
 		                    </div>
+		                    <div class="navbar-form navbar-right" ng-show="vm.user">
+		                    	<a href="#" class="btn btn-default" ng-click="vm.logout()">Log out</a>
+		        			</div>
 		                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		                        <ul class="nav navbar-nav">
 		                            <li ng-class="{ 'active': vm.isActive('/') }"><a href="#/"> </a></li>
@@ -34,9 +37,8 @@
 		                </div>
 		            </nav>
 		        </header>
-		        <div class="container" ng-include src="'views/login.html'"></div>
+		        <div class="container" ng-show="!vm.user" ng-include src="'views/login.html'"></div>
 		        <footer>
-
 		        </footer>
 		    </div>
 		</div>

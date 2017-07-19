@@ -1,6 +1,6 @@
 <div class="container">
     <div class="space"></div>
-    <div ng-show="vm.registration">
+    <div ng-show="vm.showLoginPage">
         <div class="form-container2">
             <fieldset class="login-form">
                 <legend>Log In</legend>
@@ -11,18 +11,18 @@
                     <input class="form-control" id="focusedInput" type="password" placeholder="Password" required ng-model="vm.credentials.password">
                 </div>
                 <button type="submit" class="btn btn-primary" ng-click="vm.login()">Log in</button>
-                <div class="alert alert-danger" ng-if="vm.error">
-                    {{vm.error}}
-                </div>
             </fieldset>
+        </div>
+        <div class="error-container alert alert-danger" ng-if="vm.error">
+        	{{vm.error}}
         </div>
         <div class="space1"></div>
         <div class="form-container1">
-            <p>Don't have an account? <a style="cursor: pointer" ng-click="vm.switchLogin()">Sign up</a></p>
+            <p>Don't have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage()">Sign up</a></p>
         </div>
         <div class="space"></div>
     </div>
-    <div ng-show="!vm.registration">
+    <div ng-show="!vm.showLoginPage">
         <div class="form-container">
             <fieldset class="register-form">
                 <legend>Don't have an account? Sign up!</legend>
@@ -41,15 +41,15 @@
                 <div class="form-group">
                     <input class="form-control" id="focusedInput" type="password" placeholder="Password" required ng-model="vm.user.password">
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.user)">Sign up</button>
-                <div class="alert alert-danger" ng-if="vm.error">
-                    {{vm.error}}
-                </div>
+                <button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.user)">Sign up</button>               
             </fieldset>
+        </div>
+        <div class="error-container alert alert-danger" ng-if="vm.error">
+        	{{vm.error}}
         </div>
         <div class="space1"></div>
         <div class="form-container1">
-            <p>Have an account? <a style="cursor: pointer" ng-click="vm.switchLogin()">Log in</a></p>
+            <p>Have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage()">Log in</a></p>
         </div>
         <div class="space"></div>
     </div>

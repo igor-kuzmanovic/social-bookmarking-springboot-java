@@ -7,10 +7,11 @@
     function UserController(UserService, $location, $http, $route) {
 
         var vm = this;
-        vm.registration = false;
+        vm.showLoginPage = false;
         vm.login = login;
+        vm.logout = logout;
         vm.saveUser = saveUser;
-        vm.switchLogin = switchLogin;
+        vm.toggleLoginPage = switchLogin;
         vm.error;
 
         var userStatus = {id: 1, type:"STATUS_ACTIVE"};
@@ -45,7 +46,8 @@
         }
 
         function switchLogin() {
-            vm.registration = !vm.registration;
+            vm.showLoginPage = !vm.showLoginPage;
+            vm.error = null;
         }
 
         function login() {
@@ -73,6 +75,7 @@
         }
         
         function logout() {
+        	vm.showLoginPage = false;
             $http.defaults.headers.common['Authorization'] = null;
             delete vm.user;
             delete vm.error;
