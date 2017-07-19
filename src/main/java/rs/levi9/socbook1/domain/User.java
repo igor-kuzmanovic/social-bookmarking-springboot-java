@@ -34,8 +34,8 @@ public class User extends BaseEntity {
 	    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
 	            inverseJoinColumns = @JoinColumn(name = "role_id"))
 	    private Set<Role> roles;
-	 
-	 public String getUsername() {
+
+	public String getUsername() {
 	     return username;
 	 }
 
