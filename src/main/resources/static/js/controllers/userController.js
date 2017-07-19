@@ -90,6 +90,5 @@
             delete vm.user;
             delete vm.error;
         }
-
     };
 })();
