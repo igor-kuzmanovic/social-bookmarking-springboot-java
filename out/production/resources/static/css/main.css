@@ -2,12 +2,29 @@
 	height: 215px;
 	width: 100%;
 }
+.space1 {
+	height: 15px;
+	width: 100%;
+}
 .form-container {
 	width: 400px;
 	height: 400px;
 	border: solid 1px #bdc3c7;
 	margin: 0 auto;
 	position: relative;
+}
+.form-container1 {
+	width: 400px;
+	height: 50px;
+	border: solid 1px #bdc3c7;
+	margin: 0 auto;
+	position: relative;
+}
+.form-container1 p {
+	color: #262626;
+    font-size: 14px;
+    margin: 15px;
+    text-align: center;
 }
 .form-container2 {
 	width: 400px;
@@ -36,21 +53,4 @@ fieldset legend {
 }
 fieldset button {
 	width: 100%;
-}
-.space1 {
-	height:15px;
-	width: 100%;
-}
-.form-container1 {
-	width: 400px;
-	height: 50px;
-	border: solid 1px #bdc3c7;
-	margin: 0 auto;
-	position: relative;
-}
-.form-container1 p {
-	color: #262626;
-    font-size: 14px;
-    margin: 15px;
-    text-align: center;
 }
