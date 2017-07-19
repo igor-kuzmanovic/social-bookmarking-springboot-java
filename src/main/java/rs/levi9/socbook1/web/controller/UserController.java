@@ -32,7 +32,15 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public User save(@RequestBody User user) {
-    	return userService.save(user);
+    public ResponseEntity<User> save(@RequestBody User user) {
+        String currentUserName = user.getUsername();
+        User current = userService.findByUserName(currentUserName);
+
+        if(current == null) {
+            userService.save(user);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }
