@@ -13,8 +13,12 @@
                 <button type="submit" class="btn btn-primary" ng-click="vm.login(vm.credentials)">Log in</button>
             </fieldset>
         </div>
-        <div class="error-container alert alert-danger" ng-if="vm.error">
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
         	{{vm.error}}
+        </div>
+        <div class="alert-container alert alert-success alert-dismissible" ng-if="vm.success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        	{{vm.success}}
         </div>
         <div class="space1"></div>
         <div class="form-container1">
@@ -44,7 +48,7 @@
                 <button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.registration)">Sign up</button>               
             </fieldset>
         </div>
-        <div class="error-container alert alert-danger" ng-if="vm.error">
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
         	{{vm.error}}
         </div>
         <div class="space1"></div>

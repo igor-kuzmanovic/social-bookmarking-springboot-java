@@ -13,6 +13,7 @@
         vm.saveUser = saveUser;
         vm.toggleLoginPage = toggleLoginPage;
         vm.error;
+        vm.success;
 
         var userStatus = {id: 1, type:"STATUS_ACTIVE"};
         var role = {id: 2, type:"ROLE_USER"};
@@ -44,7 +45,7 @@
         function handleSuccessUser() {
             vm.error = null;
             vm.showLoginPage = true;
-            alert("User created!");
+            vm.success = "User created!";
         }
 
         function toggleLoginPage() {
@@ -74,7 +75,6 @@
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 vm.user = response;
                 vm.error = null;
-                alert("Logged in!");
             }).error(function (error) {               
                 vm.error = 'Bad credentials!';
             });
