@@ -3,22 +3,17 @@ package rs.levi9.socbook1.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.service.UserService;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-
-import rs.levi9.socbook1.domain.AuthenticatedUser;
-
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
@@ -28,6 +23,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> findOne(@PathVariable("id") Long id) {
         User user = userService.findOne(id);

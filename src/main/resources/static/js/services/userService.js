@@ -1,6 +1,3 @@
-/**
- * Created by kurs on 7/18/2017.
- */
 (function () {
     angular.module("app")
         .factory('UserService', UserService);
@@ -29,5 +26,6 @@
                 });
             return def.promise;
         }
+        
     }
 } ());

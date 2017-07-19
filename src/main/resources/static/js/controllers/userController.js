@@ -10,6 +10,7 @@
         vm.registration = false;
         vm.saveUser = saveUser;
         vm.showLogin = showLogin;
+        
         var userStatus = {id: 1, type:"STATUS_ACTIVE"};
         var role = {id: 2, type:"ROLE_USER"};
         vm.roles = [role];
@@ -30,5 +31,6 @@
         function showLogin() {
             vm.registration = !vm.registration;
         }
+        
     };
 })();
