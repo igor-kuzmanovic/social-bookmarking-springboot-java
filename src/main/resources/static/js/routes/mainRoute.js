@@ -5,6 +5,8 @@
     config.$inject = ['$routeProvider'];
 
     function config($routeProvider) {
-
+    	
+        .otherwise('/');
     }
+
 }());
