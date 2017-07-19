@@ -45,18 +45,22 @@
         function handleSuccessUser() {
             vm.error = null;
             vm.showLoginPage = true;
+            vm.registration = null;
             vm.success = "User created!";
         }
 
         function toggleLoginPage() {
         	vm.registration = null;
-        	vm.credentials = null;
-            vm.showLoginPage = !vm.showLoginPage;
+        	vm.credentials = null;      	
             vm.error = null;
+            if (vm.showLoginPage)
+        		vm.success = null;
+        	vm.showLoginPage = !vm.showLoginPage;       	
         }
 
         function login(credentials) {
         	vm.error = null;
+        	vm.success = null;
         	if(credentials == null ||
         			credentials.username == null ||
         			credentials.password == null) {

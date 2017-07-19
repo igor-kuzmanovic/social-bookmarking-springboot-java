@@ -17,7 +17,7 @@
         	{{vm.error}}
         </div>
         <div class="alert-container alert alert-success alert-dismissible" ng-if="vm.success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <button type="button" class="close" ng-click="vm.success = null">&times;</button>
         	{{vm.success}}
         </div>
         <div class="space1"></div>
