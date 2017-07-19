@@ -11,59 +11,65 @@
         vm.login = login;
         vm.logout = logout;
         vm.saveUser = saveUser;
-        vm.toggleLoginPage = switchLogin;
+        vm.toggleLoginPage = toggleLoginPage;
         vm.error;
 
         var userStatus = {id: 1, type:"STATUS_ACTIVE"};
         var role = {id: 2, type:"ROLE_USER"};
         vm.roles = [role];
 
-        function saveUser(user) {
-        	if(user == null ||
-        			user.firstName == null ||
-        			user.lastName == null ||
-        			user.email == null ||
-        			user.username == null ||
-        			user.password == null) {
+        function saveUser(registration) {
+        	vm.error = null;
+        	if(registration == null ||
+        			registration.firstName == null ||
+        			registration.lastName == null ||
+        			registration.email == null ||
+        			registration.username == null ||
+        			registration.password == null) {
         		vm.error = "Please fill out all fields!";
         		return;
         	}     	
-            if(!user.email.includes('@')) {
+            if(!registration.email.includes('@')) {
             	vm.error = "Invalid email format!"
             	return;
             }
-            user.userStatus = userStatus;
-            user.roles = vm.roles;
-            UserService.saveUser(user).then(handleSuccessUser,
+            registration.userStatus = userStatus;
+            registration.roles = vm.roles;
+            UserService.saveUser(registration).then(handleSuccessUser,
             		function(error){
             	vm.error = "Username already exists!";
             });
         }
 
-        function handleSuccessUser(data, status) {
+        function handleSuccessUser() {
             vm.error = null;
+            vm.showLoginPage = true;
             alert("User created!");
         }
 
-        function switchLogin() {
+        function toggleLoginPage() {
+        	vm.registration = null;
+        	vm.credentials = null;
             vm.showLoginPage = !vm.showLoginPage;
             vm.error = null;
         }
 
-        function login() {
-        	if(vm.credentials == null ||
-        			vm.credentials.username == null ||
-        			vm.credentials.password == null) {
+        function login(credentials) {
+        	vm.error = null;
+        	if(credentials == null ||
+        			credentials.username == null ||
+        			credentials.password == null) {
         		vm.error = "Please fill out all fields!";
         		return;
         	} 
-            var base64Credential = btoa(vm.credentials.username + ':' + vm.credentials.password);
+            var base64Credential = btoa(credentials.username + ':' + credentials.password);
             $http.get('users/login', {
                 headers: {
                     'Authorization': 'Basic ' + base64Credential
                 }
             }).success(function (response) {
-                vm.credentials.password = null;
+            	credentials.username = null;
+                credentials.password = null;
                 vm.message = '';
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 vm.user = response;
