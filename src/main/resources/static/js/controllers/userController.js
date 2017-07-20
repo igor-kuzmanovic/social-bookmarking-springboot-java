@@ -2,22 +2,38 @@
     angular.module('app')
     .controller('UserController', UserController);
 
-    UserController.$inject = ['UserService', '$location', '$http', '$route'];
+    UserController.$inject = ['UserService', '$http', '$location', '$route'];
 
-    function UserController(UserService, $location, $http, $route) {
+    function UserController(UserService, $http, $location, $route) {
 
         var vm = this;
-        vm.showLoginPage = false;
+        vm.showLoginPage;
         vm.login = login;
         vm.logout = logout;
         vm.saveUser = saveUser;
         vm.toggleLoginPage = toggleLoginPage;
+        vm.user;
         vm.error;
         vm.success;
-
-        var userStatus = {id: 1, type:"STATUS_ACTIVE"};
-        var role = {id: 2, type:"ROLE_USER"};
-        vm.roles = [role];
+        var roles = [];
+        var userstatus;
+        var role;
+        
+        init();
+        
+        function init() {
+        	vm.showLoginPage = false;
+        	userStatus = {id: 1, type:"STATUS_ACTIVE"};
+            role = {id: 2, type:"ROLE_USER"};
+            roles = [role];
+            if (vm.user) {
+                $route.reload();
+            }
+        }
+        
+        function isActive(viewLocation) {
+            return viewLocation === $location.path();
+        }
 
         function saveUser(registration) {
         	vm.error = null;

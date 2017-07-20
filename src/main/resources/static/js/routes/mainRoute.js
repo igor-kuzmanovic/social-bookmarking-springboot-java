@@ -1,12 +1,10 @@
 (function () {
     angular.module('app')
-        .config(config);
+            .config(config);
 
     config.$inject = ['$routeProvider'];
 
     function config($routeProvider) {
-    	
-        .otherwise('/');
-    }
 
+    }
 }());
