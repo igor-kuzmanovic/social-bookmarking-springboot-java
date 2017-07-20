@@ -2,9 +2,9 @@
     angular.module('app')
     .controller('HomeController', HomeController);
 
-    UserController.$inject = ['BookmarkService', '$location'];
+    HomeController.$inject = ['BookmarkService', '$location'];
 
-    function UserController(BookmarkService, $location) {
+    function HomeController(BookmarkService, $location) {
 
         var vm = this;
         vm.isActive = isActive;

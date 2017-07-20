@@ -1,6 +1,5 @@
 package rs.levi9.socbook1.domain;
 
-import com.sun.istack.internal.Nullable;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 

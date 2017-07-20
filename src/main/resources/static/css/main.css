@@ -80,6 +80,10 @@
 	margin: 0;
 	margin-bottom: 10px;
 }
+.col-lg-10 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 fieldset legend {
 	font-family: 'Poppins', sans-serif;
 	padding: 15px 5px 5px 5px;

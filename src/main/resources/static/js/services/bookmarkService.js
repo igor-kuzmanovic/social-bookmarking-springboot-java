@@ -2,9 +2,9 @@
     angular.module("app")
         .factory('BookmarkService', BookmarkService);
 
-    UserService.$inject = ['$http', '$q'];
+    BookmarkService.$inject = ['$http', '$q'];
 
-    function UserService($http, $q) {
+    function BookmarkService($http, $q) {
 
         var service = {
             saveBookmark: saveBookmark,
