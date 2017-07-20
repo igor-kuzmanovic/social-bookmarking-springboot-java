@@ -6,6 +6,7 @@ import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Comment;
 import rs.levi9.socbook1.repository.BookmarkRepository;
 import rs.levi9.socbook1.repository.CommentRepository;
+import rs.levi9.socbook1.repository.TagRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,11 +17,13 @@ public class BookmarkService  {
 
     private BookmarkRepository bookmarkRepository;
     private CommentRepository commentRepository;
+    private TagRepository tagRepository;
 
     @Autowired
-    public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository) {
+    public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository, TagRepository tagRepository) {
         this.bookmarkRepository = bookmarkRepository;
         this.commentRepository = commentRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<Bookmark> findAll() {
