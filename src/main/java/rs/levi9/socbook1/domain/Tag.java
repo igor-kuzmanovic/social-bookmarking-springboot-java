@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 public class Tag extends BaseEntity {
 
 	@Column(nullable = false)
-	 private String name;
+	private String name;
 
 	public String getName() {
 		return name;

@@ -1,39 +1,42 @@
 package rs.levi9.socbook1.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 @Entity
 public class Bookmark extends BaseEntity {
-	
-	 @Column(nullable = false)
-	 private String url;
+
+	@Column(nullable = false)
+	private String url;
 	 
-	 @Column(nullable = false)
-	 private String title;
+	@Column(nullable = false)
+	private String title;
 	 
-	 @Column(nullable = false)
-	 private String author;
+	@Column(nullable = false)
+	private Date date;
 	 
-	 @Column(nullable = false)
-	 private Date date;
+	@Column(nullable = false)
+	private String description;
 	 
-	 @Column(nullable = false)
-	 private String description;
-	 
-	 @Column(nullable = false)
-	 private String visibility;
-	 
-	 @ManyToMany
-	    @JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"),
-	            inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	    private Set<Tag> tags;
+	@Column(nullable = false)
+	private boolean visibility;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private Set<Tag> tags;
 
 	public String getUrl() {
 		return url;
@@ -49,14 +52,6 @@ public class Bookmark extends BaseEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
 	}
 
 	public Date getDate() {
@@ -75,14 +70,6 @@ public class Bookmark extends BaseEntity {
 		this.description = description;
 	}
 
-	public String getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
-
 	public Set<Tag> getTags() {
 		return tags;
 	}
@@ -90,6 +77,28 @@ public class Bookmark extends BaseEntity {
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
-	  
-	
+
+	public boolean isVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(boolean visibility) {
+		this.visibility = visibility;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
