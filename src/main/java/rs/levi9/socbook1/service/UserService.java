@@ -34,16 +34,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findOne(id);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
     public User save(User user) {
         return userRepository.save(user);
-    }
-
-    public void delete(Long id) {
-        userRepository.delete(id);
     }
     
     @Override
