@@ -1,11 +1,13 @@
 package rs.levi9.socbook1.domain;
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
 public class Bookmark extends BaseEntity {
@@ -33,7 +35,6 @@ public class Bookmark extends BaseEntity {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;

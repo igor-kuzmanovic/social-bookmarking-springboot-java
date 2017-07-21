@@ -3,10 +3,7 @@ package rs.levi9.socbook1.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Tag;
 import rs.levi9.socbook1.service.TagService;
 
@@ -40,7 +37,7 @@ public class TagController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(Long id) {
+    public ResponseEntity delete(@PathVariable("id") Long id) {
         tagService.delete(id);
 
         return new ResponseEntity(HttpStatus.OK);
