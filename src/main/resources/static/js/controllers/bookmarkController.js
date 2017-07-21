@@ -25,6 +25,8 @@ angular.module('app')
         	bookmark.user = $scope.$parent.vm.user;
         	bookmark.tags = bookmark.tags.split(" ");
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
+            bookmark.category.id = 1;
+            bookmark.category.name = "search engine";
             BookmarkService.saveBookmark(bookmark).then(function(response){
                 getBookmarks();
                 $('#addBookmarkModal').modal('hide');
