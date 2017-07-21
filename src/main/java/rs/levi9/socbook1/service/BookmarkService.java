@@ -17,13 +17,11 @@ public class BookmarkService  {
 
     private BookmarkRepository bookmarkRepository;
     private CommentRepository commentRepository;
-    private TagRepository tagRepository;
 
     @Autowired
     public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository, TagRepository tagRepository) {
         this.bookmarkRepository = bookmarkRepository;
         this.commentRepository = commentRepository;
-        this.tagRepository = tagRepository;
     }
 
     public List<Bookmark> findAll() {
@@ -39,6 +37,7 @@ public class BookmarkService  {
     }
 
     public void delete(Long id) {
+        //Delete all comments before deleting bookmark.
         commentRepository.deleteByBookmarkId(id);
         bookmarkRepository.delete(id);
     }
