@@ -13,13 +13,9 @@
 	
 	<body>
 		<div ng-controller="UserController as vm" class="ng-cloak">
-		    <div class="container" ng-show="!vm.user" ng-include src="'views/login.html'"></div>  
-		    <div class="container" ng-show="vm.user" ng-include src="'views/home.html'"></div> 
-		           
+		    <div class="container" ng-show="!vm.user" ng-include src="'views/login.html'"></div>
+		    <div class="container" ng-show="vm.user" ng-include src="'views/home.html'"></div> 		           
 		</div>		
-		        
-		
-			
 
 		<!-- jQuery -->
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>

@@ -30,4 +30,8 @@ public class TagService {
     public void delete(Long id) {
         tagRepository.delete(id);
     }
+
+    public Tag findByName(String name) {
+        return tagRepository.findByName(name);
+    }
 }

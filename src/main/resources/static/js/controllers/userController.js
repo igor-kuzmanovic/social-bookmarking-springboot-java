@@ -15,6 +15,7 @@
         vm.user;
         vm.error;
         vm.success;
+        
         var roles = [];
         var userstatus;
         var role;
@@ -43,10 +44,10 @@
         			registration.email == null ||
         			registration.username == null ||
         			registration.password == null) {
-        		vm.error = "Please fill out all fields!";
+        		vm.error = "Please fill in all fields!";
         		return;
         	}     	
-            if(!registration.email.includes('@')) {
+            if(!validateEmail(registration.email)) {
             	vm.error = "Invalid email format!"
             	return;
             }
@@ -77,12 +78,18 @@
         function login(credentials) {
         	vm.error = null;
         	vm.success = null;
-        	if(credentials == null ||
-        			credentials.username == null ||
-        			credentials.password == null) {
-        		vm.error = "Please fill out all fields!";
+        	if(credentials.username == null && credentials.password == null) {
+        		vm.error = "Please fill in all fields!";
         		return;
-        	} 
+        	}
+        	if(credentials.username != null && credentials.password == null){
+        		vm.error = "Please enter your password!";
+        		return;
+        	}
+        	if(credentials.username == null && credentials.password != null){
+        		vm.error = "Please enter your username!";
+        		return;
+        	}
             var base64Credential = btoa(credentials.username + ':' + credentials.password);
             $http.get('users/login', {
                 headers: {
@@ -106,5 +113,11 @@
             delete vm.user;
             delete vm.error;
         }
+        
+        function validateEmail(email) {
+       	 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+       	 	return re.test(email);
+        }
+        
     };
 })();
