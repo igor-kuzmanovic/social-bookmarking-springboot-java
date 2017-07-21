@@ -23,8 +23,10 @@ angular.module('app')
 
         function saveBookmark(bookmark){
         	bookmark.user = $scope.$parent.vm.user;
-        	bookmark.tags = bookmark.tags.split(" ");
+        	tag = {id: 2, name: "asd"};     	
+        	bookmark.tags = [tag];
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
+            bookmark.category = {};
             bookmark.category.id = 1;
             bookmark.category.name = "search engine";
             BookmarkService.saveBookmark(bookmark).then(function(response){
