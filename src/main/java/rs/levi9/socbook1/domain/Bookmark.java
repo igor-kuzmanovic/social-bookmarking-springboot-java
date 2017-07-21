@@ -35,6 +35,7 @@ public class Bookmark extends BaseEntity {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
+	@Cascade(CascadeType.ALL)
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;
