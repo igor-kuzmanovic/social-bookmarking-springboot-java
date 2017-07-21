@@ -22,15 +22,19 @@ angular.module('app')
         }
 
         function saveBookmark(bookmark){
-        	bookmark.user = $scope.$parent.vm.user;
-        	tag = {id: 2, name: "asd"};     	
-        	bookmark.tags = [tag];
+//        	bookmark.user = $scope.$parent.vm.user.username;
+        	var username = {};
+        	username.username = $scope.$parent.vm.user.name;
+        	bookmark.user = username;
+        	var tag = {};
+        	tag.name = "Fastesttt";
+        	var tags = [tag];
+        	bookmark.tags = tags;
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
             bookmark.category = {};
             bookmark.category.id = 1;
             bookmark.category.name = "search engine";
             BookmarkService.saveBookmark(bookmark).then(function(response){
-                getBookmarks();
                 $('#addBookmarkModal').modal('hide');
             }, function(error){
                 vm.error = error;
