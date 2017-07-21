@@ -11,22 +11,34 @@
 					<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
 				</ul>
 
-				<div class="navbar-form navbar-right" ng-show="vm.user">
-					<a href="#" class="btn btn-default" ng-click="vm.logout()">Log
-						out</a>
-					</div>
+				 <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$parent.vm.user.name}} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" ng-click="$parent.vm.logout()">Log out</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
 				</div>
 			</nav>
+		<div class="min-space"></div>
+        
+        <nav class="navbar2">
+            <a class="navbar-brand" href="#" data-toggle="modal"
+	data-target="#addBookmarkModal" ng-click="vm.addBookmark()">ADD +</a>
+                <img class="" src="images/share.png"></img>
+                <img class="" src="images/trash.png"></img>
+                <img class="" src="images/edit.png"></img>
+       
+		</nav>
+		
 		</header>
 
-		<div class="jumbotron-custom jumbotron">
+		<div class="bookmark-container">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						Facebook
-						<button type="button" class="btn btn-xs btn-custom-2">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
 					</h3>
 				</div>
 				<div class="panel-body">www.facebook.com</div>
@@ -47,9 +59,6 @@
 			</div>
 		</div>
 	</div>
-
-	<label class="btn btn-primary btn-lg btn-custom" data-toggle="modal"
-	data-target="#addBookmarkModal" ng-click="vm.addBookmark()">+</label>
 
 	<div class="modal fade" id="addBookmarkModal" role="dialog">
 		<div class="modal-dialog">
