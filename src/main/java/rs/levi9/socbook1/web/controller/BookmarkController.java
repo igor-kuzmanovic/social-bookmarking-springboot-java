@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Tag;
+import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.TagService;
+import rs.levi9.socbook1.service.UserService;
 
 import java.awt.print.Book;
 import java.util.HashSet;
@@ -20,11 +22,13 @@ public class BookmarkController {
 
     private BookmarkService bookmarkService;
     private TagService tagService;
+    private UserService userService;
 
     @Autowired
-    public BookmarkController(BookmarkService bookmarkService, TagService tagService) {
+    public BookmarkController(BookmarkService bookmarkService, TagService tagService, UserService userService) {
         this.bookmarkService = bookmarkService;
         this.tagService = tagService;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -57,6 +61,10 @@ public class BookmarkController {
         }
 
         bookmark.setTags(tagExists);
+
+        //Save user when only username is sent.
+        User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
+        bookmark.setUser(tempUser);
 
         Bookmark bookmarkForSave = bookmarkService.save(bookmark);
 
