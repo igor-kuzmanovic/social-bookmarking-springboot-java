@@ -15,6 +15,7 @@
         vm.user;
         vm.error;
         vm.success;
+        
         var roles = [];
         var userstatus;
         var role;

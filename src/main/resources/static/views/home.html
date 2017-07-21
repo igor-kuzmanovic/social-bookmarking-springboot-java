@@ -1,4 +1,4 @@
-<div ng-controller="BookmarkController as vm" class="ng-cloak"> 
+<div ng-controller="BookmarkController as vm" class="ng-cloak">
 <div class="wrapper">
 	<header>
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -11,14 +11,15 @@
 					<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
 				</ul>
 
-				<div class="navbar-form navbar-right" ng-show="vm.user">
-					<a href="#" class="btn btn-default" ng-click="vm.logout()">Log
+				<div class="navbar-form navbar-right" ng-show="$parent.vm.user">
+					<a href="#" class="btn btn-default" ng-click="vm.logout()">{{$parent.vm.user.name}} | Log
 						out</a>
 					</div>
 				</div>
 			</nav>
 		</header>
 
+		 
 		<div class="jumbotron-custom jumbotron">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -51,6 +52,7 @@
 	<label class="btn btn-primary btn-lg btn-custom" data-toggle="modal"
 	data-target="#addBookmarkModal" ng-click="vm.addBookmark()">+</label>
 
+	
 	<div class="modal fade" id="addBookmarkModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -77,7 +79,7 @@
 
 								<label for="inputDescription" class="col-lg-2 control-label">Description</label>
 								<div class="col-lg-10">
-									<textarea class="form-control" rows="3" id="inputDescription" ng-model="vm.bookmark.description"></textarea>
+									<textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.bookmark.description"></textarea>
 								</div>
 
 								<label for="selectCategory" class="col-lg-2 control-label">Category</label>
@@ -89,20 +91,20 @@
 
 								<label for="inputTags" class="col-lg-2 control-label">Tags</label>
 								<div class="col-lg-10">
-									<textarea class="form-control" rows="3" id="inputTags" placeholder="Add tags in the form of hashtags (eg. #football)" ng-model="vm.bookmark.tags"></textarea>
+									<textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.bookmark.tags"></textarea>
 								</div>
 
 								<label class="col-lg-2 control-label">Privacy</label>
 								<div class="col-lg-10">
 									<div class="radio">
 										<label>
-											<input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio" ng-model="vm.bookmark.radio1">
+											<input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio" ng-click="vm.bookmarkShare(false)">
 											Private
 										</label>
 									</div>
 									<div class="radio">
 										<label>
-											<input name="optionsRadios" id="optionsRadios2" value="option2" type="radio" ng-model="vm.bookmark.radio2">
+											<input name="optionsRadios" id="optionsRadios2" value="option2" type="radio" ng-click="vm.bookmarkShare(true)">
 											Public
 										</label>
 									</div>
@@ -118,4 +120,5 @@
 					</div>
 				</div>
 			</div>
-			</div>
+		</div>
+			
