@@ -39,6 +39,7 @@ public class BookmarkService  {
     public void delete(Long id) {
         //Delete all comments before deleting bookmark.
         commentRepository.deleteByBookmarkId(id);
+
         bookmarkRepository.delete(id);
     }
 }
