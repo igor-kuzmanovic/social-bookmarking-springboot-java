@@ -19,7 +19,7 @@ public class BookmarkService  {
     private CommentRepository commentRepository;
 
     @Autowired
-    public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository, TagRepository tagRepository) {
+    public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository) {
         this.bookmarkRepository = bookmarkRepository;
         this.commentRepository = commentRepository;
     }
