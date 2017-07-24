@@ -13,9 +13,13 @@ angular.module('app')
         vm.getBookmarks = getBookmarks;
         vm.deleteBookmark = deleteBookmark;
         vm.selectBookmark = selectBookmark;
-        vm.editBookmark = editBookmark;
+        vm.addModalOperation = addModalOperation;
+        vm.editModalOperation = editModalOperation;
+        vm.shareBookmark = shareBookmark;
+        vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
+        vm.bookmark = {};
         vm.categories = {};
         vm.tags = {};
         vm.category = {};
@@ -23,14 +27,10 @@ angular.module('app')
         init();
     
         function init() {
-        	delete vm.tags;
+        	  delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
             delete vm.error;
-            vm.bookmark = {
-                date: new Date(),
-            	visibility: true
-            };
             vm.closeModal = false;
             getCategories();
             getBookmarks();
@@ -48,30 +48,33 @@ angular.module('app')
             vm.bookmarks = data;
         }
 
-        function saveBookmark(bookmark){
+        function saveBookmark(bookmark) {
+          if(vm.operation.name == "Edit bookmark") {
+                bookmark.id = vm.selectedBookmark.id;
+            }          
+                  
         	vm.error = null;
-
+          
         	if((!bookmark.title && !bookmark.url && !vm.category)
         		|| (!bookmark.title && !bookmark.url && vm.category)
         		|| (!bookmark.title && bookmark.url && !vm.category)
         		|| (bookmark.title && !bookmark.url && !vm.category)) {
         		vm.error = "Please fill in all fields!";
         		return;
-        	}
-			if(bookmark.title && bookmark.url && !vm.category) {
-				vm.error = "Please choose a category!";
-				return;
-			}
-			if(bookmark.title && !bookmark.url && vm.category) {
-				vm.error = "Please specify a URL!";
-				return;
-			}
-			if(!bookmark.title && bookmark.url && vm.category) {		
-				vm.error = "Please specify a title!";
-				return;
-			}
-			
-        
+        	}         
+          if(bookmark.title && bookmark.url && !vm.category) {
+            vm.error = "Please choose a category!";
+            return;
+          }         
+          if(bookmark.title && !bookmark.url && vm.category) {
+            vm.error = "Please specify a URL!";
+            return;
+          }      
+          if(!bookmark.title && bookmark.url && vm.category) {		
+            vm.error = "Please specify a title!";
+            return;
+          }
+
          	// bookmark.user = $scope.$parent.vm.user.username;
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
@@ -97,6 +100,7 @@ angular.module('app')
         		bookmark.description = "default";
         	}
 
+            bookmark.date = new Date();
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
 
             bookmark.category = vm.categories[vm.category - 1];    
@@ -129,12 +133,28 @@ angular.module('app')
             });
             vm.selectedBookmark= {};
         }
-
-        function editBookmark(){
-            vm.error = {};
-            vm.bookmark = angular.copy(selectedBookmark);
-            vm.bookmark.publishDate = new Date(vm.bookmark.publishDate.split('-').join(' '));
+        
+        function addModalOperation() {
+            delete vm.bookmark;
+            vm.operation.name = "Add bookmark";
+            console.log(vm.operation.name);
         }
-
+        
+        function editModalOperation() {
+            vm.operation.name = "Edit bookmark";
+            console.log(vm.operation.name);
+            vm.error = {};
+            vm.bookmark = angular.copy(vm.selectedBookmark);
+            vm.bookmark.date = new Date();
+            vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
+        }
+        
+        function shareBookmark() {
+            vm.bookmark = angular.copy(vm.selectedBookmark);
+            vm.bookmark.id = vm.selectedBookmark.id;
+            vm.bookmark.visibility = true;
+            BookmarkService.saveBookmark(vm.bookmark);
+            console.log("changed?");
+        }
     };
 })();

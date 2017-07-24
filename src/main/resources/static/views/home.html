@@ -12,22 +12,22 @@
 				</ul>
 
 				 <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$parent.vm.user.name}} <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#" ng-click="$parent.vm.logout()">Log out</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$parent.vm.user.name}} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#" ng-click="$parent.vm.logout()">Log out</a></li>
+						</ul>
+					</li>
+				 </ul>
 				</div>
 			</nav>
 		<div class="min-space"></div>
         
-        <nav class="navbar2">
-            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addBookmark()">ADD +</a>
-                <img class="" src="images/share.png" style="cursor: pointer" ></img>
+    <nav class="navbar2">
+            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addModalOperation()">ADD +</a>
+                <img class="" src="images/share.png" style="cursor: pointer" ng-click="vm.shareBookmark()"></img>
                 <img class="" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
-                <img class="" src="images/edit.png" style="cursor: pointer"></img>
+                <img class="" src="images/edit.png" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"></img>
 		</nav>
 		
 		</header>
@@ -47,7 +47,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Add a bookmark</h4>
+					<h4 class="modal-title">{{vm.operation.name}}</h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
@@ -55,14 +55,12 @@
 							<div class="form-group">
 								<label for="inputTitle" class="col-lg-2 control-label">Title</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="inputTitle" placeholder="Title"
-									type="text" ng-model="vm.bookmark.title">
+									<input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.bookmark.title">
 								</div>
 
 								<label for="inputURL" class="col-lg-2 control-label">URL</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="inputURL" placeholder="URL"
-									type="text" ng-model="vm.bookmark.url">
+									<input class="form-control" id="inputURL" placeholder="URL" type="text" ng-model="vm.bookmark.url">
 								</div>
 
 								<label for="inputDescription" class="col-lg-2 control-label">Description</label>
