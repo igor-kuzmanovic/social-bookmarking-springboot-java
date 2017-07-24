@@ -60,9 +60,9 @@
         }
 
         function handleSuccessUser() {
-            vm.error = null;
             vm.showLoginPage = true;
-            vm.registration = null;
+            delete vm.error;
+            delete vm.registration;
             vm.success = "User created!";
         }
 
