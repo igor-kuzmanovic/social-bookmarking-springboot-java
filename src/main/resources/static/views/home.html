@@ -69,11 +69,14 @@
 								<div class="col-lg-10">
 									<textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.bookmark.description"></textarea>
 								</div>
-
-								<label for="repeatSelect" class="col-lg-2 control-label">Category</label>
+                
+                <label for="selectCategory" class="col-lg-2 control-label">Category</label>
 								<div class="col-lg-10">
-									<select name="repeatSelect" id="repeatSelect" ng-model="vm.model">
-										<option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+									<select class="form-control" id="selectCategory" ng-model="vm.bookmark.category">
+										<option value="" ng-disabled="true" disabled>-- Must select a category --</option>
+                    <select name="repeatSelect" id="repeatSelect" ng-model="vm.model">
+										  <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+                    </select>
 									</select>
 								</div>
 
