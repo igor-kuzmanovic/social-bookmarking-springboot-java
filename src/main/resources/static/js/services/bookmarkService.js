@@ -17,9 +17,10 @@
         function saveBookmark(bookmark) {
             var def = $q.defer();
             var req = {
-                method: 'POST',
+                method: bookmark.id ? 'PUT': 'POST',
                 url: "bookmarks",
-                data: bookmark}
+                data: bookmark
+            }
             $http(req).success(function (data) {
                 def.resolve(data);
             })
