@@ -23,7 +23,7 @@
 			</nav>
 		<div class="min-space"></div>
         
-        <nav class="navbar2">
+    <nav class="navbar2">
             <a class="navbar-brand" href="#" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addModalOperation()">ADD +</a>
                 <img class="" src="images/share.png" style="cursor: pointer" ng-click="vm.shareBookmark()"></img>
                 <img class="" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
@@ -32,7 +32,7 @@
 		
 		</header>
 
-		<div class="bookmark-container">
+		<div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
 			<div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)">
 				<div class="panel-heading">
 					<h3 class="panel-title">{{bookmark.title}}</h3>
@@ -67,11 +67,12 @@
 								<div class="col-lg-10">
 									<textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.bookmark.description"></textarea>
 								</div>
-
-								<label for="repeatSelect" class="col-lg-2 control-label">Category</label>
+                
+               					<label for="selectCategory" class="col-lg-2 control-label">Category</label>
 								<div class="col-lg-10">
-									<select name="repeatSelect" id="repeatSelect" ng-model="vm.model">
-										<option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+									<select class="form-control" id="selectCategory" ng-model="vm.category">
+										<option value="" ng-disabled="true" disabled>-- Must select a category --</option>
+                    					<option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
 									</select>
 								</div>
 
@@ -100,8 +101,10 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.saveBookmark(vm.bookmark)">Save
-							changes</button>
+						<button type="button" class="btn btn-primary" ng-click="vm.saveBookmark(vm.bookmark)">Save changes</button>
+							<div class="alert-container alert alert-danger" ng-if="vm.error">
+        						{{vm.error}}
+        					</div>
 						</div>
 					</div>
 				</div>
