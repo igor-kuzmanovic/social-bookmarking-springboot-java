@@ -15,6 +15,7 @@ angular.module('app')
         vm.selectBookmark = selectBookmark;
         vm.addModalOperation = addModalOperation;
         vm.editModalOperation = editModalOperation;
+        vm.shareBookmark = shareBookmark;
         vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
@@ -115,6 +116,14 @@ angular.module('app')
             vm.bookmark = angular.copy(vm.selectedBookmark);
             vm.bookmark.date = new Date();
             vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
+        }
+        
+        function shareBookmark() {
+            vm.bookmark = angular.copy(vm.selectedBookmark);
+            vm.bookmark.id = vm.selectedBookmark.id;
+            vm.bookmark.visibility = true;
+            BookmarkService.saveBookmark(vm.bookmark);
+            console.log("changed?");
         }
     };
 })();
