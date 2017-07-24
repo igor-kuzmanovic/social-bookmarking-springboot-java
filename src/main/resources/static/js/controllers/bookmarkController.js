@@ -13,6 +13,7 @@ angular.module('app')
         vm.getBookmarks = getBookmarks;
         vm.deleteBookmark = deleteBookmark;
         vm.selectBookmark = selectBookmark;
+        vm.editBookmark = editBookmark;
         vm.selectedBookmark = {};
         vm.bookmarks = {};
         vm.categories = {};
@@ -88,13 +89,19 @@ angular.module('app')
         }
 
         function deleteBookmark(){
-            console.log("pozvana");
+            console.log("delete called.");
             BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
                 getBookmarks();
             }, function(error){
 
             });
             vm.selectedBookmark= {};
+        }
+
+        function editBookmark(){
+            vm.error = {};
+            vm.bookmark = angular.copy(selectedBookmark);
+            vm.bookmark.publishDate = new Date(vm.bookmark.publishDate.split('-').join(' '));
         }
 
     };
