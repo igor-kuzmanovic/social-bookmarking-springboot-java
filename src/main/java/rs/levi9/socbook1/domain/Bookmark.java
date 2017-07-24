@@ -2,25 +2,29 @@ package rs.levi9.socbook1.domain;
 
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.validation.constraints.Past;
 
 @Entity
 public class Bookmark extends BaseEntity {
 
 	@Column(nullable = false)
 	private String url;
-	 
+	
+	@Length(min=2, max=100)
 	@Column(nullable = false)
 	private String title;
-	 
+	
 	@Column(nullable = false)
 	private Date date;
-	 
+	
+	@Length(min=1)
 	@Column(nullable = false)
 	private String description;
 	 
