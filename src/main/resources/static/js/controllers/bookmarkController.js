@@ -13,7 +13,9 @@ angular.module('app')
         vm.getBookmarks = getBookmarks;
         vm.deleteBookmark = deleteBookmark;
         vm.selectBookmark = selectBookmark;
-        vm.editBookmark = editBookmark;
+        vm.addModalOperation = addModalOperation;
+        vm.editModalOperation = editModalOperation;
+        vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
         vm.categories = {};
@@ -25,10 +27,7 @@ angular.module('app')
     
         function init() {
             vm.error = {};
-            vm.bookmark = {
-                date: new Date(),
-            	visibility: true
-            };
+            vm.bookmark = {};
             vm.closeModal = false;
             getCategories();
             getBookmarks();
@@ -47,7 +46,11 @@ angular.module('app')
             vm.bookmarks = data;
         }
 
-        function saveBookmark(bookmark){
+        function saveBookmark(bookmark) {
+            if(vm.operation.name == "Edit bookmark") {
+                console.log("id taken");
+                bookmark.id = vm.selectedBookmark.id;
+            }
          	// bookmark.user = $scope.$parent.vm.user.username;
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
@@ -61,6 +64,7 @@ angular.module('app')
                 vm.tagsToSend.push(tag);
             });
 
+            bookmark.date = new Date();
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
 
             bookmark.category = vm.categories[vm.model - 1];
@@ -97,12 +101,20 @@ angular.module('app')
             });
             vm.selectedBookmark= {};
         }
-
-        function editBookmark(){
-            vm.error = {};
-            vm.bookmark = angular.copy(selectedBookmark);
-            vm.bookmark.publishDate = new Date(vm.bookmark.publishDate.split('-').join(' '));
+        
+        function addModalOperation() {
+            delete vm.bookmark;
+            vm.operation.name = "Add bookmark";
+            console.log(vm.operation.name);
         }
-
+        
+        function editModalOperation() {
+            vm.operation.name = "Edit bookmark";
+            console.log(vm.operation.name);
+            vm.error = {};
+            vm.bookmark = angular.copy(vm.selectedBookmark);
+            vm.bookmark.date = new Date();
+            vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
+        }
     };
 })();
