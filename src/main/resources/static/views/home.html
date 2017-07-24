@@ -24,75 +24,20 @@
 		<div class="min-space"></div>
         
         <nav class="navbar2">
-            <a class="navbar-brand" href="#" data-toggle="modal"
-				data-target="#addBookmarkModal" ng-click="vm.addBookmark()">ADD +</a>
-                <img class="" src="images/share.png"></img>
-                <img class="" src="images/trash.png"></img>
-                <img class="" src="images/edit.png"></img>
-       
+            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addBookmark()">ADD +</a>
+                <img class="" src="images/share.png" style="cursor: pointer" ></img>
+                <img class="" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
+                <img class="" src="images/edit.png" style="cursor: pointer"></img>
 		</nav>
 		
 		</header>
 
-
 		<div class="bookmark-container">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)">
 				<div class="panel-heading">
-					<h3 class="panel-title">
-						Facebook
-					</h3>
+					<h3 class="panel-title">{{bookmark.title}}</h3>
 				</div>
-				<div class="panel-body">www.facebook.com</div>
-			</div>
-
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Facebook
-					</h3>
-				</div>
-				<div class="panel-body">www.facebook.com</div>
-			</div>
-			
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Facebook
-					</h3>
-				</div>
-				<div class="panel-body">www.facebook.com</div>
-			</div>
-			
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Facebook
-					</h3>
-				</div>
-				<div class="panel-body">www.facebook.com</div>
-			</div>
-			
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Facebook
-					</h3>
-				</div>
-				<div class="panel-body">www.facebook.com</div>
-			</div>
-
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Twitter</h3>
-				</div>
-				<div class="panel-body">www.twitter.com</div>
-			</div>
-
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Instagram</h3>
-				</div>
-				<div class="panel-body">www.instagram.com</div>
+				<div class="panel-body">{{bookmark.url}}</div>
 			</div>
 		</div>
 	</div>
@@ -101,8 +46,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title">Add a bookmark</h4>
 				</div>
 				<div class="modal-body">
@@ -125,17 +69,20 @@
 								<div class="col-lg-10">
 									<textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.bookmark.description"></textarea>
 								</div>
-
-								<label for="selectCategory" class="col-lg-2 control-label">Category</label>
+                
+                <label for="selectCategory" class="col-lg-2 control-label">Category</label>
 								<div class="col-lg-10">
 									<select class="form-control" id="selectCategory" ng-model="vm.bookmark.category">
 										<option value="" ng-disabled="true" disabled>-- Must select a category --</option>
+                    <select name="repeatSelect" id="repeatSelect" ng-model="vm.model">
+										  <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+                    </select>
 									</select>
 								</div>
 
 								<label for="inputTags" class="col-lg-2 control-label">Tags</label>
 								<div class="col-lg-10">
-									<textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.bookmark.tags"></textarea>
+									<textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.tags"></textarea>
 								</div>
 
 								<label class="col-lg-2 control-label">Privacy</label>
