@@ -18,13 +18,15 @@ angular.module('app')
         vm.bookmarks = {};
         vm.categories = {};
         vm.tags = {};
-        vm.model = {};
-        vm.tagsToSend = [];
-
+        vm.category = {};
+        
         init();
     
         function init() {
-            vm.error = {};
+        	delete vm.tags;
+            delete vm.category;
+            delete vm.bookmark;
+            delete vm.error;
             vm.bookmark = {
                 date: new Date(),
             	visibility: true
@@ -36,7 +38,6 @@ angular.module('app')
         
         function selectBookmark(bookmark) {
             vm.selectedBookmark = bookmark;
-            console.log(vm.selectedBookmark.title);
         }
         
         function getBookmarks(){
@@ -48,32 +49,64 @@ angular.module('app')
         }
 
         function saveBookmark(bookmark){
+        	vm.error = null;
+
+        	if((!bookmark.title && !bookmark.url && !vm.category)
+        		|| (!bookmark.title && !bookmark.url && vm.category)
+        		|| (!bookmark.title && bookmark.url && !vm.category)
+        		|| (bookmark.title && !bookmark.url && !vm.category)) {
+        		vm.error = "Please fill in all fields!";
+        		return;
+        	}
+			if(bookmark.title && bookmark.url && !vm.category) {
+				vm.error = "Please choose a category!";
+				return;
+			}
+			if(bookmark.title && !bookmark.url && vm.category) {
+				vm.error = "Please specify a URL!";
+				return;
+			}
+			if(!bookmark.title && bookmark.url && vm.category) {		
+				vm.error = "Please specify a title!";
+				return;
+			}
+			
+        
          	// bookmark.user = $scope.$parent.vm.user.username;
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
         	bookmark.user = username;
-
-            var temp = vm.tags.split(' ');
-
-            temp.forEach(function(t) {
-                var tag = {};
-                tag.name = t;
-                vm.tagsToSend.push(tag);
-            });
+        	
+        	if(vm.tags){
+	        	var tagsToSend = [];
+	            var temp = vm.tags.split(' ');
+	
+	            temp.forEach(function(t) {
+	                var tag = {};
+	                tag.name = t;
+	                tagsToSend.push(tag);
+	            });
+	            
+	            bookmark.tags = tagsToSend;
+        	}
+        	else{
+        		bookmark.tags = [];
+        	}
+        	
+        	if(!bookmark.description){
+        		bookmark.description = "default";
+        	}
 
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
 
-            bookmark.category = vm.categories[vm.model - 1];
-
-            bookmark.tags = vm.tagsToSend;
+            bookmark.category = vm.categories[vm.category - 1];    
 
             BookmarkService.saveBookmark(bookmark).then(function(response){
                 $('#addBookmarkModal').modal('hide');
-                getBookmarks();
+                init();
             }, function(error){
                 vm.error = error;
-            })
-            vm.error = {};
+            })         
         }
 
         function bookmarkShare(state){
@@ -89,7 +122,6 @@ angular.module('app')
         }
 
         function deleteBookmark(){
-            console.log("delete called.");
             BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
                 getBookmarks();
             }, function(error){

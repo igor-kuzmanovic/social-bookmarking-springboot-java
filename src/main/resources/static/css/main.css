@@ -36,7 +36,9 @@ img {
     margin-top: 12px;
     margin-right: 15px;
 }
-
+img:hover {
+    border: 2px solid #c0392b;
+}
 /***********CONTAINERS***********/
 .form-container {
 	width: 400px;
@@ -77,6 +79,8 @@ img {
     margin: 0 auto;
     background-color: #ecf0f1;
 	padding: 10px 5px 15px 5px;
+	overflow: hidden;
+    border-radius: 15px;
 }
 /***********FORMS***********/
 .register-form {
@@ -117,6 +121,9 @@ img {
 .panel-primary:hover {
     border: 2px double #3498db;
     margin: 9px 21px;
+}
+.panel-selected {
+	border: 3px double #EC7063;
 }
 .col-lg-10 {
 	margin-top: 5px;
