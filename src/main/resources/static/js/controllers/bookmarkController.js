@@ -27,12 +27,20 @@ angular.module('app')
 
         init();
     
-        function init() {
+        function init() { 
+        	refreshController()
+            vm.closeModal = false;
+            getCategories();
+            if($scope.$parent.vm.user){
+            	getBookmarks();
+            }
+        }
+        
+        function refreshController(){
         	delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
             delete vm.error;
-            vm.closeModal = false;
             getCategories();
             if($scope.$parent.vm.user){
             	getBookmarks();
@@ -68,10 +76,9 @@ angular.module('app')
           if(vm.operation.name == "Edit bookmark") {
                 bookmark.id = vm.selectedBookmark.id;
             }          
-                  console.log(vm.category);
-        	vm.error = null;
-          
-        	if((!bookmark.title && !bookmark.url && !vm.category)
+
+        	if((!bookmark || !vm.category)
+        		|| (!bookmark.title && !bookmark.url && !vm.category)
         		|| (!bookmark.title && !bookmark.url && vm.category)
         		|| (!bookmark.title && bookmark.url && !vm.category)
         		|| (bookmark.title && !bookmark.url && !vm.category)) {
@@ -90,13 +97,13 @@ angular.module('app')
             vm.error = "Please specify a title!";
             return;
           }
-          if(!bookmark.url.startsWith("www.")) {
-        	  bookmark.url = "www." + bookmark.url;
-	          if(!bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
-	        	  bookmark.url = "http://" + bookmark.url;
-	          }
-          }
           
+          if(!bookmark.url.startsWith("www.") && !bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
+        	  bookmark.url = "www." + bookmark.url;         
+          }
+          if(!bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
+        	  bookmark.url = "http://" + bookmark.url;
+          }
           
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
@@ -157,18 +164,21 @@ angular.module('app')
         }
         
         function addModalOperation() {
-            delete vm.bookmark;
+        	refreshController();
             vm.operation.name = "Add bookmark";
-            console.log(vm.operation.name);
         }
         
         function editModalOperation() {
-        	delete vm.error;
-            vm.operation.name = "Edit bookmark";
-            vm.category = null;
+        	refreshController();
+            vm.operation.name = "Edit bookmark";           
             vm.bookmark = angular.copy(vm.selectedBookmark);
-            vm.bookmark.date = new Date();
-            vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
+            vm.category = null;
+            vm.tags = "";
+            if(vm.bookmark.tags){
+	        	vm.bookmark.tags.forEach(function(t) {
+	        		vm.tags += t.name + " ";
+	        	})
+            }
         }
         
         function shareBookmark() {
