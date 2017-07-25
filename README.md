@@ -3,11 +3,11 @@ Repository for tech9 summer class - team 1
 
 ## Tech9 Summer Workshop 2017
 
-- [x] Create a social bookmarking site
+Create a social bookmarking site
 
-- [x] Social bookmarking should allow users to add, annotate, edit and share web page bookmarks.
+Social bookmarking should allow users to add, annotate, edit and share web page bookmarks.
 
-- [ ] Users should be allowed to share, rate and comment on bookmarks added by other users.
+Users should be allowed to share, rate and comment on bookmarks added by other users.
 
 
 ## Functional requirements:
