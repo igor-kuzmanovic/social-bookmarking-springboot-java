@@ -1,4 +1,5 @@
 <div ng-controller="BookmarkController as vm" class="ng-cloak">
+<div ng-if="$parent.vm.displayBookmarks" ng-init="vm.getBookmarks($parent.vm.user.name)"></div>
 <div class="wrapper">
 	<header>
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -23,7 +24,7 @@
 			</nav>
 		<div class="min-space"></div>
         
-    <nav class="navbar2">
+    	<nav class="navbar2">
             <a class="navbar-brand" href="#" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addModalOperation()">ADD +</a>
                 <img class="" src="images/share.png" style="cursor: pointer" ng-click="vm.shareBookmark()"></img>
                 <img class="" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
@@ -33,7 +34,7 @@
 		</header>
 
 		<div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
-			<div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)">
+			<div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
 				<div class="panel-heading">
 					<h3 class="panel-title">{{bookmark.title}}</h3>
 				</div>

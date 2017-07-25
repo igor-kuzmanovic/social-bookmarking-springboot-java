@@ -119,11 +119,16 @@ img:hover {
     flex: 1;
 }
 .panel-primary:hover {
-    border: 2px double #3498db;
+    border: 2px double #93c8ec;
     margin: 9px 21px;
 }
-.panel-selected {
-	border: 3px double #EC7063;
+.selected {
+	border: 3px solid #3498db;
+	margin: 8px 21px;
+}
+.selected:hover {
+	border: 3px solid #3498db;
+	margin: 8px 21px;
 }
 .col-lg-10 {
 	margin-top: 5px;

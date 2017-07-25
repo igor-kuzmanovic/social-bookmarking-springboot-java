@@ -6,8 +6,7 @@
 
     function UserController(UserService, $http, $location, $route) {
 
-        var vm = this;
-        vm.showLoginPage;
+        var vm = this;       
         vm.login = login;
         vm.logout = logout;
         vm.saveUser = saveUser;
@@ -15,6 +14,8 @@
         vm.user;
         vm.error;
         vm.success;
+        //vm.displayBookmarks;
+        vm.showLoginPage;
         
         var roles = [];
         var userstatus;
@@ -24,6 +25,7 @@
         
         function init() {
         	vm.showLoginPage = false;
+        	vm.displayBookmarks = false;
         	userStatus = {id: 1, type:"STATUS_ACTIVE"};
             role = {id: 2, type:"ROLE_USER"};
             roles = [role];
@@ -96,20 +98,19 @@
                     'Authorization': 'Basic ' + base64Credential
                 }
             }).success(function (response) {
-            	credentials.username = null;
                 credentials.password = null;
-                vm.message = '';
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 vm.user = response;
-                vm.error = null;
+                vm.displayBookmarks = true;
             }).error(function (error) {               
                 vm.error = 'Bad credentials!';
             });
         }
         
         function logout() {
+        	$http.defaults.headers.common['Authorization'] = null;
         	vm.showLoginPage = false;
-            $http.defaults.headers.common['Authorization'] = null;
+        	vm.displayBookmarks = false;            
             delete vm.user;
             delete vm.error;
         }
