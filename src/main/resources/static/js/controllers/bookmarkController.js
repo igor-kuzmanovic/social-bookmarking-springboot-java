@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('BookmarkController', BookmarkController);
     
-    BookmarkController.$inject = ['$filter', 'BookmarkService', 'CategoryService', 'uibDateParser', '$scope'];
+    BookmarkController.$inject = ['$filter', 'BookmarkService', 'CategoryService', 'uibDateParser', '$scope', '$location'];
    
-    function BookmarkController($filter, BookmarkService, CategoryService, uibDateParser, $scope) {
+    function BookmarkController($filter, BookmarkService, CategoryService, uibDateParser, $scope, $location) {
         
         var vm = this;
         vm.saveBookmark = saveBookmark;
@@ -15,6 +15,7 @@ angular.module('app')
         vm.selectBookmark = selectBookmark;
         vm.addModalOperation = addModalOperation;
         vm.editModalOperation = editModalOperation;
+        vm.isSecondPage = isSecondPage;
         vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
@@ -22,6 +23,7 @@ angular.module('app')
         vm.categories = {};
         vm.tags = {};
         vm.category = {};
+        vm.isSearch = false;
 
         init();
     
@@ -44,6 +46,14 @@ angular.module('app')
             	getBookmarks();
             }
         }
+
+         function isSecondPage(){
+            console.log("is called?");
+            if($location.path().search(/^\/search/) == -1)
+                return false;
+            else
+                return true;
+        };
 
         function selectBookmark(bookmark) {
         	if(vm.selectedBookmark == bookmark) {
