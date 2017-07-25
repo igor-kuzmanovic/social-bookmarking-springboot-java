@@ -2,9 +2,9 @@
     angular.module('app')
     .controller('UserController', UserController);
 
-    UserController.$inject = ['UserService', '$http', '$location', '$route'];
+    UserController.$inject = ['UserService', 'BookmarkService', '$http', '$location', '$route'];
 
-    function UserController(UserService, $http, $location, $route) {
+    function UserController(UserService, BookmarkService, $http, $location, $route) {
 
         var vm = this;
         vm.showLoginPage;
@@ -52,7 +52,7 @@
             	return;
             }
             registration.userStatus = userStatus;
-            registration.roles = vm.roles;
+            registration.roles = roles;
             UserService.saveUser(registration).then(handleSuccessUser,
             		function(error){
             	vm.error = "Username already exists!";
@@ -96,12 +96,9 @@
                     'Authorization': 'Basic ' + base64Credential
                 }
             }).success(function (response) {
-            	credentials.username = null;
                 credentials.password = null;
-                vm.message = '';
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 vm.user = response;
-                vm.error = null;
             }).error(function (error) {               
                 vm.error = 'Bad credentials!';
             });

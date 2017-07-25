@@ -23,11 +23,11 @@ angular.module('app')
         vm.categories = {};
         vm.tags = {};
         vm.category = {};
-        
+
         init();
     
         function init() {
-        	  delete vm.tags;
+            delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
             delete vm.error;
@@ -35,12 +35,13 @@ angular.module('app')
             getCategories();
             getBookmarks();
         }
-        
+
         function selectBookmark(bookmark) {
             vm.selectedBookmark = bookmark;
         }
         
         function getBookmarks(){
+            console.log("get happend now!");
             BookmarkService.getBookmarks().then(handleSuccessBookmarks);
         }
         
