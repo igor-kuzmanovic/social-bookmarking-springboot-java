@@ -87,4 +87,11 @@ public class BookmarkController {
     public Bookmark update(@RequestBody Bookmark bookmark) {
         return bookmarkService.save(bookmark);
     }
+
+    @RequestMapping(path = ("/user/{username}"), method = RequestMethod.GET)
+    public List<Bookmark> findByUsername(@PathVariable String username) {
+        User user = userService.findByUserName(username);
+
+        return bookmarkService.findByUser(user);
+    }
 }

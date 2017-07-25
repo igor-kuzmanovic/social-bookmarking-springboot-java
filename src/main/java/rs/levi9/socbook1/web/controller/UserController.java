@@ -7,11 +7,15 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import rs.levi9.socbook1.domain.Role;
 import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.service.UserService;
 import org.springframework.security.core.authority.AuthorityUtils;
+
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
@@ -39,6 +43,7 @@ public class UserController {
     public ResponseEntity<User> save(@RequestBody User user) {
         String currentUserName = user.getUsername();
         User current = userService.findByUserName(currentUserName);
+
 
         if(current == null) {
             userService.save(user);

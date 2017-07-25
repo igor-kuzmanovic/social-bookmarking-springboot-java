@@ -2,9 +2,9 @@
     angular.module('app')
     .controller('UserController', UserController);
 
-    UserController.$inject = ['UserService', '$http', '$location', '$route'];
+    UserController.$inject = ['UserService', 'BookmarkService', '$http', '$location', '$route'];
 
-    function UserController(UserService, $http, $location, $route) {
+    function UserController(UserService, BookmarkService, $http, $location, $route) {
 
         var vm = this;       
         vm.login = login;
@@ -54,7 +54,7 @@
             	return;
             }
             registration.userStatus = userStatus;
-            registration.roles = vm.roles;
+            registration.roles = roles;
             UserService.saveUser(registration).then(handleSuccessUser,
             		function(error){
             	vm.error = "Username already exists!";
