@@ -150,7 +150,6 @@ angular.module('app')
         	delete vm.error;
             vm.operation.name = "Edit bookmark";
             vm.category = null;
-            console.log(vm.category);
             vm.bookmark = angular.copy(vm.selectedBookmark);
             vm.bookmark.date = new Date();
             vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
@@ -161,7 +160,6 @@ angular.module('app')
             vm.bookmark.id = vm.selectedBookmark.id;
             vm.bookmark.visibility = true;
             BookmarkService.saveBookmark(vm.bookmark);
-            console.log("changed?");
         }
     };
 })();
