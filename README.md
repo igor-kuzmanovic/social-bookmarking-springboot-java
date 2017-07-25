@@ -3,37 +3,37 @@ Repository for tech9 summer class - team 1
 
 ## Tech9 Summer Workshop 2017
 
-Create a social bookmarking site
+- [ ] Create a social bookmarking site
 
-Social bookmarking should allow users to add, annotate, edit and share web page bookmarks.
+- [ ] Social bookmarking should allow users to add, annotate, edit and share web page bookmarks.
 
-Users should be allowed to share, rate and comment on bookmarks added by other users.
+- [ ] Users should be allowed to share, rate and comment on bookmarks added by other users.
 
 
 ## Functional requirements:
-✔ When a user is registered and signed in on the home page he can see a list of bookmarks that he created.
+- [ ]  When a user is registered and signed in on the home page he can see a list of bookmarks that he created.
 
-✔ From that page he can add, delete, edit and share bookmarks.
+- [ ]  From that page he can add, delete, edit and share bookmarks.
 
-A bookmark should contain details about title, description, tags, URL and privacy settings.
+- [ ] A bookmark should contain details about title, description, tags, URL and privacy settings.
 
-On the search page user is allowed to search only public bookmarks from other users.
+- [ ] On the search page user is allowed to search only public bookmarks from other users.
 
-Bookmarks can be searched by category, tags, description and user.
+- [ ] Bookmarks can be searched by category, tags, description and user.
 
-List of matched bookmarks contains following information: user, link, description, tags, etc.
+- [ ] List of matched bookmarks contains following information: user, link, description, tags, etc.
 
-Each list item contains two links.
+- [ ] Each list item contains two links.
 
-First link opens the bookmark URL in the new tab.
+- [ ] First link opens the bookmark URL in the new tab.
 
-Second link opens the bookmark details page.
+- [ ] Second link opens the bookmark details page.
 
-On the bookmark details page users can import, rate, comment.
+- [ ] On the bookmark details page users can import, rate, comment.
 
-Admin user has same functionalities as a regular user.
+- [ ] Admin user has same functionalities as a regular user.
 
-He can also create, read, update, delete categories and bookmarks.
+- [ ] He can also create, read, update, delete categories and bookmarks.
 
-Admin user can block and delete regular users.
+- [ ] Admin user can block and delete regular users.
 
