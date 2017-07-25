@@ -11,9 +11,9 @@ Users should be allowed to share, rate and comment on bookmarks added by other u
 
 
 ## Functional requirements:
-When a user is registered and signed in on the home page he can see a list of bookmarks that he created.
+✔ When a user is registered and signed in on the home page he can see a list of bookmarks that he created.
 
-From that page he can add, delete, edit and share bookmarks.
+✔ From that page he can add, delete, edit and share bookmarks.
 
 A bookmark should contain details about title, description, tags, URL and privacy settings.
 
