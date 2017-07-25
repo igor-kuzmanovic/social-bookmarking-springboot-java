@@ -27,21 +27,27 @@ angular.module('app')
         init();
     
         function init() {
-            delete vm.tags;
+        	  delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
             delete vm.error;
             vm.closeModal = false;
             getCategories();
-            getBookmarks();
+            if($scope.$parent.vm.user){
+            	getBookmarks();
+            }
         }
 
         function selectBookmark(bookmark) {
-            vm.selectedBookmark = bookmark;
+        	if(vm.selectedBookmark == bookmark) {
+        		vm.selectedBookmark = null;
+        	}
+        	else {
+        		vm.selectedBookmark = bookmark;
+        	}
         }
         
         function getBookmarks(){
-            console.log("get happend now!");
             BookmarkService.getBookmarks().then(handleSuccessBookmarks);
         }
         
@@ -76,7 +82,6 @@ angular.module('app')
             return;
           }
 
-         	// bookmark.user = $scope.$parent.vm.user.username;
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
         	bookmark.user = username;
