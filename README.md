@@ -1,7 +1,7 @@
 # SocBook1
 Repository for tech9 summer class - team 1
 
-## Tech9 Summer Workshop 2017,
+## Tech9 Summer Workshop 2017
 Create a social bookmarking site
 Social bookmarking should allow users to add, annotate, edit and share web page bookmarks. 
 Users should be allowed to share, rate and comment on bookmarks added by other users.
