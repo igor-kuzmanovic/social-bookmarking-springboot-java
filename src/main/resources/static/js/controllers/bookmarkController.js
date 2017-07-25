@@ -80,7 +80,14 @@ angular.module('app')
             vm.error = "Please specify a title!";
             return;
           }
-
+          if(!bookmark.url.startsWith("www.")) {
+        	  bookmark.url = "www." + bookmark.url;
+	          if(!bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
+	        	  bookmark.url = "http://" + bookmark.url;
+	          }
+          }
+          
+          
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
         	bookmark.user = username;
