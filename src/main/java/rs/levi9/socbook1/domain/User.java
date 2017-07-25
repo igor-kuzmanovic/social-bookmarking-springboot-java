@@ -8,21 +8,29 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class User extends BaseEntity {
-
+	
+	@Length(min=4)
 	@Column(nullable = false)
 	private String username;
-	    
+	
+	@Length(min=5, max=30)
 	@Column(nullable = false)
 	private String password;
 
+	@Length(min=2, max=30)
 	@Column(nullable = false)
 	private String firstName;
 
+	@Length(min=2, max=30)
 	@Column(nullable = false)
 	private String lastName;
-	 
+	
+	@Email
 	@Column(nullable = false)
 	private String email;
 

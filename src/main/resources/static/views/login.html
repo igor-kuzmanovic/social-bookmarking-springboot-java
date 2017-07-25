@@ -1,4 +1,4 @@
-<div class="wrapper">
+ <div class="wrapper">
 	<header>
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
@@ -16,16 +16,21 @@
     <div ng-show="vm.showLoginPage">
     
         <div class="form-container2">
+        	<form>
             <fieldset class="login-form">
                 <legend>Log In</legend>
+                
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="text" placeholder="Username" required ng-model="vm.credentials.username">
+                    <input class="form-control" autofocus="" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.credentials.username">
                 </div>
+                
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="password" placeholder="Password" required ng-model="vm.credentials.password">
+                    <input class="form-control" id="focusedInput" type="password" placeholder="Password"  ng-model="vm.credentials.password">
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="vm.login(vm.credentials)">Log in</button>
+                
+                <button type="submit" class="btn btn-primary btn-success" ng-click="vm.login(vm.credentials)">Log in</button>
             </fieldset>
+            </form>
         </div>
         
         <div class="alert-container alert alert-danger" ng-if="vm.error">
@@ -50,25 +55,33 @@
     <div ng-show="!vm.showLoginPage">
     
         <div class="form-container">
+        	<form>
             <fieldset class="register-form">
                 <legend>Don't have an account? Sign up!</legend>
+                
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="text" placeholder="First Name" required ng-model="vm.registration.firstName">
+                    <input name="first_name" autofocus="" class="form-control" id="focusedInput" type="text" placeholder="First Name"  ng-model="vm.registration.firstName">
                 </div>
+                
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="text" placeholder="Last Name" required ng-model="vm.registration.lastName">
+                    <input name="last_name" class="form-control" id="focusedInput" type="text" placeholder="Last Name"  ng-model="vm.registration.lastName">
                 </div>
+                
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="text" placeholder="Email" required ng-model="vm.registration.email">
-                </div>
+				    <input name="email" class="form-control" id="focusedInput" type="text" placeholder="Email"  ng-model="vm.registration.email">
+				</div>
+                                         
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="text" placeholder="Username" required ng-model="vm.registration.username">
+                    <input name="username" class="form-control" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.registration.username">
                 </div>
+                
                 <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="password" placeholder="Password" required ng-model="vm.registration.password">
+                    <input name="password" class="form-control" id="focusedInput" type="password" placeholder="Password"  ng-model="vm.registration.password">
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="vm.saveUser(vm.registration)">Sign up</button>               
-            </fieldset>
+                
+                <button type="submit" class="btn btn-primary btn-success" ng-click="vm.saveUser(vm.registration)">Sign up</button>                         
+            </fieldset>  
+            </form>          
         </div>
         
         <div class="alert-container alert alert-danger" ng-if="vm.error">

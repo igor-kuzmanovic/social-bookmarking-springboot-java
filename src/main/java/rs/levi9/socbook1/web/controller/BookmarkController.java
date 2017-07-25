@@ -49,23 +49,6 @@ public class BookmarkController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Bookmark> save(@RequestBody Bookmark bookmark) {
-        Set<Tag> tagExists = new HashSet<>();
-        for (Tag tag : bookmark.getTags()) {
-            Tag foundTag = tagService.findByName(tag.getName());
-            if (foundTag == null) {
-                tagService.save(tag);
-                tagExists.add(tag);
-            } else {
-                tagExists.add(foundTag);
-            }
-        }
-
-        bookmark.setTags(tagExists);
-
-        //Save user when only username is sent.
-        User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
-        bookmark.setUser(tempUser);
-
         Bookmark bookmarkForSave = bookmarkService.save(bookmark);
 
         if(bookmarkForSave == null) {
