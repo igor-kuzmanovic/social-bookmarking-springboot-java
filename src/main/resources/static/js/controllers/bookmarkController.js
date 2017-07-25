@@ -15,7 +15,6 @@ angular.module('app')
         vm.selectBookmark = selectBookmark;
         vm.addModalOperation = addModalOperation;
         vm.editModalOperation = editModalOperation;
-        vm.shareBookmark = shareBookmark;
         vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
@@ -156,5 +155,6 @@ angular.module('app')
             BookmarkService.saveBookmark(vm.bookmark);
             console.log("changed?");
         }
+        
     };
 })();

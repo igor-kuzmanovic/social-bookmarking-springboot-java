@@ -25,9 +25,9 @@
         
     <nav class="navbar2">
             <a class="navbar-brand" href="#" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addModalOperation()">ADD +</a>
-                <img class="" src="images/share.png" style="cursor: pointer" ng-click="vm.shareBookmark()"></img>
-                <img class="" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
-                <img class="" src="images/edit.png" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"></img>
+                <img class="nav-icons" src="images/share.png" style="cursor: pointer" ng-click="vm.shareBookmark()"></img>
+                <img class="nav-icons" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
+                <img class="nav-icons" src="images/edit.png" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"></img>
 		</nav>
 		
 		</header>
@@ -37,7 +37,17 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">{{bookmark.title}}</h3>
 				</div>
-				<div class="panel-body">{{bookmark.url}}</div>
+				<div class="panel-content">
+					<div class="panel-body">{{bookmark.url}}</div>
+				</div>
+                <div class="panel-footer">
+                    <div class="panel-footer1">
+                        <a href="{{bookmark.url}}"><img class="panel" src="images/tab.png"></a>
+                    </div>
+                    <div class="panel-footer2">
+                        <img class="panel" src="images/details.png">
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
