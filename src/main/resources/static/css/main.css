@@ -29,14 +29,14 @@
 }
 
 /***********ICONS IN NAVBAR2***********/
-img {
+img.nav-icons {
 	width: 25px;
 	height: 25px;
 	float: right;
     margin-top: 12px;
     margin-right: 15px;
 }
-img:hover {
+img.nav-icons:hover {
     border: 2px solid #c0392b;
 }
 /***********CONTAINERS***********/
@@ -129,6 +129,45 @@ img:hover {
 .selected:hover {
 	border: 3px solid #3498db;
 	margin: 8px 21px;
+}
+.panel-title {
+	overflow: hidden;
+}
+.panel-content {
+	padding: 15px;
+}
+.panel-body {
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 0 0;
+}
+.panel-footer {
+    height: 40px;
+    border-top: 1px solid #2c3e50;
+    padding: 0 0;
+}
+.panel-footer1 {
+    width: 50%;
+    height: 100%;
+    float: left;
+    border-right: 1px solid #2c3e50;
+}
+.panel-footer2 {
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+.panel {
+    background: transparent;
+}
+img.panel {
+    margin: 0 auto;
+    padding: 0 0;
+    width: 39px;
+    height: 39px;
+    text-align:center;
+    margin-left: 33%;
+    border: 0px;
 }
 .col-lg-10 {
 	margin-top: 5px;
