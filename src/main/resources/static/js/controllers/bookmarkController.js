@@ -59,7 +59,7 @@ angular.module('app')
           if(vm.operation.name == "Edit bookmark") {
                 bookmark.id = vm.selectedBookmark.id;
             }          
-                  
+                  console.log(vm.category);
         	vm.error = null;
           
         	if((!bookmark.title && !bookmark.url && !vm.category)
@@ -147,8 +147,10 @@ angular.module('app')
         }
         
         function editModalOperation() {
+        	delete vm.error;
             vm.operation.name = "Edit bookmark";
-            delete vm.error;
+            vm.category = null;
+            console.log(vm.category);
             vm.bookmark = angular.copy(vm.selectedBookmark);
             vm.bookmark.date = new Date();
             vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");

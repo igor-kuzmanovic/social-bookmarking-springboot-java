@@ -80,15 +80,15 @@
         function login(credentials) {
         	vm.error = null;
         	vm.success = null;
-        	if(credentials.username == null && credentials.password == null) {
+        	if(!credentials) {
         		vm.error = "Please fill in all fields!";
         		return;
         	}
-        	if(credentials.username != null && credentials.password == null){
+        	if(credentials.username && !credentials.password){
         		vm.error = "Please enter your password!";
         		return;
         	}
-        	if(credentials.username == null && credentials.password != null){
+        	if(!credentials.username && credentials.password){
         		vm.error = "Please enter your username!";
         		return;
         	}
