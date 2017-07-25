@@ -3,19 +3,19 @@ Repository for tech9 summer class - team 1
 
 ## Tech9 Summer Workshop 2017
 
-- [ ] Create a social bookmarking site
+- [x] Create a social bookmarking site
 
-- [ ] Social bookmarking should allow users to add, annotate, edit and share web page bookmarks.
+- [x] Social bookmarking should allow users to add, annotate, edit and share web page bookmarks.
 
 - [ ] Users should be allowed to share, rate and comment on bookmarks added by other users.
 
 
 ## Functional requirements:
-- [ ]  When a user is registered and signed in on the home page he can see a list of bookmarks that he created.
+- [x]  When a user is registered and signed in on the home page he can see a list of bookmarks that he created.
 
-- [ ]  From that page he can add, delete, edit and share bookmarks.
+- [x]  From that page he can add, delete, edit and share bookmarks.
 
-- [ ] A bookmark should contain details about title, description, tags, URL and privacy settings.
+- [x] A bookmark should contain details about title, description, tags, URL and privacy settings.
 
 - [ ] On the search page user is allowed to search only public bookmarks from other users.
 
