@@ -98,7 +98,7 @@
                     'Authorization': 'Basic ' + base64Credential
                 }
             }).success(function (response) {
-                credentials.password = null;
+            	delete credentials;
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 vm.user = response;
                 vm.displayBookmarks = true;

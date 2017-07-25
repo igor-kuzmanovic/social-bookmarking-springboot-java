@@ -27,7 +27,7 @@ angular.module('app')
         init();
     
         function init() {
-        	  delete vm.tags;
+        	delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
             delete vm.error;
@@ -48,7 +48,7 @@ angular.module('app')
         }
         
         function getBookmarks(){
-            BookmarkService.getBookmarks().then(handleSuccessBookmarks);
+            BookmarkService.getBookmarks($scope.$parent.vm.user.name).then(handleSuccessBookmarks);
         }
         
         function handleSuccessBookmarks(data, status) {
@@ -148,8 +148,7 @@ angular.module('app')
         
         function editModalOperation() {
             vm.operation.name = "Edit bookmark";
-            console.log(vm.operation.name);
-            vm.error = {};
+            delete vm.error;
             vm.bookmark = angular.copy(vm.selectedBookmark);
             vm.bookmark.date = new Date();
             vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
