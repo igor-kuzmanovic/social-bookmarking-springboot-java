@@ -43,7 +43,7 @@
 				</div>
                 <div class="panel-footer">
                     <div class="panel-footer1">
-                        <a href="{{bookmark.url}}"><img class="panel" src="images/tab.png"></a>
+                        <a ng-href="{{bookmark.url}}" target="_blank"><img class="panel" src="images/tab.png"></a>
                     </div>
                     <div class="panel-footer2">
                         <img class="panel" src="images/details.png">
@@ -71,7 +71,7 @@
 
 								<label for="inputURL" class="col-lg-2 control-label">URL</label>
 								<div class="col-lg-10">
-									<input class="form-control" id="inputURL" placeholder="URL" type="text" ng-model="vm.bookmark.url">
+									<input class="form-control" id="inputURL" placeholder="http:///www.example.com" type="text" ng-model="vm.bookmark.url">
 								</div>
 
 								<label for="inputDescription" class="col-lg-2 control-label">Description</label>
