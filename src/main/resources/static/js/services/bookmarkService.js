@@ -45,17 +45,17 @@
             return def.promise;
         }
 
-        function getBookmarks() {
+        function getBookmarks(username) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
-                url: "bookmarks"
+                url: "bookmarks/user/" + username
             }
             $http(req).success(function (data) {
                 def.resolve(data);
             })
                     .error(function () {
-                        def.reject("Failed to GET all");
+                        def.reject("Failed to GET by username");
                     });
             return def.promise;
         }

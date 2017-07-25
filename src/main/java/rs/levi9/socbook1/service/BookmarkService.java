@@ -68,4 +68,8 @@ public class BookmarkService  {
 
         bookmarkRepository.delete(id);
     }
+
+    public List<Bookmark> findByUser(User user) {
+        return bookmarkRepository.findAllByUser(user);
+    }
 }

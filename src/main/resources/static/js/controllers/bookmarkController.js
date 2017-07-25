@@ -22,25 +22,32 @@ angular.module('app')
         vm.categories = {};
         vm.tags = {};
         vm.category = {};
-        
+
         init();
     
         function init() {
-        	  delete vm.tags;
+        	delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
             delete vm.error;
             vm.closeModal = false;
             getCategories();
-            getBookmarks();
+            if($scope.$parent.vm.user){
+            	getBookmarks();
+            }
         }
-        
+
         function selectBookmark(bookmark) {
-            vm.selectedBookmark = bookmark;
+        	if(vm.selectedBookmark == bookmark) {
+        		vm.selectedBookmark = null;
+        	}
+        	else {
+        		vm.selectedBookmark = bookmark;
+        	}
         }
         
         function getBookmarks(){
-            BookmarkService.getBookmarks().then(handleSuccessBookmarks);
+            BookmarkService.getBookmarks($scope.$parent.vm.user.name).then(handleSuccessBookmarks);
         }
         
         function handleSuccessBookmarks(data, status) {
@@ -51,7 +58,7 @@ angular.module('app')
           if(vm.operation.name == "Edit bookmark") {
                 bookmark.id = vm.selectedBookmark.id;
             }          
-                  
+                  console.log(vm.category);
         	vm.error = null;
           
         	if((!bookmark.title && !bookmark.url && !vm.category)
@@ -74,7 +81,6 @@ angular.module('app')
             return;
           }
 
-         	// bookmark.user = $scope.$parent.vm.user.username;
         	var username = {};
         	username.username = $scope.$parent.vm.user.name;
         	bookmark.user = username;
@@ -140,9 +146,10 @@ angular.module('app')
         }
         
         function editModalOperation() {
+        	delete vm.error;
             vm.operation.name = "Edit bookmark";
-            console.log(vm.operation.name);
-            vm.error = {};
+            vm.category = null;
+            console.log(vm.category);
             vm.bookmark = angular.copy(vm.selectedBookmark);
             vm.bookmark.date = new Date();
             vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
