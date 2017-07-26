@@ -12,4 +12,5 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     List<Bookmark> findAllByUser(User user);
     List<Bookmark> findAllByVisibilityTrue();
     Bookmark findByUrl(String url);
+    Bookmark findByUserAndUrl(User user, String url);
 }

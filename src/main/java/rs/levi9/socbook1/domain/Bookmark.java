@@ -21,9 +21,6 @@ public class Bookmark extends BaseEntity {
 	@Length(min=2, max=100)
 	@Column(nullable = false)
 	private String title;
-
-	@Column(nullable = true)
-	private String importedBy;
 	
 	@Column(nullable = false)
 	private Date date;
@@ -47,14 +44,6 @@ public class Bookmark extends BaseEntity {
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;
-
-	public String getImportedBy() {
-		return importedBy;
-	}
-
-	public void setImportedBy(String importedBy) {
-		this.importedBy = importedBy;
-	}
 
 	public String getUrl() {
 		return url;

@@ -11,8 +11,7 @@ import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.TagService;
 import rs.levi9.socbook1.service.UserService;
 
-import java.awt.print.Book;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -69,7 +68,7 @@ public class BookmarkController {
         return new ResponseEntity<>(bookmarkForSave, HttpStatus.OK);
     }
 
-    @RequestMapping(path = ("/{id}"), method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable Long id) {
         Bookmark forDelete = bookmarkService.findOne(id);
         List<Bookmark> allBookmarks = bookmarkService.findAll();
@@ -99,15 +98,50 @@ public class BookmarkController {
         return bookmarkService.save(bookmark);
     }
 
-    @RequestMapping(path = ("/user/{username}"), method = RequestMethod.GET)
+    @RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
     public List<Bookmark> findByUsername(@PathVariable String username) {
         User user = userService.findByUserName(username);
 
-        return bookmarkService.findByUser(user);
+        return bookmarkService.findAllByUser(user);
     }
 
-    @RequestMapping(path = ("/public"), method = RequestMethod.GET)
-    public List<Bookmark> findAllByVisibility() {
-        return bookmarkService.findAllByVisibility();
+    @RequestMapping(path = ("/public/{username}"), method = RequestMethod.GET)
+    public List<Bookmark> findAllByVisibility(@PathVariable String username) {
+        List<Bookmark> bookmarks = bookmarkService.findAllByVisibility();
+
+        for (Bookmark b : bookmarks) {
+            if(b.getUser().getUsername().equals(username)) {
+                bookmarks.remove(b);
+            }
+        }
+
+        return bookmarks;
+    }
+
+    @RequestMapping(path = "/{username}/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Bookmark> importBookmark(@PathVariable("username") String username, @PathVariable("id") Long id) {
+        Bookmark bookmarkSource = bookmarkService.findOne(id);
+        Bookmark bookmarkToImport = new Bookmark();
+        User userImporting = userService.findByUserName(username);
+
+        if (bookmarkService.findBookmarkByUserAndUrl(userImporting, bookmarkSource.getUrl()) != null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        bookmarkToImport.setUser(userImporting);
+        bookmarkToImport.setDate(new Date());
+        bookmarkToImport.setTags(bookmarkSource.getTags());
+        bookmarkToImport.setCategory(bookmarkSource.getCategory());
+        bookmarkToImport.setDescription(bookmarkSource.getDescription());
+        bookmarkToImport.setTitle(bookmarkSource.getTitle());
+        bookmarkToImport.setUrl(bookmarkSource.getUrl());
+
+        Bookmark bookmarkForSave = bookmarkService.save(bookmarkToImport);
+
+        if(bookmarkForSave == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(bookmarkForSave, HttpStatus.OK);
     }
 }

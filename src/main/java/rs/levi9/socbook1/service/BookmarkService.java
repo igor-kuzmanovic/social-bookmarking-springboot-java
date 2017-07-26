@@ -67,7 +67,7 @@ public class BookmarkService  {
         bookmarkRepository.delete(id);
     }
 
-    public List<Bookmark> findByUser(User user) {
+    public List<Bookmark> findAllByUser(User user) {
         return bookmarkRepository.findAllByUser(user);
     }
 
@@ -77,5 +77,9 @@ public class BookmarkService  {
 
     public Bookmark findByUrl(String url) {
         return bookmarkRepository.findByUrl(url);
+    }
+
+    public Bookmark findBookmarkByUserAndUrl(User user, String url) {
+        return bookmarkRepository.findByUserAndUrl(user, url);
     }
 }
