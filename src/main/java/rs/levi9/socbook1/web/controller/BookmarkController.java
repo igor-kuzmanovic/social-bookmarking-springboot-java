@@ -73,7 +73,7 @@ public class BookmarkController {
                     }
                 }
             }
-            if(hasBookmark) {
+            if(!hasBookmark) {
                 tagService.delete(tag.getId());
             }
         }
@@ -93,5 +93,10 @@ public class BookmarkController {
         User user = userService.findByUserName(username);
 
         return bookmarkService.findByUser(user);
+    }
+
+    @RequestMapping(path = ("/public"), method = RequestMethod.GET)
+    public List<Bookmark> findAllByVisibility() {
+        return bookmarkService.findAllByVisibility();
     }
 }

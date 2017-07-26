@@ -72,4 +72,8 @@ public class BookmarkService  {
     public List<Bookmark> findByUser(User user) {
         return bookmarkRepository.findAllByUser(user);
     }
+
+    public List<Bookmark> findAllByVisibility() {
+        return bookmarkRepository.findAllByVisibilityTrue();
+    }
 }
