@@ -54,8 +54,7 @@ public class BookmarkService  {
         }
 
         bookmark.setTags(tagExists);
-
-        //Save user when only username is sent.
+        
         User tempUser = userRepository.findByUsername(bookmark.getUser().getUsername());
         bookmark.setUser(tempUser);
 
@@ -63,7 +62,6 @@ public class BookmarkService  {
     }
 
     public void delete(Long id) {
-        //Delete all comments before deleting bookmark.
         commentRepository.deleteByBookmarkId(id);
 
         bookmarkRepository.delete(id);
