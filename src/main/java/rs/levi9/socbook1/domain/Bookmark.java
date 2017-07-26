@@ -24,6 +24,9 @@ public class Bookmark extends BaseEntity {
 	
 	@Column(nullable = false)
 	private Date date;
+
+	@Column(nullable = true)
+	private boolean isImported;
 	
 	@Length(min=1)
 	@Column(nullable = false)
@@ -107,5 +110,13 @@ public class Bookmark extends BaseEntity {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isImported() {
+		return isImported;
+	}
+
+	public void setImported(boolean imported) {
+		isImported = imported;
 	}
 }
