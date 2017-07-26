@@ -76,4 +76,8 @@ public class BookmarkService  {
     public List<Bookmark> findAllByVisibility() {
         return bookmarkRepository.findAllByVisibilityTrue();
     }
+
+    public Bookmark findByUrl(String url) {
+        return bookmarkRepository.findByUrl(url);
+    }
 }

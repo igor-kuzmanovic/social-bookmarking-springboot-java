@@ -49,7 +49,18 @@ public class BookmarkController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Bookmark> save(@RequestBody Bookmark bookmark) {
-        Bookmark bookmarkForSave = bookmarkService.save(bookmark);
+        Bookmark bookmarkForSave;
+        Bookmark uniqueBookmark = bookmarkService.findByUrl(bookmark.getUrl());
+
+        if (uniqueBookmark == null) {
+            bookmarkForSave = bookmarkService.save(bookmark);
+        } else {
+            if (uniqueBookmark.getUser().getUsername().equals(bookmark.getUser().getUsername())) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            } else {
+                bookmarkForSave = bookmarkService.save(bookmark);
+            }
+        }
 
         if(bookmarkForSave == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
