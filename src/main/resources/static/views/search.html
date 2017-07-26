@@ -1,1 +1,57 @@
-<h1>Search page</h1>
+<div class="min-space"></div>
+    <nav class="navbar3">
+        <div class="navbar-brand">
+    <p class="navbar-brand1">Search by
+            </p>
+        </div>
+        <div class="nav-icons" ng-init="imgsrc5='images/import.png'" ng-mouseover="imgsrc5='images/import_blue.png'" ng-mouseout="imgsrc5='images/import.png'">
+    <img class="nav-icons" ng-src="{{imgsrc5}}" style="cursor: pointer" data-toggle="modal" data-target="" ng-click=""/>
+  </div>
+        <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'">
+    <img class="nav-icons" ng-src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
+  </div>  
+  <div class="nav-icons" ng-init="imgsrc4='images/tab.png'" ng-mouseover="imgsrc4='images/tab_blue.png'" ng-mouseout="imgsrc4='images/tab.png'">
+    <a href="{{vm.selectedBookmark.url}}" target="_blank">
+      <img class="nav-icons" ng-src="{{imgsrc4}}" style="cursor: pointer"/>
+    </a>
+  </div>
+        <div class="min-space"></div>
+    <div class="form-group search-group">
+  <label class="col-lg-2 control-label" for="inputDefault">User</label>
+        <div class="col-lg-10">
+  <input type="text" class="form-control" id="inputDefault">
+</div>
+        </div>
+<div class="form-group search-group">
+  <label class="col-lg-2 control-label" for="inputDefault">Title</label>
+    <div class="col-lg-10">
+  <input type="text" class="form-control" id="inputDefault">
+</div> 
+        </div>
+         <div class="form-group search-group">
+      <label for="select" class="col-lg-2 control-label">Category</label>
+             <div class="col-lg-10">
+        <select class="form-control" id="select">
+          <option></option>
+          </select>
+        </div>
+        </div>
+        
+        <div class="form-group search-group">
+      <label for="textArea" class="col-lg-2 control-label">Tags</label>
+            <div class="col-lg-10">
+        <textarea class="form-control" rows="3" id="textArea"></textarea>
+      </div>
+        </div>
+</nav>
+
+<div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
+  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{bookmark.title}}</h3>
+    </div>
+    <div class="panel-content">
+      <div class="panel-body">{{bookmark.url}}</div>
+    </div>
+  </div>
+</div>
