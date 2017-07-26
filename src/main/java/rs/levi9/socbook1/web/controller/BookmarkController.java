@@ -50,6 +50,7 @@ public class BookmarkController {
     public ResponseEntity<Bookmark> save(@RequestBody Bookmark bookmark) {
         Bookmark bookmarkForSave;
         Bookmark uniqueBookmark = bookmarkService.findByUrl(bookmark.getUrl());
+        bookmark.setImported(false);
 
         if (uniqueBookmark == null) {
             bookmarkForSave = bookmarkService.save(bookmark);
@@ -129,6 +130,7 @@ public class BookmarkController {
         }
 
         bookmarkToImport.setUser(userImporting);
+        bookmarkToImport.setImported(true);
         bookmarkToImport.setDate(new Date());
         bookmarkToImport.setImported(true);
         bookmarkToImport.setTags(bookmarkSource.getTags());

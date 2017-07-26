@@ -1,6 +1,5 @@
 package rs.levi9.socbook1.domain;
 
-import com.sun.istack.internal.Nullable;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
@@ -10,7 +9,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.validation.constraints.Past;
 
 @Entity
 public class Bookmark extends BaseEntity {
@@ -25,8 +23,8 @@ public class Bookmark extends BaseEntity {
 	@Column(nullable = false)
 	private Date date;
 
-	@Column(nullable = true)
-	private boolean isImported;
+	@Column(nullable = false)
+	private boolean imported;
 	
 	@Length(min=1)
 	@Column(nullable = false)
@@ -112,11 +110,11 @@ public class Bookmark extends BaseEntity {
 		this.user = user;
 	}
 
-	public boolean isImported() {
-		return isImported;
-	}
+    public boolean isImported() {
+        return imported;
+    }
 
-	public void setImported(boolean imported) {
-		isImported = imported;
-	}
+    public void setImported(boolean imported) {
+        this.imported = imported;
+    }
 }
