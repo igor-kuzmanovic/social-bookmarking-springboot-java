@@ -11,6 +11,7 @@ import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.TagService;
 import rs.levi9.socbook1.service.UserService;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -108,10 +109,15 @@ public class BookmarkController {
 
     @RequestMapping(path = ("/public/{username}"), method = RequestMethod.GET)
     public List<Bookmark> findAllByVisibility(@PathVariable String username) {
-        List<Bookmark> bookmarks = bookmarkService.findAllByVisibility();
+        User user = userService.findByUserName(username);
+        if (user == null) {
+            return Collections.emptyList();
+        }
+
+        List<Bookmark> bookmarks = bookmarkService.findAllByVisibility(user);
 
         for (Bookmark b : bookmarks) {
-            if(b.getUser().getUsername().equals(username)) {
+            if (b.isImported() && bookmarkService.findByUserAndUrl(user, b.getUrl()) != null) {
                 bookmarks.remove(b);
             }
         }
@@ -122,6 +128,9 @@ public class BookmarkController {
     @RequestMapping(path = "/{username}/{id}", method = RequestMethod.POST)
     public ResponseEntity<Bookmark> importBookmark(@PathVariable("username") String username, @PathVariable("id") Long id) {
         Bookmark bookmarkSource = bookmarkService.findOne(id);
+        bookmarkSource.setImported(true);
+        bookmarkService.save(bookmarkSource);
+
         Bookmark bookmarkToImport = new Bookmark();
         User userImporting = userService.findByUserName(username);
 
@@ -130,9 +139,8 @@ public class BookmarkController {
         }
 
         bookmarkToImport.setUser(userImporting);
-        bookmarkToImport.setImported(true);
         bookmarkToImport.setDate(new Date());
-        bookmarkToImport.setImported(true);
+        bookmarkToImport.setImported(false);
         bookmarkToImport.setTags(bookmarkSource.getTags());
         bookmarkToImport.setCategory(bookmarkSource.getCategory());
         bookmarkToImport.setDescription(bookmarkSource.getDescription());

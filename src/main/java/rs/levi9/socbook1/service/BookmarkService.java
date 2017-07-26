@@ -71,8 +71,8 @@ public class BookmarkService  {
         return bookmarkRepository.findAllByUser(user);
     }
 
-    public List<Bookmark> findAllByVisibility() {
-        return bookmarkRepository.findAllByVisibilityTrue();
+    public List<Bookmark> findAllByVisibility(User user) {
+        return bookmarkRepository.findAllByVisibilityTrueAndUserNot(user);
     }
 
     public Bookmark findByUrl(String url) {
@@ -81,5 +81,9 @@ public class BookmarkService  {
 
     public Bookmark findBookmarkByUserAndUrl(User user, String url) {
         return bookmarkRepository.findByUserAndUrl(user, url);
+    }
+
+    public Bookmark findByUserAndUrl(User user, String url) {
+        return bookmarkRepository.findByUserIsAndUrlIs(user, url);
     }
 }
