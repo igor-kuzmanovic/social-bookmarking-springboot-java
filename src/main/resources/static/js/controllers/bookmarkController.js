@@ -8,14 +8,13 @@ angular.module('app')
         
         var vm = this;
         vm.saveBookmark = saveBookmark;
-        vm.bookmarkShare = bookmarkShare;
+        vm.shareBookmark = shareBookmark;
         vm.getCategories = getCategories;
         vm.getBookmarks = getBookmarks;
         vm.deleteBookmark = deleteBookmark;
         vm.selectBookmark = selectBookmark;
         vm.addModalOperation = addModalOperation;
         vm.editModalOperation = editModalOperation;
-        vm.isSecondPage = isSecondPage;
         vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
@@ -27,16 +26,7 @@ angular.module('app')
 
         init();
     
-        function init() { 
-        	refreshController()
-            vm.closeModal = false;
-            getCategories();
-            if($scope.$parent.vm.user){
-            	getBookmarks();
-            }
-        }
-        
-        function refreshController(){
+        function init(){
         	delete vm.tags;
             delete vm.category;
             delete vm.bookmark;
@@ -46,14 +36,6 @@ angular.module('app')
             	getBookmarks();
             }
         }
-
-         function isSecondPage(){
-            console.log("is called?");
-            if($location.path().search(/^\/search/) == -1)
-                return false;
-            else
-                return true;
-        };
 
         function selectBookmark(bookmark) {
         	if(vm.selectedBookmark == bookmark) {
@@ -136,6 +118,7 @@ angular.module('app')
 
             BookmarkService.saveBookmark(bookmark).then(function(response){
                 $('#addBookmarkModal').modal('hide');
+                console.log("worked");
                 init();
             }, function(error){
                 vm.error = error;
@@ -156,11 +139,13 @@ angular.module('app')
 
         function deleteBookmark(){
             BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
-                getBookmarks();
+            	$('#deleteBookmarkModal').modal('hide');
+            	init();
             }, function(error){
-
+            	vm.error = error;
             });
-            vm.selectedBookmark= {};
+            
+            delete vm.selectedBookmark;
         }
         
         function addModalOperation() {
@@ -183,9 +168,13 @@ angular.module('app')
         
         function shareBookmark() {
             vm.bookmark = angular.copy(vm.selectedBookmark);
-            vm.bookmark.id = vm.selectedBookmark.id;
-            vm.bookmark.visibility = true;
-            BookmarkService.saveBookmark(vm.bookmark);
+            vm.bookmark.visibility = !vm.bookmark.visibility;
+            BookmarkService.saveBookmark(vm.bookmark).then(function(response){
+                $('#shareBookmarkModal').modal('hide');
+                init();
+            }, function(error){
+                vm.error = error;
+            }) 
         }
         
     };

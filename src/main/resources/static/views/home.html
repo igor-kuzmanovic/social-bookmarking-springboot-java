@@ -3,8 +3,8 @@
 
 <nav class="navbar2">
   <a class="navbar-brand" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addModalOperation()">ADD +</a>
-  <img class="nav-icons" src="images/share.png" style="cursor: pointer" ng-click="vm.shareBookmark()"></img>
-  <img class="nav-icons" src="images/trash.png" style="cursor: pointer" ng-click="vm.deleteBookmark()"></img>
+  <img class="nav-icons" src="images/share.png" style="cursor: pointer" data-toggle="modal" data-target="#shareBookmarkModal"></img>
+  <img class="nav-icons" src="images/trash.png" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"></img>
   <img class="nav-icons" src="images/edit.png" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"></img>
   <img class="nav-icons" src="images/details.png" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"></img>
   <a href="{{vm.selectedBookmark.url}}" target="_blank"><img class="nav-icons" src="images/tab.png" style="cursor: pointer"></img></a>
@@ -28,8 +28,6 @@
     </div>
   </div>
 </div>
-</div>
-
 
 <div class="modal fade" id="addBookmarkModal" role="dialog">
   <div class="modal-dialog">
@@ -99,7 +97,6 @@
     </div>
   </div>
 </div>
-</div>
 
 <div class="modal fade" id="showBookmarkDetails" role="dialog">
   <div class="modal-dialog">
@@ -132,7 +129,7 @@
           </tr>
         </table>
         <label>Tags</label>
-        <span class="label label-primary">#{{vm.selectedBookmark.tags}}</span>
+        <span class="label label-primary">{{vm.selectedBookmark.tags}}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -142,3 +139,45 @@
       </div>
     </div>
   </div>
+ </div>
+ 
+ <div class="modal fade" id="shareBookmarkModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">Your bookmark will be 
+          <span ng-show="!vm.selectedBookmark.visibility" style="color: green; font-weight: bold">shared</span>
+          <span ng-show="vm.selectedBookmark.visibility" style="color: red; font-weight: bold">hidden</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.shareBookmark()">Confirm</button>
+      </div>
+    </div>
+  </div>
+ </div>
+ 
+  <div class="modal fade" id="deleteBookmarkModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">
+        	Are you sure you want to <span style="color: red; font-weight: bold">delete</span> your bookmark?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.deleteBookmark()">Confirm</button>
+      </div>
+    </div>
+  </div>
+ </div>
