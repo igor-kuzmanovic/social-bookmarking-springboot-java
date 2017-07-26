@@ -26,18 +26,37 @@
     background-color: #ecf0f1;
     margin: 0 auto;
     margin-bottom: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+div.navbar-brand {
+    width: 40px;
+    height: 40px;
+    padding: 0 0;
+}
+div.navbar-brand img {
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
+}
+a.navbar-brand1 {
+    width: 40px;
+    height: 40px;
+    padding: 0 0;
+    margin-left: 15px;
 }
 
 /***********ICONS IN NAVBAR2***********/
-img.nav-icons {
+div.nav-icons {
 	width: 25px;
 	height: 25px;
 	float: right;
     margin-top: 12px;
     margin-right: 15px;
 }
-img.nav-icons:hover {
-    border: 2px solid #c0392b;
+img.nav-icons {
+   width: 25px;
+   height: 25px;
 }
 /***********CONTAINERS***********/
 .form-container {
