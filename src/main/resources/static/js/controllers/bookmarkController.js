@@ -16,6 +16,7 @@ angular.module('app')
         vm.selectBookmark = selectBookmark;
         vm.addModalOperation = addModalOperation;
         vm.editModalOperation = editModalOperation;
+        vm.setBookmarkPrivacy = setBookmarkPrivacy;
         vm.operation = {};
         vm.selectedBookmark = {};
         vm.bookmarks = {};
@@ -126,8 +127,8 @@ angular.module('app')
             })         
         }
 
-        function bookmarkShare(state){
-        	vm.bookmark.visibility = state;
+        function setBookmarkPrivacy(state){
+        	vm.bookmark.public = state;
         }
 
         function getCategories() {
@@ -169,7 +170,7 @@ angular.module('app')
         
         function shareBookmark() {
             vm.bookmark = angular.copy(vm.selectedBookmark);
-            vm.bookmark.visibility = !vm.bookmark.visibility;
+            vm.bookmark.public = !vm.bookmark.public;
             BookmarkService.saveBookmark(vm.bookmark).then(function(response){
                 $('#shareBookmarkModal').modal('hide');
                 init();

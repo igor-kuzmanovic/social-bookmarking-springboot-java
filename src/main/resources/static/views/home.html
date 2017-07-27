@@ -89,13 +89,13 @@
               <div class="col-lg-10">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio" ng-click="vm.bookmarkShare(false)">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio" ng-click="vm.bookmarkShare(true)">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
                     Public
                   </label>
                 </div>
@@ -142,7 +142,7 @@
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Privacy</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.visibility}}</td>
+            <td style="overflow: auto;">{{vm.selectedBookmark.public}}</td>
           </tr>
         </table>
         <label>Tags</label>
@@ -167,8 +167,8 @@
       </div>
       <div class="modal-body">
         <div class="panel-body" style="font-size: 125%">Your bookmark will be 
-          <span ng-show="!vm.selectedBookmark.visibility" style="color: green; font-weight: bold">shared</span>
-          <span ng-show="vm.selectedBookmark.visibility" style="color: red; font-weight: bold">hidden</span>
+          <span ng-show="!vm.selectedBookmark.public" style="color: green; font-weight: bold">shared</span>
+          <span ng-show="vm.selectedBookmark.public" style="color: red; font-weight: bold">hidden</span>
         </div>
       </div>
       <div class="modal-footer">
