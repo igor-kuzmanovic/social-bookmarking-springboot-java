@@ -7,10 +7,11 @@ angular.module('app')
     function BookmarkController($filter, BookmarkService, CategoryService, uibDateParser, $scope, $location) {
         
         var vm = this;
+        vm.init = init;
         vm.saveBookmark = saveBookmark;
         vm.shareBookmark = shareBookmark;
         vm.getCategories = getCategories;
-        vm.getBookmarks = getBookmarks;
+        vm.getUserBookmarks = getUserBookmarks;
         vm.deleteBookmark = deleteBookmark;
         vm.selectBookmark = selectBookmark;
         vm.addModalOperation = addModalOperation;
@@ -33,7 +34,7 @@ angular.module('app')
             delete vm.error;
             getCategories();
             if($scope.$parent.vm.user){
-            	getBookmarks();
+            	 getUserBookmarks($scope.$parent.vm.user.name);
             }
         }
 
@@ -46,8 +47,8 @@ angular.module('app')
         	}
         }
         
-        function getBookmarks(){
-            BookmarkService.getBookmarks($scope.$parent.vm.user.name).then(handleSuccessBookmarks);
+        function getUserBookmarks(username){
+            BookmarkService.getUserBookmarks(username).then(handleSuccessBookmarks);
         }
         
         function handleSuccessBookmarks(data, status) {
@@ -149,12 +150,12 @@ angular.module('app')
         }
         
         function addModalOperation() {
-        	refreshController();
+            init();
             vm.operation.name = "Add bookmark";
         }
         
         function editModalOperation() {
-        	refreshController();
+        	   init();
             vm.operation.name = "Edit bookmark";           
             vm.bookmark = angular.copy(vm.selectedBookmark);
             vm.category = null;

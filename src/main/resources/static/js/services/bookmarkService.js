@@ -9,7 +9,9 @@
         var service = {
             saveBookmark: saveBookmark,
             deleteBookmark: deleteBookmark,
-            getBookmarks: getBookmarks
+            getUserBookmarks: getUserBookmarks,
+            getPublicBookmarks: getPublicBookmarks,
+            importBookmark: importBookmark
         }
 
         return service;
@@ -24,9 +26,9 @@
             $http(req).success(function (data) {
                 def.resolve(data);
             })
-                .error(function () {
-                    def.reject("Failed to SAVE single");
-                });
+            .error(function () {
+            	def.reject("Failed to save");
+            });
             return def.promise;
         }
         
@@ -39,25 +41,57 @@
             $http(req).success(function (data) {
                 def.resolve(data);
             })
-                    .error(function () {
-                        def.reject("Failed to DELETE single");
-                    });
+            .error(function () {
+            	def.reject("Failed to delete");
+            });
             return def.promise;
         }
 
-        function getBookmarks(username) {
+        function getUserBookmarks(username) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
                 url: "bookmarks/user/" + username
             }
-            $http(req).success(function (data) {
+            $http(req)
+            .success(function (data) {
                 def.resolve(data);
             })
-                    .error(function () {
-                        def.reject("Failed to GET by username");
-                    });
+            .error(function () {
+            	def.reject("Failed to get by username");
+            });
             return def.promise;
+        }
+        
+        function getPublicBookmarks(username) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "bookmarks/public/" + username
+            }
+            $http(req)
+            .success(function (data) {
+                def.resolve(data);
+            })
+            .error(function () {
+            	def.reject("Failed to get public");
+            });
+            return def.promise;
+        }
+        
+        function importBookmark(username, bookmarkId) {
+        	var def = $q.defer();
+        	var req = {
+        		method: 'POST',
+        		url: "bookmarks/" + username + "/" + bookmarkId
+        	}
+        	$http(req).success(function (data) {
+        		def.resolve(data);
+        	})
+        	.error(function (){
+        		def.reject("Failed to import");
+        	})
+        	return def.promise;
         }
 
     }
