@@ -144,9 +144,11 @@
             <td>Privacy</td>
             <td style="overflow: auto;">{{vm.selectedBookmark.public}}</td>
           </tr>
+          <tr class="active" style="overflow: auto;">
+            <td>Tags</td>
+            <td style="overflow: auto;"><span ng-repeat="selectedBookmarkTag in vm.selectedBookmark.tags">{{selectedBookmarkTag.name}} </span></td>
+          </tr>
         </table>
-        <label>Tags</label>
-        <span class="label label-primary">{{vm.selectedBookmark.tags}}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

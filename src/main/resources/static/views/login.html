@@ -8,14 +8,14 @@
         <legend>Log In</legend>
 
         <div class="form-group">
-          <input class="form-control" autofocus="" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.credentials.username">
+          <input class="form-control" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.credentials.username" auto-focus="vm.showLoginPage">
         </div>
 
         <div class="form-group">
           <input class="form-control" id="focusedInput" type="password" placeholder="Password"  ng-model="vm.credentials.password">
         </div>
 
-        <a href="#/home" class="btn btn-primary btn-success btn-login" type="submit" ng-click="vm.login(vm.credentials)">Log in</a>
+        <button type="submit" class="btn btn-primary btn-success btn-login" onclick="location.href='#/home'" ng-click="vm.login(vm.credentials)">Log in</button>
       </fieldset>
     </form>
   </div>
@@ -47,7 +47,7 @@
         <legend>Don't have an account? Sign up!</legend>
 
         <div class="form-group">
-          <input name="first_name" autofocus="" class="form-control" id="focusedInput" type="text" placeholder="First Name"  ng-model="vm.registration.firstName">
+          <input name="first_name" class="form-control" id="focusedInput" type="text" placeholder="First Name"  ng-model="vm.registration.firstName" auto-focus="!vm.showLoginPage">
         </div>
 
         <div class="form-group">

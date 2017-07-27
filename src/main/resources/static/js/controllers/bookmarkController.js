@@ -109,9 +109,6 @@ angular.module('app')
         		bookmark.tags = [];
         	}
         	
-        	if(!bookmark.description){
-        		bookmark.description = "default";
-        	}
 
             bookmark.date = new Date();
             bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
