@@ -39,7 +39,8 @@
     <label for="select" class="col-lg-2 control-label control-label1">Category</label>
     <div class="col-lg-4">
       <select class="form-control resized-height" id="select">
-        <option></option>
+        <option value="">All</option>
+        <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
       </select>
     </div>
   </div>

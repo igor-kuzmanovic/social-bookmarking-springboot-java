@@ -70,13 +70,7 @@
         vm.userBookmarks.forEach(function(bookmark) {
           if(vm.selectedBookmark.url === bookmark.url) {
             vm.disableImport = true;
-            vm.inputErrorMessage = "You cannot import this bookmark!";
-//            if(bookmark.imported) {
-//              vm.importErrorMessage = "You have already imported this bookmark!";
-//            }
-//            else {
-//              vm.importErrorMessage = "You cannot import your own bookmarks!";
-//            }
+            vm.importErrorMessage = "You cannot import this bookmark!";
           }
         });
       }
