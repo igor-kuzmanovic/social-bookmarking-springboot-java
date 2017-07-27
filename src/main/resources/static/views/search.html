@@ -38,9 +38,9 @@
   <div class="form-group search-group">
     <label for="select" class="col-lg-2 control-label control-label1">Category</label>
     <div class="col-lg-4">
-      <select class="form-control resized-height" id="select" ng-model="search.category">
+      <select class="form-control resized-height" id="select" ng-model="search.category.name">
         <option value="">All</option>
-        <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+        <option ng-repeat="option in vm.categories" value="{{option.name}}">{{option.name}}</option>
       </select>
     </div>
   </div>
@@ -48,13 +48,13 @@
   <div class="form-group search-group1">
     <label for="textArea" class="col-lg-2 control-label control-label1">Tags</label>
     <div class="col-lg-4">
-      <textarea class="form-control" rows="3" id="textArea" ng-model="search.tags"></textarea>
+      <textarea class="form-control" rows="3" id="textArea" ng-model="search.tags.name"></textarea>
     </div>
   </div>
 </nav>
 
 <div class="bookmark-container" ng-show="vm.publicBookmarks.length != 0">
-  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
+  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks  | filter:search:strict" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
     <div class="panel-heading">
       <h3 class="panel-title">{{bookmark.title}}</h3>
     </div>
