@@ -5,16 +5,16 @@
     </p>
   </div>
   <div ng-show="!vm.disableImport">
-    <div class="nav-icons" ng-init="imgsrc5='images/import.png'" ng-mouseover="imgsrc5='images/import_blue.png'" ng-mouseout="imgsrc5='images/import.png'">
+    <div class="nav-icons" ng-init="imgsrc5='images/import.png'" ng-mouseover="imgsrc5='images/import_blue.png'" ng-mouseout="imgsrc5='images/import.png'" title="Import bookmark">
       <img class="nav-icons" ng-src="{{imgsrc5}}" style="cursor: pointer" data-toggle="modal" data-target="#importBookmarkModal"/>
     </div>
   </div>
   <div ng-show="vm.disableImport">
-    <div class="nav-icons" ng-init="imgsrc6='images/import.png'" ng-mouseover="imgsrc6='images/import_red.png'" ng-mouseout="imgsrc6='images/import.png'">
+    <div class="nav-icons" ng-init="imgsrc6='images/import.png'" ng-mouseover="imgsrc6='images/import_red.png'" ng-mouseout="imgsrc6='images/import.png'" title="Import disabled">
       <img class="nav-icons" ng-src="{{imgsrc6}}" style="cursor: pointer" data-toggle="modal" data-target="#disabledImportBookmarkModal"/>
     </div>
   </div>
-  <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'">
+  <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'" title="Bookmark details">
     <img class="nav-icons" ng-src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
   </div>
   <div ng-hide="true" class="nav-icons" ng-init="imgsrc4='images/tab.png'" ng-mouseover="imgsrc4='images/tab_blue.png'" ng-mouseout="imgsrc4='images/tab.png'">
