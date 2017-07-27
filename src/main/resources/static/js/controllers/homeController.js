@@ -1,28 +1,28 @@
 (function(){
-    angular.module('app')
+  angular.module('app')
     .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['BookmarkService'];
+  HomeController.$inject = ['BookmarkService'];
 
-    function HomeController(BookmarkService, $location) {
+  function HomeController(BookmarkService, $location) {
 
-        var vm = this;
-        vm.isActive = isActive;
-        vm.bookmarks;
+    var vm = this;
+    vm.isActive = isActive;
+    vm.bookmarks;
 
-        init();
+    init();
 
-        function init() {
-            getUserBookmarks($scope.$parent.vm.user.name);
-        }
-      
-        function getUserBookmarks(username) {
-            BookmarkService.getUserBookmarks(username).then(handleSuccessBookmarks);
-        }
-        
-        function handleSuccessBookmarks(data, status) {
-            vm.bookmarks = data;
-        }     
-        
-    };
+    function init() {
+      getUserBookmarks($scope.$parent.vm.user.name);
+    }
+
+    function getUserBookmarks(username) {
+      BookmarkService.getUserBookmarks(username).then(handleSuccessBookmarks);
+    }
+
+    function handleSuccessBookmarks(data, status) {
+      vm.bookmarks = data;
+    }     
+
+  };
 })();

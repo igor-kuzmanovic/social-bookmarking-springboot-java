@@ -20,7 +20,7 @@
   <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'">
     <img class="nav-icons" ng-src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
   </div>  
-  <div class="nav-icons" ng-init="imgsrc4='images/tab.png'" ng-mouseover="imgsrc4='images/tab_blue.png'" ng-mouseout="imgsrc4='images/tab.png'">
+  <div ng-hide="true" class="nav-icons" ng-init="imgsrc4='images/tab.png'" ng-mouseover="imgsrc4='images/tab_blue.png'" ng-mouseout="imgsrc4='images/tab.png'">
     <a href="{{vm.selectedBookmark.url}}" target="_blank">
       <img class="nav-icons" ng-src="{{imgsrc4}}" style="cursor: pointer"/>
     </a>
@@ -28,7 +28,7 @@
 </nav>
 
 <div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
-  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
+  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)" ng-dblclick="vm.openBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
     <div class="panel-heading">
       <h3 class="panel-title">{{bookmark.title}}</h3>
     </div>

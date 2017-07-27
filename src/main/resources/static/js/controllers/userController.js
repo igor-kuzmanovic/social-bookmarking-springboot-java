@@ -11,10 +11,10 @@
     vm.logout = logout;
     vm.saveUser = saveUser;
     vm.toggleLoginPage = toggleLoginPage;
+    vm.navbarControl = navbarControl;
     vm.user;
     vm.error;
     vm.success;
-    //vm.displayBookmarks;
     vm.showLoginPage;
 
     var roles = [];
@@ -100,6 +100,7 @@
       }).success(function (response) {
         delete credentials;
         $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
+        navbarControl(1);
         vm.user = response;
         vm.displayBookmarks = true;
       }).error(function (error) {               
@@ -118,6 +119,10 @@
     function validateEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    }
+    
+    function navbarControl(selectedNavItem) {
+        vm.currentNavItem = selectedNavItem;
     }
 
   };

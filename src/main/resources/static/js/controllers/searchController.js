@@ -2,14 +2,15 @@
   angular.module('app')
     .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$scope', 'BookmarkService', 'CategoryService'];
+  SearchController.$inject = ['$scope', 'BookmarkService', 'CategoryService', '$window'];
 
-  function SearchController($scope, BookmarkService, CategoryService) {
+  function SearchController($scope, BookmarkService, CategoryService, $window) {
 
     var vm = this;
     vm.importBookmark = importBookmark;
     vm.getPublicBookmarks = getPublicBookmarks;
     vm.selectBookmark = selectBookmark;
+    vm.openBookmark = openBookmark;
     vm.publicBookmarks;
     vm.userBookmarks;
     vm.selectedBookmark;
@@ -29,7 +30,7 @@
       getCategories();
       BookmarkService.getPublicBookmarks(username).then(handleSuccessPublicBookmarks);
     }
-    
+
     function getUserBookmarks(username){
       BookmarkService.getUserBookmarks(username).then(handleSuccessUserBookmarks);
     }
@@ -37,7 +38,7 @@
     function handleSuccessPublicBookmarks(data, status) {
       vm.publicBookmarks = data;
     }
-    
+
     function handleSuccessUserBookmarks(data, status) {
       vm.userBookmarks = data;
     }
@@ -74,6 +75,12 @@
           }
         });
       }
+    }
+
+    function openBookmark(bookmark) {
+      $window.open(bookmark.url, '_blank');
+      selectBookmark(bookmark);
+      $window.getSelection().removeAllRanges();
     }
 
   };
