@@ -29,6 +29,17 @@
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
+.navbar3 {
+	border-top: 1px solid transparent;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background-color: #ecf0f1;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
 div.navbar-brand {
     width: 40px;
     height: 40px;
@@ -44,6 +55,13 @@ a.navbar-brand1 {
     height: 40px;
     padding: 0 0;
     margin-left: 15px;
+}
+p.navbar-brand1 {
+    padding: 0 0;
+    margin-left: 15px;
+    font-size: 30px;
+    margin-top: 12px;
+    width: 200px;
 }
 
 /***********ICONS IN NAVBAR2***********/
@@ -100,6 +118,16 @@ img.nav-icons {
 	padding: 10px 5px 15px 5px;
 	overflow: hidden;
     border-radius: 15px;
+}
+.bookmark-container1 {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: #ecf0f1;
+	padding: 10px 5px 15px 5px;
+	overflow: hidden;
+    border-radius: 15px;
+    margin: 0 0;
 }
 /***********FORMS***********/
 .register-form {
@@ -209,4 +237,21 @@ fieldset legend {
 /***ANGULAR FIX***/
 .ng-hide.ng-hide-animate {
 	display: none !important;
+}
+.search-group {
+    height: 38px;
+    margin: 4px 5px;  
+}
+.search-group1 {
+    height: 78px;
+    margin: 5px 5px 15px 5px;
+}
+label.col-lg-2.control-label {
+    width: 100px;
+}
+.resized-height {
+    height: 30px;
+}
+textarea.form-control {
+    resize: none;
 }
