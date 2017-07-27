@@ -54,9 +54,6 @@ public class BookmarkService  {
         }
 
         bookmark.setTags(tagExists);
-        
-        User tempUser = userRepository.findByUsername(bookmark.getUser().getUsername());
-        bookmark.setUser(tempUser);
 
         return bookmarkRepository.save(bookmark);
     }
@@ -71,8 +68,8 @@ public class BookmarkService  {
         return bookmarkRepository.findAllByUser(user);
     }
 
-    public List<Bookmark> findAllByVisibility(User user) {
-        return bookmarkRepository.findAllByVisibilityTrueAndUserNot(user);
+    public List<Bookmark> findAllByPublic(User user) {
+        return bookmarkRepository.findAllByIsPublicTrueAndUserNot(user);
     }
 
     public Bookmark findByUrl(String url) {

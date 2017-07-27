@@ -31,7 +31,7 @@ public class Bookmark extends BaseEntity {
 	private String description;
 	 
 	@Column(nullable = false)
-	private boolean visibility;
+	private boolean isPublic;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -86,12 +86,12 @@ public class Bookmark extends BaseEntity {
 		this.tags = tags;
 	}
 
-	public boolean isVisibility() {
-		return visibility;
+	public boolean isPublic() {
+		return isPublic;
 	}
 
-	public void setVisibility(boolean visibility) {
-		this.visibility = visibility;
+	public void setPublic(boolean aPublic) {
+		isPublic = aPublic;
 	}
 
 	public Category getCategory() {
