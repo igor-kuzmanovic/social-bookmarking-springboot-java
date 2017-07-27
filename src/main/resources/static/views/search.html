@@ -48,13 +48,13 @@
   <div class="form-group search-group1">
     <label for="textArea" class="col-lg-2 control-label control-label1">Tags</label>
     <div class="col-lg-4">
-      <textarea class="form-control" rows="3" id="textArea" ng-model="search.tags.name"></textarea>
+      <textarea class="form-control" rows="3" id="textArea" ng-model="tagsearch.tags.name"></textarea>
     </div>
   </div>
 </nav>
 
 <div class="bookmark-container" ng-show="vm.publicBookmarks.length != 0">
-  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks  | filter:search:strict" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
+  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks | filter:search:strict | tagFilter:tagsearch.tags.name" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
     <div class="panel-heading">
       <h3 class="panel-title">{{bookmark.title}}</h3>
     </div>
