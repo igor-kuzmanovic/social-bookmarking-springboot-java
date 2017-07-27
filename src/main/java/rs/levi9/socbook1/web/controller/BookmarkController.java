@@ -3,6 +3,7 @@ package rs.levi9.socbook1.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Tag;
@@ -31,11 +32,13 @@ public class BookmarkController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public List<Bookmark> findAll() {
         return bookmarkService.findAll();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Bookmark> findOne(@PathVariable("id") Long id) {
         Bookmark bookmark = bookmarkService.findOne(id);
@@ -47,6 +50,7 @@ public class BookmarkController {
         return new ResponseEntity<>(bookmark, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Bookmark> save(@RequestBody Bookmark bookmark) {
         Bookmark bookmarkForSave;
@@ -55,7 +59,7 @@ public class BookmarkController {
 
         User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
         if (tempUser == null) {
-            return new ResponseEntity<Bookmark>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         bookmark.setUser(tempUser);
 
@@ -76,6 +80,7 @@ public class BookmarkController {
         return new ResponseEntity<>(bookmarkForSave, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable Long id) {
         Bookmark forDelete = bookmarkService.findOne(id);
@@ -101,6 +106,7 @@ public class BookmarkController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Bookmark> update(@RequestBody Bookmark bookmark) {
         User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
@@ -118,6 +124,7 @@ public class BookmarkController {
         return new ResponseEntity<>(updatedBookmark, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
     public List<Bookmark> findByUsername(@PathVariable String username) {
         User user = userService.findByUserName(username);
@@ -125,6 +132,7 @@ public class BookmarkController {
         return bookmarkService.findAllByUser(user);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = ("/public/{username}"), method = RequestMethod.GET)
     public List<Bookmark> findAllByPublic(@PathVariable String username) {
         User user = userService.findByUserName(username);
@@ -134,15 +142,10 @@ public class BookmarkController {
 
         List<Bookmark> bookmarks = bookmarkService.findAllByPublic(user);
 
-//        for (Bookmark b : bookmarks) {
-//            if (b.isImported() && bookmarkService.findByUserAndUrl(user, b.getUrl()) != null) {
-//                bookmarks.remove(b);
-//            }
-//        }
-
         return bookmarks;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/{username}/{id}", method = RequestMethod.POST)
     public ResponseEntity<Bookmark> importBookmark(@PathVariable("username") String username, @PathVariable("id") Long id) {
         Bookmark bookmarkSource = bookmarkService.findOne(id);
