@@ -4,12 +4,19 @@
     <p class="navbar-brand1">Search by
     </p>
   </div>
-  <div class="nav-icons" ng-init="imgsrc5='images/import.png'" ng-mouseover="imgsrc5='images/import_blue.png'" ng-mouseout="imgsrc5='images/import.png'">
-    <img class="nav-icons" ng-src="{{imgsrc5}}" style="cursor: pointer" data-toggle="modal" data-target="" ng-click=""/>
+  <div ng-show="!vm.disableImport">
+    <div class="nav-icons" ng-init="imgsrc5='images/import.png'" ng-mouseover="imgsrc5='images/import_blue.png'" ng-mouseout="imgsrc5='images/import.png'">
+      <img class="nav-icons" ng-src="{{imgsrc5}}" style="cursor: pointer" data-toggle="modal" data-target="#importBookmarkModal"/>
+    </div>
+  </div>
+  <div ng-show="vm.disableImport">
+    <div class="nav-icons" ng-init="imgsrc6='images/import.png'" ng-mouseover="imgsrc6='images/import_red.png'" ng-mouseout="imgsrc6='images/import.png'">
+      <img class="nav-icons" ng-src="{{imgsrc6}}" style="cursor: pointer" data-toggle="modal" data-target="#disabledImportBookmarkModal"/>
+    </div>
   </div>
   <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'">
     <img class="nav-icons" ng-src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
-  </div>  
+  </div>
   <div class="nav-icons" ng-init="imgsrc4='images/tab.png'" ng-mouseover="imgsrc4='images/tab_blue.png'" ng-mouseout="imgsrc4='images/tab.png'">
     <a href="{{vm.selectedBookmark.url}}" target="_blank">
       <img class="nav-icons" ng-src="{{imgsrc4}}" style="cursor: pointer"/>
@@ -45,13 +52,52 @@
   </div>
 </nav>
 
-<div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
-  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.bookmarks" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
+<div class="bookmark-container" ng-show="vm.publicBookmarks.length != 0">
+  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks" ng-click="vm.selectBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
     <div class="panel-heading">
       <h3 class="panel-title">{{bookmark.title}}</h3>
     </div>
     <div class="panel-content">
       <div class="panel-body">{{bookmark.url}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="importBookmarkModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">
+          Are you sure you want to import <span style="color: blue; font-weight: italic">{{vm.selectedBookmark.title}}</span>?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.importBookmark(vm.selectedBookmark.id)">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="disabledImportBookmarkModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="color: red">Error!</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">
+          {{vm.importErrorMessage}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>
