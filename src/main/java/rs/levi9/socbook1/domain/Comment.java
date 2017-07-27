@@ -16,9 +16,7 @@ public class Comment extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "bookmark_id", nullable = false)
 	private Bookmark bookmark;
-	
-	
-	
+
 	public String getContent() {
 		return content;
 	}

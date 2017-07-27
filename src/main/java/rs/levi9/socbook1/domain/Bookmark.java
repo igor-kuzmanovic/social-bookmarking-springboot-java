@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.validation.constraints.Past;
 
 @Entity
 public class Bookmark extends BaseEntity {
@@ -20,12 +19,12 @@ public class Bookmark extends BaseEntity {
 	@Length(min=2, max=100)
 	@Column(nullable = false)
 	private String title;
-
-	@Column(nullable = true)
-	private String importedBy;
 	
 	@Column(nullable = false)
 	private Date date;
+
+	@Column(nullable = false)
+	private boolean imported;
 	
 	@Length(min=1)
 	@Column(nullable = false)
@@ -46,14 +45,6 @@ public class Bookmark extends BaseEntity {
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;
-
-	public String getImportedBy() {
-		return importedBy;
-	}
-
-	public void setImportedBy(String importedBy) {
-		this.importedBy = importedBy;
-	}
 
 	public String getUrl() {
 		return url;
@@ -118,4 +109,12 @@ public class Bookmark extends BaseEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+    public boolean isImported() {
+        return imported;
+    }
+
+    public void setImported(boolean imported) {
+        this.imported = imported;
+    }
 }

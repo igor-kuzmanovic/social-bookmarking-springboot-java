@@ -13,7 +13,7 @@ INSERT INTO `socbook1`.`user`(`username`,`password`,`first_name`,`last_name`,`em
 INSERT INTO `socbook1`.`user_roles`(`user_id`,`role_id`) VALUES (1,1);
 INSERT INTO `socbook1`.`user_roles`(`user_id`,`role_id`) VALUES (1,2);
 
-INSERT INTO `socbook1`.`bookmark`(`title`, `url`, `date`, `description`, `visibility`, `category_id`, `user_id`) VALUES ('google', 'http://www.google.com', '9999-12-31 23:59:59', 'asdasdasdasd', TRUE, 1, 1);
+INSERT INTO `socbook1`.`bookmark`(`title`, `url`, `date`, `description`, `visibility`, `imported`, `category_id`, `user_id`) VALUES ('google', 'http://www.google.com', '9999-12-31 23:59:59', 'asdasdasdasd', TRUE, FALSE, 1, 1);
 
 INSERT INTO `socbook1`.`comment`(`content`, `bookmark_id`) VALUES ('adasdsadasd', 1);
 
