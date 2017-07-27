@@ -246,7 +246,7 @@ fieldset legend {
     height: 78px;
     margin: 5px 5px 15px 5px;
 }
-label.col-lg-2.control-label {
+label.col-lg-2.control-label.control-label1 {
     width: 100px;
 }
 .resized-height {
