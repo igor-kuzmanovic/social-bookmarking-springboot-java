@@ -2,7 +2,7 @@
     angular.module('app')
     .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['BookmarkService', '$location'];
+    HomeController.$inject = ['BookmarkService'];
 
     function HomeController(BookmarkService, $location) {
 
@@ -13,15 +13,11 @@
         init();
 
         function init() {
-            getBookmarks();
+            getUserBookmarks($scope.$parent.vm.user.name);
         }
-        
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
-        }
-        
-        function getBookmarks() {
-            BookmarkService.getBookmarks().then(handleSuccessBookmarks);
+      
+        function getUserBookmarks(username) {
+            BookmarkService.getUserBookmarks(username).then(handleSuccessBookmarks);
         }
         
         function handleSuccessBookmarks(data, status) {

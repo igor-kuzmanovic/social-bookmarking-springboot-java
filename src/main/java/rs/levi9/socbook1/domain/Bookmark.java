@@ -1,6 +1,5 @@
 package rs.levi9.socbook1.domain;
 
-import com.sun.istack.internal.Nullable;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
