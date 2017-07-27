@@ -159,6 +159,7 @@ public class BookmarkController {
         bookmarkToImport.setUser(userImporting);
         bookmarkToImport.setDate(new Date());
         bookmarkToImport.setImported(false);
+        bookmarkToImport.setPublic(true);
         bookmarkToImport.setTags(bookmarkSource.getTags());
         bookmarkToImport.setCategory(bookmarkSource.getCategory());
         bookmarkToImport.setDescription(bookmarkSource.getDescription());
