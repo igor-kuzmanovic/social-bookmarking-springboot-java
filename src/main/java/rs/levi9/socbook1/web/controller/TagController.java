@@ -30,10 +30,10 @@ public class TagController {
         Tag tagForSave = tagService.save(tag);
 
         if(tagForSave == null) {
-            return new ResponseEntity<Tag>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<Tag>(tagForSave, HttpStatus.OK);
+        return new ResponseEntity<>(tagForSave, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)

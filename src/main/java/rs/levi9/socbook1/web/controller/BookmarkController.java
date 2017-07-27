@@ -53,6 +53,12 @@ public class BookmarkController {
         Bookmark uniqueBookmark = bookmarkService.findByUrl(bookmark.getUrl());
         bookmark.setImported(false);
 
+        User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
+        if (tempUser == null) {
+            return new ResponseEntity<Bookmark>(HttpStatus.BAD_REQUEST);
+        }
+        bookmark.setUser(tempUser);
+
         if (uniqueBookmark == null) {
             bookmarkForSave = bookmarkService.save(bookmark);
         } else {
@@ -96,8 +102,20 @@ public class BookmarkController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Bookmark update(@RequestBody Bookmark bookmark) {
-        return bookmarkService.save(bookmark);
+    public ResponseEntity<Bookmark> update(@RequestBody Bookmark bookmark) {
+        User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
+        if (tempUser == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        bookmark.setUser(tempUser);
+
+        Bookmark updatedBookmark = bookmarkService.save(bookmark);
+
+        if (updatedBookmark == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(updatedBookmark, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
@@ -108,13 +126,13 @@ public class BookmarkController {
     }
 
     @RequestMapping(path = ("/public/{username}"), method = RequestMethod.GET)
-    public List<Bookmark> findAllByVisibility(@PathVariable String username) {
+    public List<Bookmark> findAllByPublic(@PathVariable String username) {
         User user = userService.findByUserName(username);
         if (user == null) {
             return Collections.emptyList();
         }
 
-        List<Bookmark> bookmarks = bookmarkService.findAllByVisibility(user);
+        List<Bookmark> bookmarks = bookmarkService.findAllByPublic(user);
 
 //        for (Bookmark b : bookmarks) {
 //            if (b.isImported() && bookmarkService.findByUserAndUrl(user, b.getUrl()) != null) {
