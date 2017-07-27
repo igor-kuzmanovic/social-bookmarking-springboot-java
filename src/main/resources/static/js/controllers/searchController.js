@@ -10,24 +10,36 @@
     vm.importBookmark = importBookmark;
     vm.getPublicBookmarks = getPublicBookmarks;
     vm.selectBookmark = selectBookmark;
-    vm.bookmarks;
+    vm.publicBookmarks;
+    vm.userBookmarks;
     vm.selectedBookmark;
+    vm.disableImport;
+    vm.importErrorMessage;
 
     init();
 
     function init() {
       if($scope.$parent.vm.user){
+        getUserBookmarks($scope.$parent.vm.user.name)
         getPublicBookmarks($scope.$parent.vm.user.name);
       };
     }
 
     function getPublicBookmarks(username){
       getCategories();
-      BookmarkService.getPublicBookmarks(username).then(handleSuccessBookmarks);
+      BookmarkService.getPublicBookmarks(username).then(handleSuccessPublicBookmarks);
+    }
+    
+    function getUserBookmarks(username){
+      BookmarkService.getUserBookmarks(username).then(handleSuccessUserBookmarks);
     }
 
-    function handleSuccessBookmarks(data, status) {
-      vm.bookmarks = data;
+    function handleSuccessPublicBookmarks(data, status) {
+      vm.publicBookmarks = data;
+    }
+    
+    function handleSuccessUserBookmarks(data, status) {
+      vm.userBookmarks = data;
     }
 
     function getCategories() {
@@ -40,6 +52,9 @@
 
     function importBookmark(bookmarkId) {
       BookmarkService.importBookmark($scope.$parent.vm.user.name, bookmarkId).then(function(response){
+        $('#importBookmarkModal').modal('hide');
+        getPublicBookmarks($scope.$parent.vm.user.name);
+        getUserBookmarks($scope.$parent.vm.user.name);
       }, function(error){
         vm.error = error;
       }) 
@@ -51,6 +66,13 @@
       }
       else {
         vm.selectedBookmark = bookmark;
+        vm.disableImport = false;
+        vm.userBookmarks.forEach(function(bookmark) {
+          if(vm.selectedBookmark.url === bookmark.url) {
+            vm.disableImport = true;
+            vm.importErrorMessage = "You cannot import this bookmark!";
+          }
+        });
       }
     }
 
