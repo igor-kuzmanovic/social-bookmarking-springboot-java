@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Tag;
@@ -35,6 +37,7 @@ public class BookmarkController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(method = RequestMethod.GET)
     public List<Bookmark> findAll() {
+        // waiting to clarify
         return bookmarkService.findAll();
     }
 
@@ -42,9 +45,15 @@ public class BookmarkController {
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Bookmark> findOne(@PathVariable("id") Long id) {
         Bookmark bookmark = bookmarkService.findOne(id);
+        User loggedUser = userService.findByUserName(getLoggedUserName());
 
         if(bookmark == null) {
-            return new ResponseEntity<>(HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        //Ask about getting role
+        if (bookmark.getUser() != loggedUser) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(bookmark, HttpStatus.OK);
@@ -85,7 +94,13 @@ public class BookmarkController {
     public ResponseEntity delete(@PathVariable Long id) {
         Bookmark forDelete = bookmarkService.findOne(id);
         List<Bookmark> allBookmarks = bookmarkService.findAll();
+        User loggedUser = userService.findByUserName(getLoggedUserName());
         boolean hasBookmark = false;
+
+        //Same, ask about getting user role
+        if (loggedUser != forDelete.getUser()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
 
         for (Tag tag : forDelete.getTags()) {
             for(Bookmark bookmark: allBookmarks) {
@@ -110,9 +125,11 @@ public class BookmarkController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Bookmark> update(@RequestBody Bookmark bookmark) {
         User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
+
         if (tempUser == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         bookmark.setUser(tempUser);
 
         Bookmark updatedBookmark = bookmarkService.save(bookmark);
@@ -126,23 +143,44 @@ public class BookmarkController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
-    public List<Bookmark> findByUsername(@PathVariable String username) {
+    public ResponseEntity<List<Bookmark>> findByUsername(@PathVariable String username) {
         User user = userService.findByUserName(username);
+        User loggedUser = userService.findByUserName(getLoggedUserName());
 
-        return bookmarkService.findAllByUser(user);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (loggedUser != user) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Bookmark> bookmarksFromUser = bookmarkService.findAllByUser(user);
+
+        return new ResponseEntity<>(bookmarksFromUser, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = ("/public/{username}"), method = RequestMethod.GET)
-    public List<Bookmark> findAllByPublic(@PathVariable String username) {
+    public ResponseEntity<List<Bookmark>> findAllByPublicWithoutUser(@PathVariable String username) {
         User user = userService.findByUserName(username);
         if (user == null) {
-            return Collections.emptyList();
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_REQUEST);
         }
 
-        List<Bookmark> bookmarks = bookmarkService.findAllByPublic(user);
+        User loggedUser = userService.findByUserName(getLoggedUserName());
 
-        return bookmarks;
+        if (loggedUser != user) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Bookmark> bookmarks = bookmarkService.findAllByPublicWithoutUser(user);
+
+        for (Bookmark b : bookmarks) {
+            b.getUser().setPassword("******");
+        }
+
+        return new ResponseEntity<>(bookmarks, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -176,5 +214,11 @@ public class BookmarkController {
         }
 
         return new ResponseEntity<>(bookmarkForSave, HttpStatus.OK);
+    }
+
+    private String getLoggedUserName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedUserName = auth.getName();
+        return loggedUserName;
     }
 }
