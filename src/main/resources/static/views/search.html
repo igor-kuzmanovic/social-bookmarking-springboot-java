@@ -26,19 +26,19 @@
   <div class="form-group search-group">
     <label class="col-lg-2 control-label control-label1" for="inputDefault">User</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control resized-height" id="inputDefault">
+      <input type="text" class="form-control resized-height" id="inputDefault" ng-model="search.user.username">
     </div>
   </div>
   <div class="form-group search-group">
     <label class="col-lg-2 control-label control-label1" for="inputDefault">Title</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control resized-height" id="inputDefault">
+      <input type="text" class="form-control resized-height" id="inputDefault" ng-model="search.title">
     </div> 
   </div>
   <div class="form-group search-group">
     <label for="select" class="col-lg-2 control-label control-label1">Category</label>
     <div class="col-lg-4">
-      <select class="form-control resized-height" id="select">
+      <select class="form-control resized-height" id="select" ng-model="search.category">
         <option value="">All</option>
         <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
       </select>
@@ -48,7 +48,7 @@
   <div class="form-group search-group1">
     <label for="textArea" class="col-lg-2 control-label control-label1">Tags</label>
     <div class="col-lg-4">
-      <textarea class="form-control" rows="3" id="textArea"></textarea>
+      <textarea class="form-control" rows="3" id="textArea" ng-model="search.tags"></textarea>
     </div>
   </div>
 </nav>
