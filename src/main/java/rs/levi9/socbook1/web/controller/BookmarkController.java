@@ -116,11 +116,11 @@ public class BookmarkController {
 
         List<Bookmark> bookmarks = bookmarkService.findAllByVisibility(user);
 
-        for (Bookmark b : bookmarks) {
-            if (b.isImported() && bookmarkService.findByUserAndUrl(user, b.getUrl()) != null) {
-                bookmarks.remove(b);
-            }
-        }
+//        for (Bookmark b : bookmarks) {
+//            if (b.isImported() && bookmarkService.findByUserAndUrl(user, b.getUrl()) != null) {
+//                bookmarks.remove(b);
+//            }
+//        }
 
         return bookmarks;
     }
