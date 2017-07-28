@@ -16,12 +16,12 @@
   </div>
   <div ng-show="!vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc='images/share.png'" ng-mouseover="imgsrc='images/share_red.png'" ng-mouseout="imgsrc='images/share.png'" title="Please select bookmark">
-        <img class="nav-icons" src="{{imgsrc}}" style="cursor: pointer"/>
+      <img class="nav-icons" src="{{imgsrc}}" style="cursor: pointer"/>
     </div>
   </div>
   <div ng-show="vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete bookmark">
-        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"/>
+      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
@@ -32,7 +32,7 @@
 
   <div ng-show="vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit bookmark">
-        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"/>
+      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </div>
 
 <div class="modal fade" id="addBookmarkModal" role="dialog">
@@ -116,28 +116,28 @@
                   <option value="">{{vm.selectedBookmark.category.name}}</option>
                 </select>
               </div>
-              
+
               <label for="inputTags" class="col-lg-2 control-label">Tags</label>
               <div class="col-lg-10">
                 <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.tags"></textarea>
               </div>
 
-			  <div ng-show="vm.bookmark.operation === 'add'">
-              <label class="col-lg-2 control-label">Privacy</label>
-              <div class="col-lg-10">
-                <div class="radio">
-                  <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
-                    Private
-                  </label>
+              <div ng-hide="vm.operation === 'edit'">
+                <label class="col-lg-2 control-label">Privacy</label>
+                <div class="col-lg-10">
+                  <div class="radio">
+                    <label>
+                      <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.public || vm.operation === 'add' || (vm.opeartion === 'edit' && !vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                      Private
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.public || (vm.opeartion === 'edit' && vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                      Public
+                    </label>
+                  </div>
                 </div>
-                <div class="radio">
-                  <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
-                    Public
-                  </label>
-                </div>
-              </div>
               </div>
             </div>
           </fieldset>
@@ -188,7 +188,7 @@
             <td>Tags</td>
             <td style="overflow: auto;"><span ng-repeat="selectedBookmarkTag in vm.selectedBookmark.tags">{{selectedBookmarkTag.name}} </span></td>
           </tr>
-            <tr class="active" style="overflow: auto;">
+          <tr class="active" style="overflow: auto;">
             <td>Date</td>
             <td style="overflow: auto;">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</td>
           </tr>
@@ -204,7 +204,7 @@
   </div>
 </div>
 
- <div class="modal fade" id="shareBookmarkModal" role="dialog">
+<div class="modal fade" id="shareBookmarkModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -223,9 +223,9 @@
       </div>
     </div>
   </div>
- </div>
+</div>
 
-  <div class="modal fade" id="deleteBookmarkModal" role="dialog">
+<div class="modal fade" id="deleteBookmarkModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -234,7 +234,7 @@
       </div>
       <div class="modal-body">
         <div class="panel-body" style="font-size: 125%">
-            Are you sure you want to <span style="color: red; font-weight: bold">delete</span> your bookmark?
+          Are you sure you want to <span style="color: red; font-weight: bold">delete</span> your bookmark?
         </div>
       </div>
       <div class="modal-footer">
@@ -243,4 +243,4 @@
       </div>
     </div>
   </div>
- </div>
+</div>
