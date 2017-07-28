@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Bookmark;
+import rs.levi9.socbook1.domain.Role;
 import rs.levi9.socbook1.domain.Tag;
 import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.service.BookmarkService;
@@ -34,7 +35,7 @@ public class BookmarkController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public List<Bookmark> findAll() {
         // waiting to clarify
@@ -45,15 +46,13 @@ public class BookmarkController {
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Bookmark> findOne(@PathVariable("id") Long id) {
         Bookmark bookmark = bookmarkService.findOne(id);
-        User loggedUser = userService.findByUserName(getLoggedUserName());
 
         if(bookmark == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        //Ask about getting role
-        if (bookmark.getUser() != loggedUser) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!loggedUserEqualsRequestUserOrAdmin(bookmark.getUser())) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<>(bookmark, HttpStatus.OK);
@@ -94,12 +93,10 @@ public class BookmarkController {
     public ResponseEntity delete(@PathVariable Long id) {
         Bookmark forDelete = bookmarkService.findOne(id);
         List<Bookmark> allBookmarks = bookmarkService.findAll();
-        User loggedUser = userService.findByUserName(getLoggedUserName());
         boolean hasBookmark = false;
 
-        //Same, ask about getting user role
-        if (loggedUser != forDelete.getUser()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (!loggedUserEqualsRequestUserOrAdmin(forDelete.getUser())) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
         for (Tag tag : forDelete.getTags()) {
@@ -145,14 +142,13 @@ public class BookmarkController {
     @RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
     public ResponseEntity<List<Bookmark>> findByUsername(@PathVariable String username) {
         User user = userService.findByUserName(username);
-        User loggedUser = userService.findByUserName(getLoggedUserName());
 
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        if (loggedUser != user) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!loggedUserEqualsRequestUserOrAdmin(user)) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
         List<Bookmark> bookmarksFromUser = bookmarkService.findAllByUser(user);
@@ -168,16 +164,16 @@ public class BookmarkController {
             return new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_REQUEST);
         }
 
-        User loggedUser = userService.findByUserName(getLoggedUserName());
-
-        if (loggedUser != user) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!loggedUserEqualsRequestUserOrAdmin(user)) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
         List<Bookmark> bookmarks = bookmarkService.findAllByPublicWithoutUser(user);
 
-        for (Bookmark b : bookmarks) {
-            b.getUser().setPassword("******");
+        if (!isAdminUser(userService.findByUserName(getLoggedUserName()))) {
+            for (Bookmark b : bookmarks) {
+                b.getUser().setPassword("******");
+            }
         }
 
         return new ResponseEntity<>(bookmarks, HttpStatus.OK);
@@ -187,11 +183,17 @@ public class BookmarkController {
     @RequestMapping(path = "/{username}/{id}", method = RequestMethod.POST)
     public ResponseEntity<Bookmark> importBookmark(@PathVariable("username") String username, @PathVariable("id") Long id) {
         Bookmark bookmarkSource = bookmarkService.findOne(id);
+
         bookmarkSource.setImported(true);
+
         bookmarkService.save(bookmarkSource);
 
         Bookmark bookmarkToImport = new Bookmark();
         User userImporting = userService.findByUserName(username);
+
+        if (!loggedUserEqualsRequestUserOrAdmin(userImporting)) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
 
         if (bookmarkService.findBookmarkByUserAndUrl(userImporting, bookmarkSource.getUrl()) != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -216,9 +218,27 @@ public class BookmarkController {
         return new ResponseEntity<>(bookmarkForSave, HttpStatus.OK);
     }
 
+    private boolean isAdminUser(User user) {
+        for (Role role : user.getRoles()) {
+            if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private String getLoggedUserName() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUserName = auth.getName();
         return loggedUserName;
+    }
+
+    private boolean loggedUserEqualsRequestUserOrAdmin(User requestedUser) {
+        User loggedUser = userService.findByUserName(getLoggedUserName());
+
+        if (loggedUser == requestedUser || isAdminUser(loggedUser)) {
+            return true;
+        }
+        return false;
     }
 }
