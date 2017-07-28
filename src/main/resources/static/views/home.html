@@ -84,7 +84,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">{{vm.operation.name}}</h4>
+        <h4 class="modal-title">Bookmark {{vm.operation.name}}</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -106,13 +106,17 @@
               </div>
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
-              <div class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.category">
-                  <option value="" ng-disabled="true" disabled>-- Must select a category --</option>
-                  <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+              <div ng-show="vm.operation.name === 'add'"class="col-lg-10">
+                <select class="form-control" id="selectCategory" ng-model="vm.category" ng-options="category.id as category.name for category in vm.categories">
+                  <option value="" disabled>-- Must select a category --</option>
                 </select>
               </div>
-
+              <div ng-show="vm.operation.name === 'edit'"class="col-lg-10">
+                <select class="form-control" id="selectCategory" ng-model="vm.category" ng-options="category.id as category.name for category in vm.categories | categoryFilter:vm.bookmark.category">
+                  <option value="">{{vm.selectedBookmark.category.name}}</option>
+                </select>
+              </div>
+              
               <label for="inputTags" class="col-lg-2 control-label">Tags</label>
               <div class="col-lg-10">
                 <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.tags"></textarea>
@@ -122,13 +126,13 @@
               <div class="col-lg-10">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.public || vm.bookmark.operation === 'add'" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.public" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
                     Public
                   </label>
                 </div>
@@ -175,7 +179,8 @@
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Privacy</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.public}}</td>
+            <td style="overflow: auto;" ng-show="vm.selectedBookmark.public">public</td>
+            <td style="overflow: auto;" ng-show="!vm.selectedBookmark.public">private</td>
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Tags</td>
