@@ -68,7 +68,7 @@ public class BookmarkService  {
         return bookmarkRepository.findAllByUser(user);
     }
 
-    public List<Bookmark> findAllByPublic(User user) {
+    public List<Bookmark> findAllByPublicWithoutUser(User user) {
         return bookmarkRepository.findAllByIsPublicTrueAndUserNot(user);
     }
 

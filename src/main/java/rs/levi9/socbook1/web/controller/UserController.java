@@ -28,6 +28,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> findOne(@PathVariable("id") Long id) {
         User user = userService.findOne(id);
@@ -36,9 +37,10 @@ public class UserController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> save(@RequestBody User user) {
         String currentUserName = user.getUsername();
@@ -47,7 +49,7 @@ public class UserController {
 
         if(current == null) {
             userService.save(user);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
 
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -55,7 +57,7 @@ public class UserController {
     
     @RequestMapping("/login")
     public Map<String, Object> user(Authentication authentication) {
-    	Map<String, Object> map = new LinkedHashMap<String, Object>();
+    	Map<String, Object> map = new LinkedHashMap<>();
     	map.put("name", authentication.getName());
     	map.put("roles", AuthorityUtils.authorityListToSet((authentication)
     			.getAuthorities()));
