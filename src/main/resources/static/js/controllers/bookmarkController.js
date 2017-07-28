@@ -24,14 +24,12 @@
     vm.bookmark = {};
     vm.categories = {};
     vm.tags = {};
-    vm.category = {};
     vm.isSearch = false;
 
     init();
 
     function init(){
       delete vm.tags;
-      delete vm.category;
       delete vm.bookmark;
       delete vm.error;
       getCategories();
@@ -58,7 +56,7 @@
     }
 
     function saveBookmark(bookmark) {
-      if(vm.operation.name == "Edit bookmark") {
+      if(vm.operation.name == "edit") {
         bookmark.id = vm.selectedBookmark.id;
       }          
 
@@ -114,11 +112,11 @@
       bookmark.date = new Date();
       bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
 
-      bookmark.category = vm.categories[vm.category - 1];    
+      bookmark.category = vm.categories[vm.category - 1];
+      console.log(bookmark.category);
 
       BookmarkService.saveBookmark(bookmark).then(function(response){
         $('#addBookmarkModal').modal('hide');
-        console.log("worked");
         init();
       }, function(error){
         vm.error = error;
@@ -150,14 +148,13 @@
 
     function addModalOperation() {
       init();
-      vm.operation.name = "Add bookmark";
+      vm.operation.name = "add";
     }
 
     function editModalOperation() {
       init();
-      vm.operation.name = "Edit bookmark";           
+      vm.operation.name = "edit";           
       vm.bookmark = angular.copy(vm.selectedBookmark);
-      vm.category = null;
       vm.tags = "";
       if(vm.bookmark.tags){
         vm.bookmark.tags.forEach(function(t) {
