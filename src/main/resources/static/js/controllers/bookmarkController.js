@@ -57,8 +57,15 @@
     function saveBookmark(bookmark) {
       if(vm.operation.name == "edit") {
         bookmark.id = vm.selectedBookmark.id;
+        
+//        if(!vm.category){
+//      	  vm.category = angular.copy(vm.bookmark.category);
+//      	  var temp = true;
+//      	  console.log(vm.category.id + " asdas " + vm.bookmark.category.id);
+//        }
       }          
 
+      if(vm.operation.name == "add"){
       if((!bookmark || !vm.category)
          || (!bookmark.title && !bookmark.url && !vm.category)
          || (!bookmark.title && !bookmark.url && vm.category)
@@ -66,11 +73,13 @@
          || (bookmark.title && !bookmark.url && !vm.category)) {
         vm.error = "Please fill in all fields!";
         return;
-      }         
+      } 
+
       if(bookmark.title && bookmark.url && !vm.category) {
         vm.error = "Please choose a category!";
         return;
-      }         
+      }     
+      }
       if(bookmark.title && !bookmark.url && vm.category) {
         vm.error = "Please specify a URL!";
         return;
@@ -112,10 +121,14 @@
       bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
 
       bookmark.category = vm.categories[vm.category - 1];
-      console.log(bookmark.category);
+      
+      if(!bookmark.category && vm.operation.name == "edit"){
+    	  bookmark.category = vm.selectedBookmark.category;
+      }
 
       BookmarkService.saveBookmark(bookmark).then(function(response){
         $('#addBookmarkModal').modal('hide');
+        vm.selectedBookmark = null;
         init();
       }, function(error){
         vm.error = error;
@@ -148,6 +161,7 @@
     function addModalOperation() {
       init();
       vm.operation.name = "add";
+      vm.selectedBookmark = null;
     }
 
     function editModalOperation() {
@@ -167,6 +181,7 @@
       vm.bookmark.public = !vm.bookmark.public;
       BookmarkService.saveBookmark(vm.bookmark).then(function(response){
         $('#shareBookmarkModal').modal('hide');
+        vm.selectedBookmark = null;
         init();
       }, function(error){
         vm.error = error;
