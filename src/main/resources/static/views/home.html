@@ -122,21 +122,19 @@
                 <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.tags"></textarea>
               </div>
 
-              <div ng-hide="vm.operation === 'edit'">
-                <label class="col-lg-2 control-label">Privacy</label>
-                <div class="col-lg-10">
-                  <div class="radio">
-                    <label>
-                      <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.public || vm.operation === 'add' || (vm.opeartion === 'edit' && !vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
-                      Private
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.public || (vm.opeartion === 'edit' && vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
-                      Public
-                    </label>
-                  </div>
+              <label class="col-lg-2 control-label">Privacy</label>
+              <div class="col-lg-10">
+                <div class="radio">
+                  <label>
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.public || vm.operation === 'add' || (vm.opeartion === 'edit' && !vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                    Private
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.public || (vm.opeartion === 'edit' && vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                    Public
+                  </label>
                 </div>
               </div>
             </div>
