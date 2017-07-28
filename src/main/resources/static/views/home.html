@@ -44,6 +44,7 @@
       </div>
     </div>
   </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </div>
 
 <div class="modal fade" id="addBookmarkModal" role="dialog">
@@ -147,6 +148,10 @@
           <tr class="active" style="overflow: auto;">
             <td>Tags</td>
             <td style="overflow: auto;"><span ng-repeat="selectedBookmarkTag in vm.selectedBookmark.tags">{{selectedBookmarkTag.name}} </span></td>
+          </tr>
+            <tr class="active" style="overflow: auto;">
+            <td>Date</td>
+            <td style="overflow: auto;">{{vm.selectedBookmark.date}}</td>
           </tr>
         </table>
       </div>

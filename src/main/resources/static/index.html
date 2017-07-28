@@ -38,6 +38,24 @@
 	<link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    
+    <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    
 </head>
 
 <body ng-controller="UserController as vm" class="ng-cloak">
