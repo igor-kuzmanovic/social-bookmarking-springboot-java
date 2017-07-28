@@ -19,7 +19,6 @@
     vm.setBookmarkPrivacy = setBookmarkPrivacy;
     vm.openBookmark = openBookmark;
     vm.operation = {};
-    vm.selectedBookmark = {};
     vm.bookmarks = {};
     vm.bookmark = {};
     vm.categories = {};
@@ -34,9 +33,9 @@
       delete vm.category;
       delete vm.bookmark;
       delete vm.error;
-      getCategories();
       if($scope.$parent.vm.user){
         getUserBookmarks($scope.$parent.vm.user.name);
+        getCategories();
       }
     }
 
