@@ -9,7 +9,7 @@
     var service = {
       saveUser: saveUser,
       getUsers: getUsers,
-      blockUnblockUser: blockUser,
+      blockUnblockUser: blockUnblockUser,
       deleteUser: deleteUser
     }
 

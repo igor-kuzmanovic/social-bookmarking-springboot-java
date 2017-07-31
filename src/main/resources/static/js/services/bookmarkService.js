@@ -52,7 +52,7 @@
       var def = $q.defer();
       var req = {
         method: 'GET',
-        url: "bookmarks/"
+        url: "bookmarks"
       }
       $http(req)
         .success(function (data) {

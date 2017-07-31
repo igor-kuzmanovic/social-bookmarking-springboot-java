@@ -1,151 +1,180 @@
 <div class="min-space"></div>
+
+<div ng-if="$parent.vm.displayBookmarks" ng-init="vm.changePanel(1)"></div>
+
 <nav class="navbar2">
-     <div class="nav-icons1" ng-init="imgsrc7='images/users.png'" ng-mouseover="imgsrc7='images/users_blue.png'" ng-mouseout="imgsrc7='images/users.png'" title="Users manage">
-    <img class="nav-icons" src="{{imgsrc7}}" style="cursor: pointer"/>
+  <div ng-show="vm.panel === 1">
+    <div class="nav-icons1" ng-click="vm.changePanel(1)" title="Bookmarks panel">
+      <img class="nav-icons" src="images/bookmark_blue.png" style="cursor: pointer"/>
+    </div>
   </div>
-  <div class="nav-icons1" ng-init="imgsrc8='images/bookmark.png'" ng-mouseover="imgsrc8='images/bookmark_blue.png'" ng-mouseout="imgsrc8='images/bookmark.png'" style="cursor: pointer" title="Bookmarks manage">
+  <div ng-show="vm.panel !== 1">
+    <div class="nav-icons1" ng-init="imgsrc8='images/bookmark.png'" ng-mouseover="imgsrc8='images/bookmark_blue.png'" ng-mouseout="imgsrc8='images/bookmark.png'" ng-click="vm.changePanel(1)" title="Bookmarks panel">
       <img class="nav-icons" src="{{imgsrc8}}" style="cursor: pointer"/>
-  </div>
-    <div class="nav-icons1" ng-init="imgsrc9='images/category.png'" ng-mouseover="imgsrc9='images/category_blue.png'" ng-mouseout="imgsrc9='images/category.png'" title="Categories manage">
-    <img class="nav-icons" src="{{imgsrc9}}" style="cursor: pointer"/>
-  </div>
-</nav>
-<div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
-    <div ng-show="selectedBookmarkIcon">
-    <table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>URL</th>
-      <th>Category</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="bookmark in vm.bookmarks">
-      <td>{{bookmark.title}}</td>
-      <td>{{bookmark.url}}</td>
-      <td>{{bookmark.category.name}}</td>
-    </tr>
-        </tbody>
-    </table>
-        
-        <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete bookmark">
-      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"/>
-    </div>
-  </div>
-  <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select bookmark">
-      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
-    </div>
-  </div>
-    
-    <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit bookmark">
-      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"/>
-    </div>
-  </div>
-  <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select bookmark">
-      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
     </div>
   </div>
 
-        <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'" title="Bookmark details">
-      <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
+  <div ng-show="vm.panel === 2">
+    <div class="nav-icons1" ng-click="vm.changePanel(2)" title="Users panel">
+      <img class="nav-icons" src="images/users_blue.png" style="cursor: pointer"/>
     </div>
   </div>
-  <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select bookmark">
-      <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer"/>
+  <div ng-show="vm.panel !== 2">
+    <div class="nav-icons1" ng-init="imgsrc7='images/users.png'" ng-mouseover="imgsrc7='images/users_blue.png'" ng-mouseout="imgsrc7='images/users.png'" ng-click="vm.changePanel(2)" title="Users panel">
+      <img class="nav-icons" src="{{imgsrc7}}" style="cursor: pointer"/>
     </div>
   </div>
-        
-    </div>
-    <div ng-show="vm.selectedUsersIcons">
-    <table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Username</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in vm.users">
-      <td>U</td>
-      <td>{{user.username}}</td>
-      <td>{{user.firstName}}</td>
-      <td>{{user.lastName}}</td>
-      <td>{{user.email}}</td>
-      <td>active</td>
-    </tr>
-        </tbody>
-    </table>
-        
-        <div ng-show="vm.selectedUser">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete user">
-      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteUserModal"/>
+
+  <div ng-show="vm.panel === 3">
+    <div class="nav-icons1" ng-click="vm.changePanel(3)" title="Category panel">
+      <img class="nav-icons" src="images/category_blue.png" style="cursor: pointer"/>
     </div>
   </div>
-  <div ng-show="!vm.selectedUser">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select user">
-      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
+  <div ng-show="vm.panel !== 3">
+    <div class="nav-icons1" ng-init="imgsrc9='images/category.png'" ng-mouseover="imgsrc9='images/category_blue.png'" ng-mouseout="imgsrc9='images/category.png'" ng-click="vm.changePanel(3)" title="Category panel">
+      <img class="nav-icons" src="{{imgsrc9}}" style="cursor: pointer"/>
     </div>
   </div>
-        
-        <div ng-show="vm.selectedUser">
-    <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_blue.png'" ng-mouseout="imgsrc4='images/block.png'" title="Block user">
-      <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer" data-toggle="modal" data-target="#blockUserModal"/>
+
+  <div ng-show="vm.panel === 1">
+    <div ng-show="!vm.selectedBookmark">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select bookmark">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
+      </div>
+    </div>
+    <div ng-show="vm.selectedBookmark">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete bookmark">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"/>
+      </div>
+    </div>
+
+    <div ng-show="!vm.selectedBookmark">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select bookmark">
+        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
+      </div>
+    </div>
+    <div ng-show="vm.selectedBookmark">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit bookmark">
+        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editBookmarkModal" ng-click="vm.editBookmarkModal()"/>
+      </div>
+    </div>
+
+    <div ng-show="!vm.selectedBookmark">
+      <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select bookmark">
+        <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer"/>
+      </div>
+    </div> 
+    <div ng-show="vm.selectedBookmark">
+      <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'" title="Bookmark details">
+        <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetailsModal()"/>
+      </div>
+    </div>
+
+  </div> 
+
+  <div ng-show="vm.panel === 2">
+    <div ng-show="!vm.selectedUser">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select user">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
+      </div>
+    </div>
+    <div ng-show="vm.selectedUser">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete user">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteUserModal"/>
+      </div>
+    </div>
+
+    <div ng-show="!vm.selectedUser">
+      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select user">
+        <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer"/>
+      </div>
+    </div> 
+    <div ng-show="vm.selectedUser">
+      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_blue.png'" ng-mouseout="imgsrc4='images/block.png'" title="Block user">
+        <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer" data-toggle="modal" data-target="#blockUserModal"/>
+      </div>
     </div>
   </div>
-  <div ng-show="!vm.selectedUser">
-    <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select user">
-      <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer"/>
+
+  <div ng-show="vm.panel === 3">
+    <div ng-show="!vm.selectedCategory">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select category">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
+      </div>
     </div>
-  </div>    
+    <div ng-show="vm.selectedCategory">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete category">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteCategoryModal"/>
+      </div>
     </div>
-    
-    <div ng-show="vm.selectedCategoryIcon">
-    <table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="category in vm.categories">
-      <td>{{category.title}}</td>
-    </tr>
-        </tbody>
-    </table>
-        
-        <div ng-show="vm.selectedCategory">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete category">
-      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteCategoryModal"/>
+
+    <div class="nav-icons" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add category">
+      <img class="nav-icons" src="{{imgsrc0}}" style="cursor: pointer" data-toggle="modal" data-target="#addCategoryModal"/>
     </div>
   </div>
-  <div ng-show="!vm.selectedCategory">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select category">
-      <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
-    </div>
-  </div>
-        <div ng-show="vm.selectedCategory">
-    <div class="nav-icons" ng-init="imgsrc2='images/add.png'" ng-mouseover="imgsrc2='images/add_blue.png'" ng-mouseout="imgsrc2='images/add.png'" title="Add category">
-      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#addCategoryModal"/>
-    </div>
-  </div>
-  <div ng-show="!vm.selectedCategory">
-    <div class="nav-icons" ng-init="imgsrc2='images/add.png'" ng-mouseover="imgsrc2='images/add_red.png'" ng-mouseout="imgsrc2='images/add.png'" title="Please select category">
-      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
-    </div>
-  </div>
-        
-    </div>
+</nav>
+
+<div class="bookmark-container" ng-show="vm.panel === 1 && vm.bookmarks.length != 0">
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>URL</th>
+        <th>Category</th>
+        <th>User</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="bookmark in vm.bookmarks" style="cursor: pointer" ng-click="vm.selectBookmark(bookmark)" ng-class="{listSelected: bookmark === vm.selectedBookmark}">
+        <td><img src="https://www.google.com/s2/favicons?domain={{bookmark.url}}"/></td>
+        <td>{{bookmark.title}}</td>
+        <td>{{bookmark.url}}</td>
+        <td>{{bookmark.category.name}}</td>
+        <td>{{bookmark.user.username}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="bookmark-container" ng-show="vm.panel === 2 && vm.users.length != 0"> 
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in vm.users" style="cursor: pointer" ng-click="vm.selectUser(user)" ng-class="{listSelected: user === vm.selectedUser}">
+        <td>{{user.roles.length == 2 ? "A" : "U"}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>active</td>
+      </tr>
+    </tbody>
+  </table>   
+</div>
+
+<div class="bookmark-container" ng-show="vm.panel === 3 && vm.categories.length != 0">
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="category in vm.categories" style="cursor: pointer" ng-click="vm.selectCategory(category)" ng-class="{listSelected: category === vm.selectedCategory}">
+        <td>{{category.name}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="modal fade" id="deleteBookmarkModal" role="dialog">
@@ -157,7 +186,7 @@
       </div>
       <div class="modal-body">
         <div class="panel-body" style="font-size: 125%">
-          Are you sure you want to <span style="color: red; font-weight: bold">delete</span> your bookmark?
+          Are you sure you want to <span style="color: red; font-weight: bold">delete</span> this bookmark?
         </div>
       </div>
       <div class="modal-footer">
@@ -200,7 +229,7 @@
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Tags</td>
-            <td style="overflow: auto;"><span ng-repeat="selectedBookmarkTag in vm.selectedBookmark.tags">{{selectedBookmarkTag.name}} </span></td>
+            <td style="overflow: auto;"><span ng-repeat="tag in vm.selectedBookmark.tags track by $index">{{tag.name}} </span></td>
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Date</td>
@@ -218,12 +247,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="addBookmarkModal" role="dialog">
+<div class="modal fade" id="editBookmarkModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Bookmark {{vm.operation.name}}</h4>
+        <h4 class="modal-title">Bookmark edit</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -231,47 +260,42 @@
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Title</label>
               <div class="col-lg-10">
-                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.bookmark.title">
+                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedBookmark.title">
               </div>
 
               <label for="inputURL" class="col-lg-2 control-label">URL</label>
               <div class="col-lg-10">
-                <input class="form-control" id="inputURL" placeholder="http:///www.example.com" type="text" ng-model="vm.bookmark.url">
+                <input class="form-control" id="inputURL" placeholder="http:///www.example.com" type="text" ng-model="vm.selectedBookmark.url">
               </div>
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
               <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.bookmark.description"></textarea>
+                <textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.selectedBookmark.description"></textarea>
               </div>
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
-              <div ng-show="vm.operation.name === 'add'"class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.category" ng-options="category.id as category.name for category in vm.categories">
-                  <option value="" disabled>-- Must select a category --</option>
-                </select>
-              </div>
-              <div ng-show="vm.operation.name === 'edit'"class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.category" ng-options="category.id as category.name for category in vm.categories | categoryFilter:vm.bookmark.category">
+              <div class="col-lg-10">
+                <select class="form-control" id="selectCategory" ng-model="vm.selectedBookmark.category" ng-options="category.id as category.name for category in vm.categories | categoryFilter:vm.selectedBookmark.category">
                   <option value="">{{vm.selectedBookmark.category.name}}</option>
                 </select>
               </div>
 
               <label for="inputTags" class="col-lg-2 control-label">Tags</label>
               <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.tags"></textarea>
+                <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.selectedBookmark.tags"></textarea>
               </div>
 
               <label class="col-lg-2 control-label">Privacy</label>
               <div class="col-lg-10">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="vm.operation.name == 'add' || !vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.operation.name == 'edit' && vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
                     Public
                   </label>
                 </div>
@@ -282,7 +306,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.saveBookmark(vm.bookmark)">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.editBookmark()">Save changes</button>
         <div class="alert-container alert alert-danger" ng-if="vm.error">
           {{vm.error}}
         </div>

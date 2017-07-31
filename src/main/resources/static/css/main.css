@@ -184,6 +184,21 @@ img.nav-icons {
 	border: 3px solid #3498db;
 	margin: 8px 21px;
 }
+.table-striped>tbody>tr:hover {
+  background-color: #d1ebfa;
+}
+.table-striped>tbody>tr.listSelected {
+  background-color: #a4d7f4;
+}
+.table-striped>tbody>tr.listSelected:hover {
+  background-color: #a4d7f4;
+}
+.table-striped>tbody>tr:nth-of-type(odd).listSelected {
+  background-color: #a4d7f4;
+}
+.table-striped>tbody>tr:nth-of-type(odd).listSelected:hover {
+  background-color: #a4d7f4;
+}
 .panel-title {
 	overflow: hidden;
 }

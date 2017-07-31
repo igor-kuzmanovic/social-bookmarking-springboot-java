@@ -23,7 +23,7 @@
             })
             .when('/manage', {
                 templateUrl: '/views/manage.html',
-                controller: 'BookmarkController',
+                controller: 'AdminController',
                 controllerAs: 'vm'
             })
             .otherwise('/');
