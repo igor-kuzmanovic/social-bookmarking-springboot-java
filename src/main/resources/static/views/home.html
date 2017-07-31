@@ -126,13 +126,13 @@
               <div class="col-lg-10">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.public || vm.operation === 'add' || (vm.opeartion === 'edit' && !vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="vm.operation.name == 'add' || !vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.public || (vm.opeartion === 'edit' && vm.bookmark.public)" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.operation.name == 'edit' && vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
                     Public
                   </label>
                 </div>

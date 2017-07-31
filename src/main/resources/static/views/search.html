@@ -9,7 +9,7 @@
       <img class="nav-icons" src="{{imgsrc5}}" style="cursor: pointer" data-toggle="modal" data-target="#importBookmarkModal"/>
     </div>
   </div>
-  <div ng-show="vm.disableImport">
+  <div ng-show="vm.disableImport && vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc6='images/import.png'" ng-mouseover="imgsrc6='images/import_red.png'" ng-mouseout="imgsrc6='images/import.png'" title="Import disabled">
       <img class="nav-icons" src="{{imgsrc6}}" style="cursor: pointer" data-toggle="modal" data-target="#disabledImportBookmarkModal"/>
     </div>

@@ -29,8 +29,9 @@
 
     function init(){
       delete vm.tags;
-      delete vm.bookmark;
       delete vm.error;
+      delete vm.category;
+      vm.bookmark = {};
       if($scope.$parent.vm.user){
         getUserBookmarks($scope.$parent.vm.user.name);
         getCategories();
@@ -57,28 +58,22 @@
     function saveBookmark(bookmark) {
       if(vm.operation.name == "edit") {
         bookmark.id = vm.selectedBookmark.id;
-        
-//        if(!vm.category){
-//      	  vm.category = angular.copy(vm.bookmark.category);
-//      	  var temp = true;
-//      	  console.log(vm.category.id + " asdas " + vm.bookmark.category.id);
-//        }
       }          
 
       if(vm.operation.name == "add"){
-      if((!bookmark || !vm.category)
-         || (!bookmark.title && !bookmark.url && !vm.category)
-         || (!bookmark.title && !bookmark.url && vm.category)
-         || (!bookmark.title && bookmark.url && !vm.category)
-         || (bookmark.title && !bookmark.url && !vm.category)) {
-        vm.error = "Please fill in all fields!";
-        return;
-      } 
+        if((!bookmark || !vm.category)
+           || (!bookmark.title && !bookmark.url && !vm.category)
+           || (!bookmark.title && !bookmark.url && vm.category)
+           || (!bookmark.title && bookmark.url && !vm.category)
+           || (bookmark.title && !bookmark.url && !vm.category)) {
+          vm.error = "Please fill in all fields!";
+          return;
+        } 
 
-      if(bookmark.title && bookmark.url && !vm.category) {
-        vm.error = "Please choose a category!";
-        return;
-      }     
+        if(bookmark.title && bookmark.url && !vm.category) {
+          vm.error = "Please choose a category!";
+          return;
+        }     
       }
       if(bookmark.title && !bookmark.url && vm.category) {
         vm.error = "Please specify a URL!";
@@ -120,11 +115,11 @@
       bookmark.date = new Date();
       bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
 
-      bookmark.category = vm.categories[vm.category - 1];
-      
-      if(!bookmark.category && vm.operation.name == "edit"){
-    	  bookmark.category = vm.selectedBookmark.category;
+      if(vm.operation.name === "edit" && !vm.category) {
+        vm.category = vm.selectedBookmark.category.id;
       }
+
+      bookmark.category = vm.categories[vm.category - 1];
 
       BookmarkService.saveBookmark(bookmark).then(function(response){
         $('#addBookmarkModal').modal('hide');
