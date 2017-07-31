@@ -92,25 +92,9 @@ public class BookmarkController {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable Long id) {
         Bookmark forDelete = bookmarkService.findOne(id);
-        List<Bookmark> allBookmarks = bookmarkService.findAll();
-        boolean hasBookmark = false;
 
         if (!loggedUserEqualsRequestUserOrAdmin(forDelete.getUser())) {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-        }
-
-        for (Tag tag : forDelete.getTags()) {
-            for(Bookmark bookmark: allBookmarks) {
-                Set<Tag> bookmarkTags = bookmark.getTags();
-                for(Tag bookmarkTag: bookmarkTags) {
-                    if(tag.getId() == bookmarkTag.getId()) {
-                        hasBookmark = true;
-                    }
-                }
-            }
-            if(!hasBookmark) {
-                tagService.delete(tag.getId());
-            }
         }
 
         bookmarkService.delete(id);

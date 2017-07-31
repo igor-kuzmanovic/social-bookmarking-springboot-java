@@ -7,25 +7,32 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Role;
 import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.UserService;
 import org.springframework.security.core.authority.AuthorityUtils;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
+    private BookmarkService bookmarkService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, BookmarkService bookmarkService) {
         this.userService = userService;
+        this.bookmarkService = bookmarkService;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(method = RequestMethod.GET)
+    public List<User> findAll() {
+        return userService.findAll();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -45,7 +52,6 @@ public class UserController {
         String currentUserName = user.getUsername();
         User current = userService.findByUserName(currentUserName);
 
-
         if(current == null) {
             userService.save(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -53,7 +59,30 @@ public class UserController {
 
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        List<Bookmark> bookmarks = bookmarkService.findAll();
+        User userToDelete = userService.findOne(id);
+
+        for (Role role : userToDelete.getRoles()) {
+            if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
+        }
+
+        for (Bookmark b : bookmarks) {
+            if (b.getUser().equals(userToDelete)) {
+                bookmarkService.delete(b.getId());
+            }
+        }
+
+        userService.delete(id);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @RequestMapping("/login")
     public Map<String, Object> user(Authentication authentication) {
     	Map<String, Object> map = new LinkedHashMap<>();

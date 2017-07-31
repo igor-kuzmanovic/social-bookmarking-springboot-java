@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Category;
+import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.CategoryService;
 
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.List;
 public class CategoryController {
 
     private CategoryService categoryService;
+    private BookmarkService bookmarkService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, BookmarkService bookmarkService) {
         this.categoryService = categoryService;
+        this.bookmarkService = bookmarkService;
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -36,7 +39,11 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        categoryService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
+        if (bookmarkService.findBookmarksByCategory(id) == null) {
+            categoryService.delete(id);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }

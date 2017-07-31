@@ -2,12 +2,8 @@ package rs.levi9.socbook1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.levi9.socbook1.domain.Bookmark;
-import rs.levi9.socbook1.domain.Comment;
-import rs.levi9.socbook1.domain.Tag;
-import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.domain.*;
 import rs.levi9.socbook1.repository.BookmarkRepository;
-import rs.levi9.socbook1.repository.CommentRepository;
 import rs.levi9.socbook1.repository.TagRepository;
 import rs.levi9.socbook1.repository.UserRepository;
 
@@ -21,14 +17,12 @@ import java.util.Set;
 public class BookmarkService  {
 
     private BookmarkRepository bookmarkRepository;
-    private CommentRepository commentRepository;
     private TagRepository tagRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository, TagRepository tagRepository, UserRepository userRepository) {
+    public BookmarkService(BookmarkRepository bookmarkRepository, TagRepository tagRepository, UserRepository userRepository) {
         this.bookmarkRepository = bookmarkRepository;
-        this.commentRepository = commentRepository;
         this.tagRepository = tagRepository;
         this.userRepository = userRepository;
     }
@@ -59,8 +53,23 @@ public class BookmarkService  {
     }
 
     public void delete(Long id) {
-        commentRepository.deleteByBookmarkId(id);
+        Bookmark forDelete = bookmarkRepository.findOne(id);
+        List<Bookmark> allBookmarks = bookmarkRepository.findAll();
+        boolean hasBookmark = false;
 
+        for (Tag tag : forDelete.getTags()) {
+            for(Bookmark bookmark: allBookmarks) {
+                Set<Tag> bookmarkTags = bookmark.getTags();
+                for(Tag bookmarkTag: bookmarkTags) {
+                    if(tag.getId() == bookmarkTag.getId()) {
+                        hasBookmark = true;
+                    }
+                }
+            }
+            if(!hasBookmark) {
+                tagRepository.delete(tag.getId());
+            }
+        }
         bookmarkRepository.delete(id);
     }
 
@@ -82,5 +91,9 @@ public class BookmarkService  {
 
     public Bookmark findByUserAndUrl(User user, String url) {
         return bookmarkRepository.findByUserIsAndUrlIs(user, url);
+    }
+
+    public List<Bookmark> findBookmarksByCategory(Long id) {
+        return bookmarkRepository.findAllBookmarksByCategoryId(id);
     }
 }
