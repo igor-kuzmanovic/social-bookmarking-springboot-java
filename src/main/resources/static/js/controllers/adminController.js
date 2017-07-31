@@ -96,10 +96,6 @@
         delete tags;
       }
       
-      if(!isNaN(vm.selectedBookmark.category)) {
-        vm.selectedBookmark.category = vm.categories[vm.selectedBookmark.category - 1];
-      }
-      
       BookmarkService.saveBookmark(vm.selectedBookmark).then(function(response) {
         $('#editBookmarkModal').modal('hide');
         getBookmarks();
@@ -161,7 +157,7 @@
     }
 
     function editCategoryModal() {
-      vm.categoryOpeartion = "edit";   
+      vm.categoryOperation = "edit";   
     }
 
     function editCategory() {

@@ -50,7 +50,7 @@
       var def = $q.defer();
       var req = {
         method: 'PUT',
-        url: "users/" + id
+        url: "users/block/" + id
       }
       $http(req).success(function (data) {
         def.resolve(data);

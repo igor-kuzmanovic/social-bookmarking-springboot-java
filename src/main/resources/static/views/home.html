@@ -3,40 +3,40 @@
 <div ng-if="$parent.vm.displayBookmarks" ng-init="vm.init()"></div>
 
 <nav class="navbar2">
-  <div class="navbar-brand" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add bookmark">
+  <div class="navbar-brand" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add a bookmark">
     <a class="navbar-brand1" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.addModalOperation()">
       <img src="{{imgsrc0}}" style="cursor: pointer"/>
     </a>
   </div>
 
   <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc='images/share.png'" ng-mouseover="imgsrc='images/share_blue.png'" ng-mouseout="imgsrc='images/share.png'" title="Share bookmark">
+    <div class="nav-icons" ng-init="imgsrc='images/share.png'" ng-mouseover="imgsrc='images/share_blue.png'" ng-mouseout="imgsrc='images/share.png'" title="Share a bookmark">
       <img class="nav-icons" src="{{imgsrc}}" style="cursor: pointer" data-toggle="modal" data-target="#shareBookmarkModal"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc='images/share.png'" ng-mouseover="imgsrc='images/share_red.png'" ng-mouseout="imgsrc='images/share.png'" title="Please select bookmark">
+    <div class="nav-icons" ng-init="imgsrc='images/share.png'" ng-mouseover="imgsrc='images/share_red.png'" ng-mouseout="imgsrc='images/share.png'" title="Please select a bookmark">
       <img class="nav-icons" src="{{imgsrc}}" style="cursor: pointer"/>
     </div>
   </div>
   <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete bookmark">
+    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete a bookmark">
       <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select bookmark">
+    <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select a bookmark">
       <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
     </div>
   </div>
 
   <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit bookmark">
+    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit a bookmark">
       <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select bookmark">
+    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select a bookmark">
       <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
     </div>
   </div>
@@ -47,7 +47,7 @@
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select bookmark">
+    <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select a bookmark">
       <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer"/>
     </div>
   </div>

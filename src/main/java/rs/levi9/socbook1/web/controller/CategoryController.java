@@ -39,7 +39,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        if (bookmarkService.findBookmarksByCategory(id) == null) {
+        if (bookmarkService.findBookmarksByCategory(id) != null) {
             categoryService.delete(id);
             return new ResponseEntity(HttpStatus.OK);
         }

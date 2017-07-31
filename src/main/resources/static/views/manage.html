@@ -38,29 +38,29 @@
 
   <div ng-show="vm.panel === 1">
     <div ng-show="!vm.selectedBookmark">
-      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select bookmark">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select a bookmark">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
       </div>
     </div>
     <div ng-show="vm.selectedBookmark">
-      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete bookmark">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete a bookmark">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteBookmarkModal"/>
       </div>
     </div>
 
     <div ng-show="!vm.selectedBookmark">
-      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select bookmark">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select a bookmark">
         <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
       </div>
     </div>
     <div ng-show="vm.selectedBookmark">
-      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit bookmark">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit a bookmark">
         <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editBookmarkModal" ng-click="vm.editBookmarkModal()"/>
       </div>
     </div>
 
     <div ng-show="!vm.selectedBookmark">
-      <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select bookmark">
+      <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select a bookmark">
         <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer"/>
       </div>
     </div> 
@@ -74,41 +74,52 @@
 
   <div ng-show="vm.panel === 2">
     <div ng-show="!vm.selectedUser">
-      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select user">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select a user">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
       </div>
     </div>
     <div ng-show="vm.selectedUser">
-      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete user">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete a user">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteUserModal"/>
       </div>
     </div>
 
     <div ng-show="!vm.selectedUser">
-      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select user">
+      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select a user">
         <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer"/>
       </div>
     </div> 
     <div ng-show="vm.selectedUser">
-      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_blue.png'" ng-mouseout="imgsrc4='images/block.png'" title="Block user">
-        <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer" data-toggle="modal" data-target="#blockUserModal"/>
+      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_blue.png'" ng-mouseout="imgsrc4='images/block.png'" title="Block a user">
+        <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer" data-toggle="modal" data-target="#blockUnblockUserModal"/>
       </div>
     </div>
   </div>
 
   <div ng-show="vm.panel === 3">
     <div ng-show="!vm.selectedCategory">
-      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select category">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select a category">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
       </div>
     </div>
     <div ng-show="vm.selectedCategory">
-      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete category">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete a category">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteCategoryModal"/>
       </div>
     </div>
-
-    <div class="nav-icons" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add category">
+    
+    <div ng-show="!vm.selectedCategory">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select a category">
+        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
+      </div>
+    </div>
+    <div ng-show="vm.selectedCategory">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit a category">
+        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editCategoryModal" ng-click="vm.editCategoryModal()"/>
+      </div>
+    </div>
+    
+    <div class="nav-icons" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add a category">
       <img class="nav-icons" src="{{imgsrc0}}" style="cursor: pointer" data-toggle="modal" data-target="#addCategoryModal"/>
     </div>
   </div>
@@ -156,7 +167,7 @@
         <td>{{user.email}}</td>
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
-        <td>active</td>
+        <td>{{user.userStatus.id === 1 ? "Active" : "Inactive"}}</td>
       </tr>
     </tbody>
   </table>   
@@ -275,7 +286,7 @@
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
               <div class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.selectedBookmark.category" ng-options="category.id as category.name for category in vm.categories track by category.id">
+                <select class="form-control" id="selectCategory" ng-model="vm.selectedBookmark.category" ng-options="category as category.name for category in vm.categories track by category.id">              
                 </select>
               </div>
 
@@ -309,6 +320,126 @@
         <div class="alert-container alert alert-danger" ng-if="vm.error">
           {{vm.error}}
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="blockUnblockUserModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">
+          Are you sure you want to <span style="color: red; font-weight: bold">{{vm.selectedUser.userStatus[0].id === 1 ? "unblock" : "block"}}</span> <span style="color: blue">{{vm.selectedUser.username}}</span>?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.blockUnblockUser()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">
+          Are you sure you want to <span style="color: red; font-weight: bold">delete</span> <span style="color: blue">{{vm.selectedUser.username}}</span>?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.deleteUser()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addCategoryModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Category add</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="form-group">
+              <label for="inputTitle" class="col-lg-2 control-label">Name</label>
+              <div class="col-lg-10">
+                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.category.name">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.addCategory(vm.category)">Confirm</button>
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
+          {{vm.error}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editCategoryModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Category edit</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="form-group">
+              <label for="inputTitle" class="col-lg-2 control-label">Name</label>
+              <div class="col-lg-10">
+                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedCategory.name">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.editCategory()">Confirm</button>
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
+          {{vm.error}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteCategoryModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel-body" style="font-size: 125%">
+          Are you sure you want to <span style="color: red; font-weight: bold">delete</span> <span style="color: blue">{{vm.selectedCategory.name}}</span>?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.deleteCategory()">Confirm</button>
       </div>
     </div>
   </div>
