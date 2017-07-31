@@ -72,6 +72,13 @@ div.nav-icons {
     margin-top: 12px;
     margin-right: 15px;
 }
+div.nav-icons1 {
+	width: 25px;
+	height: 25px;
+	float: left;
+    margin-top: 12px;
+    margin-left: 15px;
+}
 img.nav-icons {
    width: 25px;
    height: 25px;

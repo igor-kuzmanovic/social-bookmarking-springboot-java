@@ -1,0 +1,14 @@
+<div class="min-space"></div>
+<nav class="navbar2">
+     <div class="nav-icons1" ng-init="imgsrc7='images/users.png'" ng-mouseover="imgsrc7='images/users_blue.png'" ng-mouseout="imgsrc7='images/users.png'" title="Users manage">
+    <img class="nav-icons" src="{{imgsrc7}}" style="cursor: pointer"/>
+  </div>
+  <div class="nav-icons1" ng-init="imgsrc8='images/bookmark.png'" ng-mouseover="imgsrc8='images/bookmark_blue.png'" ng-mouseout="imgsrc8='images/bookmark.png'" style="cursor: pointer" title="Bookmarks manage">
+      <img class="nav-icons" src="{{imgsrc8}}" style="cursor: pointer"/>
+  </div>
+    <div class="nav-icons1" ng-init="imgsrc9='images/category.png'" ng-mouseover="imgsrc9='images/category_blue.png'" ng-mouseout="imgsrc9='images/category.png'" title="Categories manage">
+    <img class="nav-icons" src="{{imgsrc9}}" style="cursor: pointer"/>
+  </div>
+</nav>
+<div class="bookmark-container" ng-show="vm.bookmarks.length != 0">
+</div>

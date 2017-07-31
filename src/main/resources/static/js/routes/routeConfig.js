@@ -21,6 +21,11 @@
                 controller: 'SearchController',
                 controllerAs: 'vm'
             })
+            .when('/manage', {
+                templateUrl: '/views/manage.html',
+                controller: 'BookmarkController',
+                controllerAs: 'vm'
+            })
             .otherwise('/');
     }
 }());
