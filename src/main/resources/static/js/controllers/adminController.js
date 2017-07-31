@@ -20,7 +20,7 @@
     vm.addCategoryModal = addCategoryModal;  
     vm.addCategory = addCategory;                               
     vm.editCategoryModal = editCategoryModal; 
-    vm.editCategory;                                            
+    vm.editCategory = editCategory;;                                            
     vm.deleteCategory = deleteCategory;                         
     vm.selectUser = selectUser;                                 
     vm.getUsers = getUsers;                                     
@@ -58,7 +58,14 @@
     }
     
     function showBookmarkDetailsModal() {
-      
+      if(vm.selectedBookmark.tags && !(typeof vm.selectedBookmark.tags === 'string' || vm.selectedBookmark.tags instanceof String)){
+        var tags = [];
+        vm.selectedBookmark.tags.forEach(function(tag) {
+          tags += tag.name + " ";       
+        })
+        vm.selectedBookmark.tags = tags;
+        delete tags;
+      }
     }
 
     function handleSuccessBookmarks(data, status){
@@ -66,19 +73,34 @@
     }
     
     function editBookmarkModal() {
-      if(vm.selectedBookmark.tags){
-        var tags = {};
+      if(vm.selectedBookmark.tags && !(typeof vm.selectedBookmark.tags === 'string' || vm.selectedBookmark.tags instanceof String)){
+        var tags = [];
         vm.selectedBookmark.tags.forEach(function(tag) {
-          tags += tag.name + " ";
-          console.log(tags);
+          tags += tag.name + " ";       
         })
         vm.selectedBookmark.tags = tags;
-        tags = {};
+        delete tags;
       }
     }
 
     function editBookmark(){
-      CategoryService.saveCategory(vm.selectedCategory).then(function(response) {
+      if(vm.selectedBookmark.tags.length > 0){
+        var tags = [];      
+        vm.selectedBookmark.tags = vm.selectedBookmark.tags.split(' ');
+        vm.selectedBookmark.tags.forEach(function(tag) {
+          var tagObject = {};
+          tagObject.name = tag;
+          tags.push(tagObject);
+        })
+        vm.selectedBookmark.tags = tags;
+        delete tags;
+      }
+      
+      if(!isNaN(vm.selectedBookmark.category)) {
+        vm.selectedBookmark.category = vm.categories[vm.selectedBookmark.category - 1];
+      }
+      
+      BookmarkService.saveBookmark(vm.selectedBookmark).then(function(response) {
         $('#editBookmarkModal').modal('hide');
         getBookmarks();
         delete vm.selectedBookmark;

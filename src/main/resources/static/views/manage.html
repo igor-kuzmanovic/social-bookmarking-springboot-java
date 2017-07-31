@@ -229,7 +229,7 @@
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Tags</td>
-            <td style="overflow: auto;"><span ng-repeat="tag in vm.selectedBookmark.tags track by $index">{{tag.name}} </span></td>
+            <td style="overflow: auto;">{{vm.selectedBookmark.tags}}</td>
           </tr>
           <tr class="active" style="overflow: auto;">
             <td>Date</td>
@@ -275,8 +275,7 @@
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
               <div class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.selectedBookmark.category" ng-options="category.id as category.name for category in vm.categories | categoryFilter:vm.selectedBookmark.category">
-                  <option value="">{{vm.selectedBookmark.category.name}}</option>
+                <select class="form-control" id="selectCategory" ng-model="vm.selectedBookmark.category" ng-options="category.id as category.name for category in vm.categories track by category.id">
                 </select>
               </div>
 
