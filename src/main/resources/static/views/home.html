@@ -191,12 +191,18 @@
             <td style="overflow: auto;">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</td>
           </tr>
         </table>
-      </div>
-      <div class="modal-footer">
+          <div class="rating">
+          <label for="stars">Rate</label>
+              <div class="rating-stars" id="stars">
+              <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+        </div>
+        </div>
+          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <div class="alert-container alert alert-danger" ng-if="vm.error">
           {{vm.error}}
         </div>
+      </div>
       </div>
     </div>
   </div>
