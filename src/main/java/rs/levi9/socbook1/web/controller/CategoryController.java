@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Category;
 import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.CategoryService;
@@ -37,9 +38,23 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Category> update(@RequestBody Category category) {
+        Category updatedCategory = categoryService.save(category);
+
+        if (updatedCategory == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        if (bookmarkService.findBookmarksByCategory(id) != null) {
+        Long categoryBookmarks = bookmarkService.countBookmarksByCategory(id);
+
+        if (categoryBookmarks == 0) {
             categoryService.delete(id);
             return new ResponseEntity(HttpStatus.OK);
         }
