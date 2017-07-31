@@ -298,3 +298,26 @@ textarea.form-control {
 #myBtn:hover {
   background-color: #666666;
 }
+.rating {
+    float: left;
+    display: block;
+}
+.rating-stars {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating-stars > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+  font-size: 30px;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+}
+.rating-stars > span:hover:before,
+.rating-stars > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+   color: #f1c40f;
+}
