@@ -93,7 +93,7 @@
       }
 
       if(!bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
-        bookmark.url = "http://" + bookmark.url;
+        bookmark.url = "https://" + bookmark.url;
       }
 
       var username = {};

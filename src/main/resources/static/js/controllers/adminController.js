@@ -2,32 +2,81 @@
   angular.module('app')
     .controller('AdminController', AdminController);
 
-  UserController.$inject = ['UserService', 'BookmarkService', 'CategoryService'];
+  AdminController.$inject = ['UserService', 'BookmarkService', 'CategoryService', '$scope'];
 
-  function AdminController(UserService, BookmarkService, CategoryService) {
+  function AdminController(UserService, BookmarkService, CategoryService, $scope) {
 
     var vm = this;
-    vm.getBookmarks = getBookmarks;                     // done   
-    vm.editBookmark = editBookmark;                     // inprogress
-    vm.deleteBookmark = deleteBookmark;                 // done
-    vm.getCategories = getCategories;                   // done
-    vm.addCategoryModalOperation = addModalOperation;   // done
-    vm.addCategory = addCategory;                       // done
-    vm.editCategoryModalOperation = editModalOperation; // done
-    vm.editCategory;                                    // done
-    vm.deleteCategory = deleteCategory;                 // done
-    vm.getUsers = getUsers;                             // done
-    vm.blockUnblockUser = blockUnblockUser;             // done
-    vm.deleteUser = deleteUser;                         // done
+    vm.changePanel = changePanel;                               
+    vm.selectBookmark = selectBookmark;                         
+    vm.getBookmarks = getBookmarks;
+    vm.showBookmarkDetailsModal = showBookmarkDetailsModal;
+    vm.editBookmarkModal = editBookmarkModal;
+    vm.editBookmark = editBookmark;
+    vm.deleteBookmark = deleteBookmark;
+    vm.setBookmarkPrivacy = setBookmarkPrivacy;
+    vm.selectCategory = selectCategory;                         
+    vm.getCategories = getCategories;                           
+    vm.addCategoryModal = addCategoryModal;  
+    vm.addCategory = addCategory;                               
+    vm.editCategoryModal = editCategoryModal; 
+    vm.editCategory;                                            
+    vm.deleteCategory = deleteCategory;                         
+    vm.selectUser = selectUser;                                 
+    vm.getUsers = getUsers;                                     
+    vm.blockUnblockUser = blockUnblockUser;                     
+    vm.deleteUser = deleteUser;                                 
+
+    function changePanel(panelId) {
+      vm.panel = panelId;
+
+      if(vm.panel === 1){
+        getBookmarks();
+        getCategories();
+      }
+      else if(vm.panel === 2){
+        getUsers();
+      }
+      else if(vm.panel === 3){
+        getCategories();
+      }
+    }
+
+    function selectBookmark(bookmark) {
+      if(vm.selectedBookmark == bookmark) {
+        vm.selectedBookmark = null;
+      }
+      else {
+        vm.selectedBookmark = bookmark;
+      }
+    }
 
     function getBookmarks() {
-      BookmarkService.getBookmarks().then(handleSuccessBookmarks);
+      if($scope.$parent.vm.user.name) {
+        BookmarkService.getBookmarks().then(handleSuccessBookmarks);
+      }
     }
     
+    function showBookmarkDetailsModal() {
+      
+    }
+
     function handleSuccessBookmarks(data, status){
       vm.bookmarks = data;
     }
     
+    function editBookmarkModal() {
+      if(vm.selectedBookmark.tags){
+        var tags = {};
+        vm.selectedBookmark.tags.forEach(function(tag) {
+          tags += tag.name + " ";
+          console.log(tags);
+        })
+        vm.selectedBookmark.tags = tags;
+        tags = {};
+      }
+    }
+
     function editBookmark(){
       CategoryService.saveCategory(vm.selectedCategory).then(function(response) {
         $('#editBookmarkModal').modal('hide');
@@ -37,7 +86,7 @@
         vm.error = error;
       }) 
     }
-    
+
     function deleteBookmark(){
       BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
         $('#deleteBookmarkModal').modal('hide');
@@ -48,15 +97,30 @@
       });
     }
     
+    function setBookmarkPrivacy(state){
+      vm.selectedBookmark.public = state;
+    }
+    
+    function selectCategory(category) {
+      if(vm.selectedCategory == category) {
+        vm.selectedCategory = null;
+      }
+      else {
+        vm.selectedCategory = category;
+      }
+    }
+
     function getCategories() {
-      CategoryService.getCategories().then(handleSuccessCategories);
+      if($scope.$parent.vm.user.name) {
+        CategoryService.getCategories().then(handleSuccessCategories);
+      }
     }
 
     function handleSuccessCategories(data, status){
       vm.categories = data;
     }
 
-    function addCategoryModalOperation() {
+    function addCategoryModal() {
       vm.categoryOperation = "add";
     }
 
@@ -73,19 +137,11 @@
         vm.error = error;
       })      
     }
-      
-    function editCategoryModalOperation() {
-      vm.categoryOpeartion = "edit";
-      
-      if(vm.selectedBookmark.tags){
-        var tags;
-        vm.selectedBookmark.tags.forEach(function(tag) {
-          tags += tag.name + " ";
-        })
-        vm.selectedBookmark.tags = tags;
-      }
+
+    function editCategoryModal() {
+      vm.categoryOpeartion = "edit";   
     }
-    
+
     function editCategory() {
       if(!vm.selectedCategory.name) {
         vm.error = "Please specify a category name!";
@@ -110,15 +166,26 @@
         vm.error = error;
       });
     }
+
+    function selectUser(user) {
+      if(vm.selectedUser == user) {
+        vm.selectedUser = null;
+      }
+      else {
+        vm.selectedUser = user;
+      }
+    }
     
     function getUsers() {
-      UserService.getUsers().then(handleSuccessUsers);
+      if($scope.$parent.vm.user.name) {
+        UserService.getUsers().then(handleSuccessUsers);
+      }
     }
 
     function handleSuccessUsers(data, status){
       vm.users = data;
     }
-    
+
     function blockUnblockUser(){
       UserService.blockUnblockUser(vm.selectedUser.id).then(function(response){
         $('#blockUnblockUserModal').modal('hide');
@@ -128,7 +195,7 @@
         vm.error = error;
       });
     }
-    
+
     function deleteUser(){
       UserService.deleteUser(vm.selectedUser.id).then(function(response){
         $('#deleteUserModal').modal('hide');
@@ -139,4 +206,5 @@
       });
     }
 
-  })();
+  };
+})();
