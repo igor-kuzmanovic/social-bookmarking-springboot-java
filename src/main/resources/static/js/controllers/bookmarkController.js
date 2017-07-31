@@ -58,27 +58,31 @@
     function saveBookmark(bookmark) {
       if(vm.operation.name == "edit") {
         bookmark.id = vm.selectedBookmark.id;
-      }          
 
-      if(vm.operation.name == "add"){
-        if((!bookmark || !vm.category)
-           || (!bookmark.title && !bookmark.url && !vm.category)
-           || (!bookmark.title && !bookmark.url && vm.category)
-           || (!bookmark.title && bookmark.url && !vm.category)
-           || (bookmark.title && !bookmark.url && !vm.category)) {
-          vm.error = "Please fill in all fields!";
-          return;
-        } 
-
-        if(bookmark.title && bookmark.url && !vm.category) {
-          vm.error = "Please choose a category!";
-          return;
-        }     
+        if(!vm.category) {
+          vm.category = vm.selectedBookmark.category.id;
+        }
       }
+
+      if((!bookmark || !vm.category)
+         || (!bookmark.title && !bookmark.url && !vm.category)
+         || (!bookmark.title && !bookmark.url && vm.category)
+         || (!bookmark.title && bookmark.url && !vm.category)
+         || (bookmark.title && !bookmark.url && !vm.category)) {
+        vm.error = "Please fill in all fields!";
+        return;
+      } 
+
+      if(bookmark.title && bookmark.url && !vm.category) {
+        vm.error = "Please choose a category!";
+        return;    
+      }
+
       if(bookmark.title && !bookmark.url && vm.category) {
         vm.error = "Please specify a URL!";
         return;
-      }      
+      } 
+
       if(!bookmark.title && bookmark.url && vm.category) {		
         vm.error = "Please specify a title!";
         return;
@@ -87,6 +91,7 @@
       if(!bookmark.url.startsWith("www.") && !bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
         bookmark.url = "www." + bookmark.url;         
       }
+
       if(!bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
         bookmark.url = "http://" + bookmark.url;
       }
@@ -94,6 +99,9 @@
       var username = {};
       username.username = $scope.$parent.vm.user.name;
       bookmark.user = username;
+      bookmark.date = new Date();
+      bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
+      bookmark.category = vm.categories[vm.category - 1];
 
       if(vm.tags){
         var tagsToSend = [];
@@ -110,16 +118,6 @@
       else{
         bookmark.tags = [];
       }
-
-
-      bookmark.date = new Date();
-      bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
-
-      if(vm.operation.name === "edit" && !vm.category) {
-        vm.category = vm.selectedBookmark.category.id;
-      }
-
-      bookmark.category = vm.categories[vm.category - 1];
 
       BookmarkService.saveBookmark(bookmark).then(function(response){
         $('#addBookmarkModal').modal('hide');

@@ -9,6 +9,7 @@
     var service = {
       saveBookmark: saveBookmark,
       deleteBookmark: deleteBookmark,
+      getBookmarks: getBookmarks,
       getUserBookmarks: getUserBookmarks,
       getPublicBookmarks: getPublicBookmarks,
       importBookmark: importBookmark
@@ -27,7 +28,7 @@
         def.resolve(data);
       })
         .error(function () {
-        def.reject("Failed to save");
+        def.reject("Failed to save a bookmark");
       });
       return def.promise;
     }
@@ -42,7 +43,23 @@
         def.resolve(data);
       })
         .error(function () {
-        def.reject("Failed to delete");
+        def.reject("Failed to delete a bookmark");
+      });
+      return def.promise;
+    }
+    
+    function getBookmarks() {
+      var def = $q.defer();
+      var req = {
+        method: 'GET',
+        url: "bookmarks/"
+      }
+      $http(req)
+        .success(function (data) {
+        def.resolve(data);
+      })
+        .error(function () {
+        def.reject("Failed to get all bookmarks");
       });
       return def.promise;
     }
@@ -58,7 +75,7 @@
         def.resolve(data);
       })
         .error(function () {
-        def.reject("Failed to get by username");
+        def.reject("Failed to get user bookmarks");
       });
       return def.promise;
     }
@@ -74,7 +91,7 @@
         def.resolve(data);
       })
         .error(function () {
-        def.reject("Failed to get public");
+        def.reject("Failed to get public bookmarks");
       });
       return def.promise;
     }
@@ -89,7 +106,7 @@
         def.resolve(data);
       })
         .error(function (){
-        def.reject("Failed to import");
+        def.reject("Failed to import a bookmark");
       })
       return def.promise;
     }
