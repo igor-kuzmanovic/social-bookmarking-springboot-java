@@ -33,7 +33,7 @@ Users should be allowed to share, rate and comment on bookmarks added by other u
 
 - [x] Admin user has same functionalities as a regular user.
 
-- [ ] He can also create, read, update, delete categories and bookmarks.
+- [x] He can also create, read, update, delete categories and bookmarks.
 
-- [ ] Admin user can block and delete regular users.
+- [x] Admin user can block and delete regular users.
 
