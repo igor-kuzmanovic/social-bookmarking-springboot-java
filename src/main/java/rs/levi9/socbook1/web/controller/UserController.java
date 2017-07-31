@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Role;
 import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.domain.UserStatus;
 import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.UserService;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -60,6 +61,27 @@ public class UserController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(path = "/block/{user_id}", method = RequestMethod.PUT)
+    public ResponseEntity<User> changeStatus(@PathVariable("user_id") Long userId) {
+        User foundUser = userService.findOne(userId);
+
+        if (foundUser == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        foundUser.setUserStatus(resolveStatus(foundUser));
+
+        for (Role role : foundUser.getRoles()) {
+            if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
+        }
+
+        userService.save(foundUser);
+
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
@@ -92,5 +114,16 @@ public class UserController {
 
         return map;
     }
-    
+
+    private UserStatus resolveStatus(User foundUser) {
+        UserStatus userStatus = new UserStatus();
+        if (foundUser.getUserStatus().getType().equals(UserStatus.UserStatusType.STATUS_ACTIVE)) {
+            userStatus.setType(UserStatus.UserStatusType.STATUS_INACTIVE);
+            userStatus.setId(2L);
+        } else {
+            userStatus.setType(UserStatus.UserStatusType.STATUS_ACTIVE);
+            userStatus.setId(1L);
+        }
+        return userStatus;
+    }
 }
