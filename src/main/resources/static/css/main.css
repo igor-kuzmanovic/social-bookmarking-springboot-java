@@ -1,188 +1,188 @@
 /***********SPACES*********/
 .space {
-	height: 215px;
-	width: 100%;
+  height: 215px;
+  width: 100%;
 }
 .space1 {
-	height: 15px;
-	width: 100%;
+  height: 15px;
+  width: 100%;
 }
 .min-space {
-	height:50px;
-	width: 100%;
+  height:50px;
+  width: 100%;
 }
 .panel-space {
-	height: 15px;
+  height: 15px;
 }
 
 /***********NAVIGATION***********/
 .navbar-fixed-top {
-	border-bottom: 2px solid #34495e;
+  border-bottom: 2px solid #34495e;
 }
 .navbar2 {
-	border-top: 1px solid transparent;
-    width: 100%;
-    height: 50px;
-    background-color: #ecf0f1;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+  border-top: 1px solid transparent;
+  width: 100%;
+  height: 50px;
+  background-color: #ecf0f1;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .navbar3 {
-	border-top: 1px solid transparent;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    background-color: #ecf0f1;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+  border-top: 1px solid transparent;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background-color: #ecf0f1;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 div.navbar-brand {
-    width: 40px;
-    height: 40px;
-    padding: 0 0;
+  width: 40px;
+  height: 40px;
+  padding: 0 0;
 }
 div.navbar-brand img {
-    width: 40px;
-    height: 40px;
-    margin-top: 4px;
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
 }
 a.navbar-brand1 {
-    width: 40px;
-    height: 40px;
-    padding: 0 0;
-    margin-left: 15px;
+  width: 40px;
+  height: 40px;
+  padding: 0 0;
+  margin-left: 15px;
 }
 p.navbar-brand1 {
-    padding: 0 0;
-    margin-left: 15px;
-    font-size: 30px;
-    margin-top: 12px;
-    width: 200px;
+  padding: 0 0;
+  margin-left: 15px;
+  font-size: 30px;
+  margin-top: 12px;
+  width: 200px;
 }
 
 /***********ICONS IN NAVBAR2***********/
 div.nav-icons {
-	width: 25px;
-	height: 25px;
-	float: right;
-    margin-top: 12px;
-    margin-right: 15px;
+  width: 25px;
+  height: 25px;
+  float: right;
+  margin-top: 12px;
+  margin-right: 15px;
 }
 div.nav-icons1 {
-	width: 25px;
-	height: 25px;
-	float: left;
-    margin-top: 12px;
-    margin-left: 15px;
+  width: 25px;
+  height: 25px;
+  float: left;
+  margin-top: 12px;
+  margin-left: 15px;
 }
 img.nav-icons {
-   width: 25px;
-   height: 25px;
+  width: 25px;
+  height: 25px;
 }
 /***********CONTAINERS***********/
 .form-container {
-	width: 400px;
-	height: 400px;
-	border: solid 1px #bdc3c7;
-	margin: 0 auto;
-	position: relative;
+  width: 400px;
+  height: 400px;
+  border: solid 1px #bdc3c7;
+  margin: 0 auto;
+  position: relative;
 }
 .form-container1 {
-	width: 400px;
-	height: 50px;
-	border: solid 1px #bdc3c7;
-	margin: 0 auto;
-	position: relative;
+  width: 400px;
+  height: 50px;
+  border: solid 1px #bdc3c7;
+  margin: 0 auto;
+  position: relative;
 }
 .form-container1 p {
-	color: #262626;
-    font-size: 14px;
-    margin: 15px;
-    text-align: center;
+  color: #262626;
+  font-size: 14px;
+  margin: 15px;
+  text-align: center;
 }
 .form-container2 {
-	width: 400px;
-	height: 250px;
-	border: solid 1px #bdc3c7;
-	margin: 0 auto;
-	position: relative;
+  width: 400px;
+  height: 250px;
+  border: solid 1px #bdc3c7;
+  margin: 0 auto;
+  position: relative;
 }
 .alert-container {
-	width: 380px;
-	height: 50px;
-	margin: 14px auto 0px auto;
-	position: relative:
+  width: 380px;
+  height: 50px;
+  margin: 14px auto 0px auto;
+  position: relative:
 }
 .bookmark-container {
-    width: 70%;
-    height: auto;
-    margin: 0 auto;
-    background-color: #ecf0f1;
-	padding: 10px 5px 15px 5px;
-	overflow: hidden;
-    border-radius: 15px;
+  width: 70%;
+  height: auto;
+  margin: 0 auto;
+  background-color: #ecf0f1;
+  padding: 10px 5px 15px 5px;
+  overflow: hidden;
+  border-radius: 15px;
 }
 .bookmark-container1 {
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    background-color: #ecf0f1;
-	padding: 10px 5px 15px 5px;
-	overflow: hidden;
-    border-radius: 15px;
-    margin: 0 0;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  background-color: #ecf0f1;
+  padding: 10px 5px 15px 5px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin: 0 0;
 }
 /***********FORMS***********/
 .register-form {
-	width: 350px;
-	height: 380px;
-	margin: 0 auto;
-	position: relative;
-	padding: 5px 5px;
+  width: 350px;
+  height: 380px;
+  margin: 0 auto;
+  position: relative;
+  padding: 5px 5px;
 }
 .login-form {
-	width: 350px;
-	height: 250px;
-	margin: 0 auto;
-	position: relative;
-	padding: 5px 5px;
+  width: 350px;
+  height: 250px;
+  margin: 0 auto;
+  position: relative;
+  padding: 5px 5px;
 }
 .panel-space {
-	height: 15px;
+  height: 15px;
 }
 .btn-custom-2 {
-	float: right;
-	height: 19px;
+  float: right;
+  height: 19px;
 }
 .container .jumbotron {
-	margin: 60px 10px 0px 10px;
-	padding: 20px 20px 20px 20px;
+  margin: 60px 10px 0px 10px;
+  padding: 20px 20px 20px 20px;
 }
 .panel-primary {
-    margin: 10px 21px;
-    width: 28%;
-    border-radius: 4px;
-    box-shadow: 10px 10px 5px #bdc3c7;
-    float: left;
-    border-style: solid;
-    border-color: darkgray;
-    flex: 1;
+  margin: 10px 21px;
+  width: 28%;
+  border-radius: 4px;
+  box-shadow: 10px 10px 5px #bdc3c7;
+  float: left;
+  border-style: solid;
+  border-color: darkgray;
+  flex: 1;
 }
 .panel-primary:hover {
-    border: 2px double #93c8ec;
-    margin: 9px 21px;
+  border: 2px double #93c8ec;
+  margin: 9px 21px;
 }
 .selected {
-	border: 3px solid #3498db;
-	margin: 8px 21px;
+  border: 3px solid #3498db;
+  margin: 8px 21px;
 }
 .selected:hover {
-	border: 3px solid #3498db;
-	margin: 8px 21px;
+  border: 3px solid #3498db;
+  margin: 8px 21px;
 }
 .table-striped>tbody>tr:hover {
   background-color: #d1ebfa;
@@ -200,85 +200,85 @@ img.nav-icons {
   background-color: #a4d7f4;
 }
 .panel-title {
-	overflow: hidden;
+  overflow: hidden;
 }
 .panel-content {
-	padding: 15px;
+  padding: 15px;
 }
 .panel-body {
-	overflow: hidden;
-	box-sizing: border-box;
-	padding: 0 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 0;
 }
 .panel-footer {
-    height: 40px;
-    border-top: 1px solid #2c3e50;
-    padding: 0 0;
+  height: 40px;
+  border-top: 1px solid #2c3e50;
+  padding: 0 0;
 }
 .panel-footer1 {
-    width: 50%;
-    height: 100%;
-    float: left;
-    border-right: 1px solid #2c3e50;
+  width: 50%;
+  height: 100%;
+  float: left;
+  border-right: 1px solid #2c3e50;
 }
 .panel-footer2 {
-    width: 50%;
-    height: 100%;
-    float: right;
+  width: 50%;
+  height: 100%;
+  float: right;
 }
 .panel {
-    background: transparent;
+  background: transparent;
 }
 img.panel {
-    margin: 0 auto;
-    padding: 0 0;
-    width: 39px;
-    height: 39px;
-    text-align:center;
-    margin-left: 33%;
-    border: 0px;
+  margin: 0 auto;
+  padding: 0 0;
+  width: 39px;
+  height: 39px;
+  text-align:center;
+  margin-left: 33%;
+  border: 0px;
 }
 .col-lg-10 {
-	margin-top: 5px;
-	margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 fieldset legend {
-	font-family: 'Poppins', sans-serif;
-	padding: 15px 5px 5px 5px;
+  font-family: 'Poppins', sans-serif;
+  padding: 15px 5px 5px 5px;
 }
 .btn-login {
-	width: 100%;
+  width: 100%;
 }
 .jumbotron {
-	background: white;
-	border: 1px;
+  background: white;
+  border: 1px;
 }
 .panel-title, div.panel-body {
-    text-align: center;
+  text-align: center;
 }
 /***ANGULAR FIX***/
 .ng-hide.ng-hide-animate {
-	display: none !important;
+  display: none !important;
 }
 .search-group {
-    height: 38px;
-    margin: 4px 5px;  
+  height: 38px;
+  margin: 4px 5px;  
 }
 .search-group1 {
-    height: 78px;
-    margin: 5px 5px 15px 5px;
+  height: 78px;
+  margin: 5px 5px 15px 5px;
 }
 label.col-lg-2.control-label.control-label1 {
-    width: 100px;
+  width: 100px;
 }
 .resized-height {
-    height: 35px;
+  height: 35px;
 }
 textarea.form-control {
-    resize: none;
+  resize: none;
 }
 .panel-heading {
-    border-radius: 0;
+  border-radius: 0;
 }
 #myBtn {
   display: none;
@@ -298,9 +298,15 @@ textarea.form-control {
 #myBtn:hover {
   background-color: #666666;
 }
+.blue-star {
+  color: #5fb9ec;
+}
 .rating-stars {
   unicode-bidi: bidi-override;
   direction: rtl;
+  width: 140px;
+  margin-bottom: 8px;
+  margin-left: 8px;
 }
 .rating-stars > span {
   display: inline-block;
@@ -311,43 +317,41 @@ textarea.form-control {
   height: 28px;
   text-align: center;
 }
-.rating-stars > span:hover:before,
-.rating-stars > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-   color: #f1c40f;
+.rating-stars.rate {
+  cursor: pointer;
 }
-div#stars.rating-stars {
-    width: 140px;
-    margin-bottom: 20px;
-    margin-left: 8px;
+.rating-stars.rate > span:hover:before,
+.rating-stars.rate > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+  color: #f1c40f;
 }
 label.rating {
-    margin-bottom: 0px;
-    padding: 0 8px;
+  margin-bottom: 0px;
+  padding: 0 8px;
 }
 div.jumbotron.jumbotron-comments {
-    border-style: solid;
-    border-color: #ecf0f1;
-    border-width: 10px 1px;
-    margin: 20px 0px 30px 0px;
-    padding: 8px 8px;
-    background-color: #ecf0f1;
-    height: 180px;
-    overflow: auto;
+  border-style: solid;
+  border-color: #ecf0f1;
+  border-width: 10px 1px;
+  margin: 0px 0px 10px 0px;
+  padding: 8px 8px;
+  background-color: #ecf0f1;
+  height: 180px;
+  overflow: auto;
 }
 div.jumbotron.jumbotron-comments div.panel-heading h5 {
-    text-align: left; 
+  text-align: left; 
 }
 div.jumbotron.jumbotron-comments div.panel-body.comment-body {
-    padding: 10px 15px;
-    background-color: #fff;
-    text-align: left;
+  padding: 10px 15px;
+  background-color: #fff;
+  text-align: left;
 }
 div.jumbotron.jumbotron-comments a.btn-primary {
-    float: left;
+  float: left;
 }
 div.jumbotron.jumbotron-comments a.btn-primary {
-    float: right;
-    margin-right: 10px;
+  float: right;
+  margin-right: 10px;
 }

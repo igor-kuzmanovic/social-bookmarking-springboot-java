@@ -12,7 +12,8 @@
       getBookmarks: getBookmarks,
       getUserBookmarks: getUserBookmarks,
       getPublicBookmarks: getPublicBookmarks,
-      importBookmark: importBookmark
+      importBookmark: importBookmark,
+      rateBookmark: rateBookmark
     }
 
     return service;
@@ -108,6 +109,21 @@
         .error(function (){
         def.reject("Failed to import a bookmark");
       })
+      return def.promise;
+    }
+    
+    function rateBookmark(bookmarkId, rating) {
+      var def = $q.defer();
+      var req = {
+        method: 'PUT',
+        url: "bookmarks/rate/" + bookmarkId + "/" + rating
+      }
+      $http(req).success(function (data) {
+        def.resolve(data);
+      })
+        .error(function () {
+        def.reject("Failed to rate a bookmark");
+      });
       return def.promise;
     }
 

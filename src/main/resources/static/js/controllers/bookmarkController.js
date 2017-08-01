@@ -18,6 +18,7 @@
     vm.editModalOperation = editModalOperation;
     vm.setBookmarkPrivacy = setBookmarkPrivacy;
     vm.openBookmark = openBookmark;
+    vm.rateBookmark = rateBookmark;
     vm.operation = {};
     vm.bookmarks = {};
     vm.bookmark = {};
@@ -185,6 +186,14 @@
       $window.open(bookmark.url, '_blank');
       selectBookmark(bookmark);
       $window.getSelection().removeAllRanges();
+    }
+    
+    function rateBookmark(rating) {
+      BookmarkService.rateBookmark(vm.selectedBookmark.id, rating).then(function(response) {
+        getUserBookmarks($scope.$parent.vm.user.name);
+      }, function(error){
+        vm.error = error;
+      })
     }
 
   };
