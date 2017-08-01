@@ -56,7 +56,7 @@
         BookmarkService.getBookmarks().then(handleSuccessBookmarks);
       }
     }
-    
+
     function showBookmarkDetailsModal() {
       if(vm.selectedBookmark.tags && !(typeof vm.selectedBookmark.tags === 'string' || vm.selectedBookmark.tags instanceof String)){
         var tags = [];
@@ -71,7 +71,7 @@
     function handleSuccessBookmarks(data, status){
       vm.bookmarks = data;
     }
-    
+
     function editBookmarkModal() {
       if(vm.selectedBookmark.tags && !(typeof vm.selectedBookmark.tags === 'string' || vm.selectedBookmark.tags instanceof String)){
         var tags = [];
@@ -95,7 +95,7 @@
         vm.selectedBookmark.tags = tags;
         delete tags;
       }
-      
+
       BookmarkService.saveBookmark(vm.selectedBookmark).then(function(response) {
         $('#editBookmarkModal').modal('hide');
         getBookmarks();
@@ -114,11 +114,11 @@
         vm.error = error;
       });
     }
-    
+
     function setBookmarkPrivacy(state){
       vm.selectedBookmark.public = state;
     }
-    
+
     function selectCategory(category) {
       if(vm.selectedCategory == category) {
         vm.selectedCategory = null;
@@ -193,7 +193,7 @@
         vm.selectedUser = user;
       }
     }
-    
+
     function getUsers() {
       if($scope.$parent.vm.user.name) {
         UserService.getUsers().then(handleSuccessUsers);

@@ -298,10 +298,6 @@ textarea.form-control {
 #myBtn:hover {
   background-color: #666666;
 }
-.rating {
-    float: left;
-    display: block;
-}
 .rating-stars {
   unicode-bidi: bidi-override;
   direction: rtl;
@@ -310,7 +306,7 @@ textarea.form-control {
   display: inline-block;
   position: relative;
   width: 1.1em;
-  font-size: 30px;
+  font-size: 34px;
   width: 28px;
   height: 28px;
   text-align: center;
@@ -320,4 +316,38 @@ textarea.form-control {
    content: "\2605";
    position: absolute;
    color: #f1c40f;
+}
+div#stars.rating-stars {
+    width: 140px;
+    margin-bottom: 20px;
+    margin-left: 8px;
+}
+label.rating {
+    margin-bottom: 0px;
+    padding: 0 8px;
+}
+div.jumbotron.jumbotron-comments {
+    border-style: solid;
+    border-color: #ecf0f1;
+    border-width: 10px 1px;
+    margin: 20px 0px 30px 0px;
+    padding: 8px 8px;
+    background-color: #ecf0f1;
+    height: 180px;
+    overflow: auto;
+}
+div.jumbotron.jumbotron-comments div.panel-heading h5 {
+    text-align: left; 
+}
+div.jumbotron.jumbotron-comments div.panel-body.comment-body {
+    padding: 10px 15px;
+    background-color: #fff;
+    text-align: left;
+}
+div.jumbotron.jumbotron-comments a.btn-primary {
+    float: left;
+}
+div.jumbotron.jumbotron-comments a.btn-primary {
+    float: right;
+    margin-right: 10px;
 }

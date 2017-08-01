@@ -88,8 +88,13 @@
       <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select a user">
         <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer"/>
       </div>
+    </div>
+    <div ng-show="vm.selectedUser.roles.length == 2">
+      <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select a regular user">
+        <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer"/>
+      </div>
     </div> 
-    <div ng-show="vm.selectedUser">
+    <div ng-show="vm.selectedUser && vm.selectedUser.roles.length < 2">
       <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_blue.png'" ng-mouseout="imgsrc4='images/block.png'" title="Block a user">
         <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer" data-toggle="modal" data-target="#blockUnblockUserModal"/>
       </div>
@@ -107,7 +112,7 @@
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteCategoryModal"/>
       </div>
     </div>
-    
+
     <div ng-show="!vm.selectedCategory">
       <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select a category">
         <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
@@ -118,7 +123,7 @@
         <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editCategoryModal" ng-click="vm.editCategoryModal()"/>
       </div>
     </div>
-    
+
     <div class="nav-icons" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add a category">
       <img class="nav-icons" src="{{imgsrc0}}" style="cursor: pointer" data-toggle="modal" data-target="#addCategoryModal"/>
     </div>
@@ -261,22 +266,24 @@
 <div class="modal fade" id="editBookmarkModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Bookmark edit</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal">
+      <form class="form-horizontal" name="editBookmark">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Bookmark edit</h4>
+        </div>
+        <div class="modal-body">
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Title</label>
-              <div class="col-lg-10">
-                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedBookmark.title">
+              <div class="col-lg-10" ng-class="{'has-error': editBookmark.bookmarkTitle.$touched && editBookmark.bookmarkTitle.$invalid}">
+                <input name="bookmarkTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedBookmark.title" required>
+                <span class="label label-danger" ng-show="editBookmark.bookmarkTitle.$touched && editBookmark.bookmarkTitle.$invalid">Please specify a title!</span>
               </div>
 
               <label for="inputURL" class="col-lg-2 control-label">URL</label>
-              <div class="col-lg-10">
-                <input class="form-control" id="inputURL" placeholder="http:///www.example.com" type="text" ng-model="vm.selectedBookmark.url">
+              <div class="col-lg-10" ng-class="{'has-error': editBookmark.bookmarkUrl.$touched && editBookmark.bookmarkUrl.$invalid}">
+                <input name="bookmarkUrl" class="form-control" id="inputURL" placeholder="http:///www.example.com" type="url" ng-model="vm.selectedBookmark.url" required>
+                <span class="label label-danger" ng-show="editBookmark.bookmarkUrl.$touched && editBookmark.bookmarkUrl.$invalid">Please specify a valid URL!</span>
               </div>
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
@@ -312,15 +319,12 @@
               </div>
             </div>
           </fieldset>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.editBookmark()">Save changes</button>
-        <div class="alert-container alert alert-danger" ng-if="vm.error">
-          {{vm.error}}
         </div>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: editBookmark.$dirty && editBookmark.$invalid}" ng-click="vm.editBookmark()">Save changes</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -368,29 +372,27 @@
 <div class="modal fade" id="addCategoryModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Category add</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal">
+      <form class="form-horizontal" name="addCategory">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Category add</h4>
+        </div>
+        <div class="modal-body">
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Name</label>
-              <div class="col-lg-10">
-                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.category.name">
+              <div class="col-lg-10" ng-class="{'has-error': addCategory.categoryTitle.$touched && addCategory.categoryTitle.$invalid}">
+                <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.category.name" required>
+                <span class="label label-danger" ng-show="addCategory.categoryTitle.$touched && addCategory.categoryTitle.$invalid">Please specify a title!</span>
               </div>
             </div>
           </fieldset>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.addCategory(vm.category)">Confirm</button>
-        <div class="alert-container alert alert-danger" ng-if="vm.error">
-          {{vm.error}}
         </div>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: addCategory.$dirty && addCategory.$invalid}" ng-click="vm.addCategory(vm.category)">Confirm</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -398,29 +400,27 @@
 <div class="modal fade" id="editCategoryModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Category edit</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal">
+      <form class="form-horizontal" name="editCategory">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Category edit</h4>
+        </div>
+        <div class="modal-body">
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Name</label>
-              <div class="col-lg-10">
-                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedCategory.name">
+              <div class="col-lg-10" ng-class="{'has-error': editCategory.categoryTitle.$touched && editCategory.categoryTitle.$invalid}">
+                <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedCategory.name" required>
+                <span class="label label-danger" ng-show="editCategory.categoryTitle.$touched && editCategory.categoryTitle.$invalid">Please specify a title!</span>
               </div>
             </div>
           </fieldset>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.editCategory()">Confirm</button>
-        <div class="alert-container alert alert-danger" ng-if="vm.error">
-          {{vm.error}}
         </div>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: editCategory.$dirty && editCategory.$invalid}" ng-click="vm.editCategory()">Confirm</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
