@@ -233,8 +233,7 @@ public class BookmarkController {
 
     private String getLoggedUserName() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedUserName = auth.getName();
-        return loggedUserName;
+        return auth.getName();
     }
 
     private boolean loggedUserEqualsRequestUserOrAdmin(User requestedUser) {

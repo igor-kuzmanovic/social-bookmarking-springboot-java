@@ -61,6 +61,7 @@ public class UserController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/block/{user_id}", method = RequestMethod.PUT)
     public ResponseEntity<User> changeStatus(@PathVariable("user_id") Long userId) {
         User foundUser = userService.findOne(userId);
