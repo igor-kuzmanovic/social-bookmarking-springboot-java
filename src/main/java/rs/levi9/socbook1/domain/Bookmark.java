@@ -3,12 +3,15 @@ package rs.levi9.socbook1.domain;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Bookmark extends BaseEntity {
@@ -31,6 +34,16 @@ public class Bookmark extends BaseEntity {
 	 
 	@Column(nullable = false)
 	private boolean isPublic;
+
+	@Min(0)
+	@Max(5)
+	private Integer rating;
+
+	@Column(name = "times_rated")
+	private Integer timesRated;
+
+	@Column(name = "rate_sum")
+	private Integer rateSum;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -116,4 +129,28 @@ public class Bookmark extends BaseEntity {
     public void setImported(boolean imported) {
         this.imported = imported;
     }
+
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
+	public Integer getTimesRated() {
+		return timesRated;
+	}
+
+	public void setTimesRated(Integer timesRated) {
+		this.timesRated = timesRated;
+	}
+
+	public Integer getRateSum() {
+		return rateSum;
+	}
+
+	public void setRateSum(Integer rateSum) {
+		this.rateSum = rateSum;
+	}
 }
