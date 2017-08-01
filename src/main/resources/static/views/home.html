@@ -222,7 +222,7 @@
         </div>
         <label class="rating" for="stars_rating">Rating</label>
         <div class="rating-stars" id="stars_rating">
-          <span ng-class="{'blue-star': vm.selectedBookmark.rating > 4}">{{vm.selectedBookmark.rating > 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating > 3}">{{vm.selectedBookmark.rating > 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating > 2}">{{vm.selectedBookmark.rating > 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating > 1}">{{vm.selectedBookmark.rating > 1 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating > 0}">{{vm.selectedBookmark.rating > 0 ? '★' : '☆'}}</span>
+          <span ng-class="{'blue-star': vm.selectedBookmark.rating == 5}">{{vm.selectedBookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 4}">{{vm.selectedBookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 3}">{{vm.selectedBookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 2}">{{vm.selectedBookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 1}">{{vm.selectedBookmark.rating >= 1 ? '★' : '☆'}}</span>
         </div>
         <label class="rating" for="stars_rate">Rate</label>
         <div class="rating-stars rate" id="stars_rate">
