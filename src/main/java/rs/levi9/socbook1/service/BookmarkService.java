@@ -93,7 +93,7 @@ public class BookmarkService  {
         return bookmarkRepository.findByUserIsAndUrlIs(user, url);
     }
 
-    public Long countBookmarksByCategory(Long id) {
-        return bookmarkRepository.countAllBookmarksByCategoryId(id);
+    public List<Bookmark> findAllBookmarksByCategory(Long id) {
+        return bookmarkRepository.findAllBookmarksByCategoryId(id);
     }
 }

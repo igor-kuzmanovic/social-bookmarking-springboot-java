@@ -30,4 +30,12 @@ public class CategoryService {
     public void delete(Long id) {
         categoryRepository.delete(id);
     }
+
+    public Category findByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
+    public Category findOne(Long id) {
+        return categoryRepository.findOne(id);
+    }
 }
