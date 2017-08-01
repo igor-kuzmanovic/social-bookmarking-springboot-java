@@ -24,6 +24,7 @@ public class TagController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public List<Tag> findAll() {
+
         return tagService.findAll();
     }
 

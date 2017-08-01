@@ -96,4 +96,8 @@ public class BookmarkService  {
     public List<Bookmark> findAllBookmarksByCategory(Long id) {
         return bookmarkRepository.findAllBookmarksByCategoryId(id);
     }
+
+    public Bookmark findBookmarkByCommentId(Long id) {
+        return bookmarkRepository.findBookmarkByCommentsId(id);
+    }
 }

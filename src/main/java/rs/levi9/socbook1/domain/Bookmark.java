@@ -18,20 +18,20 @@ public class Bookmark extends BaseEntity {
 
 	@Column(nullable = false)
 	private String url;
-	
-	@Length(min=2, max=100)
+
+	@Length(min = 2, max = 100)
 	@Column(nullable = false)
 	private String title;
-	
+
 	@Column(nullable = false)
 	private Date date;
 
 	@Column(nullable = false)
 	private boolean imported;
-	
+
 	@Column(nullable = true)
 	private String description;
-	 
+
 	@Column(nullable = false)
 	private boolean isPublic;
 
@@ -57,6 +57,19 @@ public class Bookmark extends BaseEntity {
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;
+
+	@Cascade(CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
+	private Set<Comment> comments;
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public String getUrl() {
 		return url;
@@ -122,13 +135,13 @@ public class Bookmark extends BaseEntity {
 		this.user = user;
 	}
 
-    public boolean isImported() {
-        return imported;
-    }
+	public boolean isImported() {
+		return imported;
+	}
 
-    public void setImported(boolean imported) {
-        this.imported = imported;
-    }
+	public void setImported(boolean imported) {
+		this.imported = imported;
+	}
 
 	public Integer getRating() {
 		return rating;
