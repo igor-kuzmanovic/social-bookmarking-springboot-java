@@ -107,7 +107,12 @@
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
       </div>
     </div>
-    <div ng-show="vm.selectedCategory">
+    <div ng-show="vm.selectedCategory && vm.selectedCategory.name === 'Uncategorized'">
+      <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_red.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Please select a different category">
+        <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer"/>
+      </div>
+    </div>
+    <div ng-show="vm.selectedCategory && vm.selectedCategory.name !== 'Uncategorized'">
       <div class="nav-icons" ng-init="imgsrc1='images/trash.png'" ng-mouseover="imgsrc1='images/trash_blue.png'" ng-mouseout="imgsrc1='images/trash.png'" title="Delete a category">
         <img class="nav-icons" src="{{imgsrc1}}" style="cursor: pointer" data-toggle="modal" data-target="#deleteCategoryModal"/>
       </div>
@@ -118,7 +123,12 @@
         <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
       </div>
     </div>
-    <div ng-show="vm.selectedCategory">
+    <div ng-show="vm.selectedCategory && vm.selectedCategory.name === 'Uncategorized'">
+      <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select a different category">
+        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
+      </div>
+    </div>
+    <div ng-show="vm.selectedCategory && vm.selectedCategory.name !== 'Uncategorized'">
       <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit a category">
         <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editCategoryModal" ng-click="vm.editCategoryModal()"/>
       </div>
