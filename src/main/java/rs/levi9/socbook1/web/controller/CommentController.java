@@ -15,6 +15,7 @@ import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.CommentService;
 import rs.levi9.socbook1.service.UserService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,11 +33,16 @@ public class CommentController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @RequestMapping(path = "/{bookmark_id}", method = RequestMethod.POST)
-    public ResponseEntity<Comment> save(@RequestBody Comment comment, @PathVariable("bookmark_id") Long id) {
-        //Get user who posts.
-        Bookmark commentedBookmark = bookmarkService.findOne(id);
+    @RequestMapping(path = "/{bookmark_id}/{user_id}", method = RequestMethod.POST)
+    public ResponseEntity<Comment> save(@RequestBody Comment comment, @PathVariable("bookmark_id") Long bookmarkId, @PathVariable("user_id") Long userId) {
+        User userPosting = userService.findOne(userId);
+        Bookmark commentedBookmark = bookmarkService.findOne(bookmarkId);
 
+        if (!userService.findByUserName(getLoggedUserName()).equals(userPosting)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        comment.setUser(userPosting);
+        comment.setDate(new Date());
         commentedBookmark.getComments().add(comment);
 
         bookmarkService.save(commentedBookmark);
@@ -53,24 +59,30 @@ public class CommentController {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable Long id) {
-        //Test
         Bookmark bookmarkWithComment = bookmarkService.findBookmarkByCommentId(id);
         Comment commentToDelete = commentService.findOne(id);
         User loggedUser = userService.findByUserName(getLoggedUserName());
+        Comment commentFromBookmark = new Comment();
 
-        if (!commentToDelete.getUser().equals(loggedUser) || !isUserAdmin(loggedUser)) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (bookmarkWithComment == null || commentToDelete == null || loggedUser == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-        for (Comment c : bookmarkWithComment.getComments()) {
-            if (commentToDelete.equals(c)) {
-                bookmarkWithComment.getComments().remove(c);
+        if (commentToDelete.getUser().equals(loggedUser) || isUserAdmin(loggedUser)) {
+            for (Comment c : bookmarkWithComment.getComments()) {
+                if (commentToDelete.equals(c)) {
+                    commentFromBookmark = c;
+                }
             }
+
+            bookmarkWithComment.getComments().remove(commentFromBookmark);
+
+            commentService.delete(id);
+
+            return new ResponseEntity(HttpStatus.OK);
         }
 
-        commentService.delete(id);
-
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     private String getLoggedUserName() {
