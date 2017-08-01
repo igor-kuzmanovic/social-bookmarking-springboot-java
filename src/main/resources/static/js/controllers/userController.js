@@ -98,7 +98,7 @@
           'Authorization': 'Basic ' + base64Credential
         }
       }).success(function (response) {
-        delete credentials;
+        delete vm.credentials;
         $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
         navbarControl(1);
         vm.user = response;

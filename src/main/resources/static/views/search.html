@@ -11,7 +11,7 @@
   </div>
   <div ng-show="vm.disableImport && vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc6='images/import.png'" ng-mouseover="imgsrc6='images/import_red.png'" ng-mouseout="imgsrc6='images/import.png'" title="Please select a different bookmark">
-      <img class="nav-icons" src="{{imgsrc6}}" style="cursor: pointer" data-toggle="modal" data-target="#disabledImportBookmarkModal"/>
+      <img class="nav-icons" src="{{imgsrc6}}" style="cursor: pointer"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
@@ -94,25 +94,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-click="vm.importBookmark(vm.selectedBookmark.id)">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="disabledImportBookmarkModal" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" style="color: red">Error!</h4>
-      </div>
-      <div class="modal-body">
-        <div class="panel-body" style="font-size: 125%">
-          {{vm.importErrorMessage}}
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

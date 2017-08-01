@@ -15,7 +15,6 @@
     vm.userBookmarks;
     vm.selectedBookmark;
     vm.disableImport;
-    vm.importErrorMessage;
 
     init();
 
@@ -71,7 +70,6 @@
         vm.userBookmarks.forEach(function(bookmark) {
           if(vm.selectedBookmark.url === bookmark.url) {
             vm.disableImport = true;
-            vm.importErrorMessage = "You cannot import this bookmark!";
           }
         });
       }

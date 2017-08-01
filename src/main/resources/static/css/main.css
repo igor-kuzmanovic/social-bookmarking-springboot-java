@@ -327,10 +327,13 @@ label.rating {
     padding: 0 8px;
 }
 div.jumbotron.jumbotron-comments {
+    border-style: solid;
+    border-color: #ecf0f1;
+    border-width: 10px 1px;
     margin: 20px 0px 30px 0px;
     padding: 8px 8px;
     background-color: #ecf0f1;
-    height: 203px;
+    height: 180px;
     overflow: auto;
 }
 div.jumbotron.jumbotron-comments div.panel-heading h5 {
