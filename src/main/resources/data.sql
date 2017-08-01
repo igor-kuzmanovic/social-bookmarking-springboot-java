@@ -11,6 +11,7 @@ INSERT INTO `socbook1`.`tag`(`name`) VALUES ('cool');
 INSERT INTO `socbook1`.`category`(`name`) VALUES ('Search engine');
 INSERT INTO `socbook1`.`category`(`name`) VALUES ('Social network');
 INSERT INTO `socbook1`.`category`(`name`) VALUES ('Video-sharing');
+INSERT INTO `socbook1`.`category`(`name`) VALUES ('Uncategorized');
  
 INSERT INTO `socbook1`.`user`(`username`,`password`,`first_name`,`last_name`,`email`,`status_id`) VALUES ('admin','admin','Milos','Petrovic','admin@socbook1.com', 1);
 INSERT INTO `socbook1`.`user`(`username`,`password`,`first_name`,`last_name`,`email`,`status_id`) VALUES ('user1','user1','Pera','Teodorovic','user1@socbook1.com', 1);

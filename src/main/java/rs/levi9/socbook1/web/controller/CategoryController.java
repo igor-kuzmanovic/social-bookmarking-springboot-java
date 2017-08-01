@@ -40,6 +40,16 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Category> update(@RequestBody Category category) {
+        Category uncategorized = categoryService.findByName("Uncategorized");
+
+        if (categoryService.findByName(category.getName()) != null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (category.getId().equals(uncategorized.getId())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Category updatedCategory = categoryService.save(category);
 
         if (updatedCategory == null) {
@@ -52,13 +62,20 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        Long categoryBookmarks = bookmarkService.countBookmarksByCategory(id);
+        List<Bookmark> bookmarksWithCategory = bookmarkService.findAllBookmarksByCategory(id);
+        Category uncategorized = categoryService.findByName("Uncategorized");
+        Category forDelete = categoryService.findOne(id);
 
-        if (categoryBookmarks == 0) {
-            categoryService.delete(id);
-            return new ResponseEntity(HttpStatus.OK);
+        if (forDelete.equals(uncategorized)) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        for (Bookmark b : bookmarksWithCategory) {
+            b.setCategory(uncategorized);
+        }
+
+        categoryService.delete(id);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
