@@ -7,10 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import rs.levi9.socbook1.domain.Bookmark;
-import rs.levi9.socbook1.domain.Role;
-import rs.levi9.socbook1.domain.Tag;
-import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.domain.*;
 import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.TagService;
 import rs.levi9.socbook1.service.UserService;
@@ -160,7 +157,7 @@ public class BookmarkController {
 
         if (!isAdminUser(userService.findByUserName(getLoggedUserName()))) {
             for (Bookmark b : bookmarks) {
-                b.getUser().setPassword("******");
+                b.getUser().setPassword("********");
             }
         }
 
@@ -220,6 +217,22 @@ public class BookmarkController {
         bookmarkService.save(bookmarkToRate);
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @RequestMapping(path = "/{id}/comments", method = RequestMethod.GET)
+    public ResponseEntity<Set<Comment>> findAllCommentsFromBookmark(@PathVariable Long id) {
+        Bookmark bookmark = bookmarkService.findOne(id);
+
+        if (bookmark == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        for (Comment c : bookmark.getComments()) {
+            c.getUser().setPassword("********");
+        }
+
+        return new ResponseEntity<>(bookmark.getComments(), HttpStatus.OK);
     }
 
     private boolean isAdminUser(User user) {
