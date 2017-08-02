@@ -1,5 +1,8 @@
 package rs.levi9.socbook1.domain;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,6 +18,7 @@ public class Rating extends BaseEntity {
     @Column(nullable = false)
     private Integer rate;
 
+    @Cascade(CascadeType.ALL)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

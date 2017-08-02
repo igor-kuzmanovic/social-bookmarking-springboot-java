@@ -45,6 +45,7 @@ public class Bookmark extends BaseEntity {
 	private Category category;
 
 	@ManyToOne
+	@Cascade(CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
