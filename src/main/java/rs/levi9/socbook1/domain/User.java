@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class User extends BaseEntity {
 	
-	@Length(min=4)
+	@Length(min=2, max=30)
 	@Column(nullable = false)
 	private String username;
 	

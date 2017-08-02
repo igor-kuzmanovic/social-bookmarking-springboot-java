@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class Category extends BaseEntity {
 	
-	@Length(max=30)
+	@Length(min=2, max=30)
     @Column(nullable = false)
     private String name;
 

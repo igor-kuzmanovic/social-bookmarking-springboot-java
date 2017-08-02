@@ -85,12 +85,10 @@
           </div>
         </div>
       </nav>
-
-      <div class="container" ng-show="!vm.user" ng-include src="'views/login.html'"></div>
-
       <div class="container" ng-show="vm.user">
         <ng-view></ng-view>
       </div>
     </div>
+    <div class="container" ng-show="!vm.user" ng-include src="'views/login.html'"></div>
   </body>
 </html>
