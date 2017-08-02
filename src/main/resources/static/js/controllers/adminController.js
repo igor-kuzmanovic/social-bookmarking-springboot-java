@@ -102,7 +102,7 @@
         delete vm.selectedBookmark;
       }, function(error){
         vm.error = error;
-      }) 
+      })
     }
 
     function deleteBookmark(){

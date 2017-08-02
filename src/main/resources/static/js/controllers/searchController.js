@@ -2,26 +2,30 @@
   angular.module('app')
     .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$scope', 'BookmarkService', 'CategoryService', '$window'];
+  SearchController.$inject = ['$scope', 'BookmarkService', 'CategoryService', 'CommentService', '$window'];
 
-  function SearchController($scope, BookmarkService, CategoryService, $window) {
+  function SearchController($scope, BookmarkService, CategoryService, CommentService, $window) {
 
     var vm = this;
     vm.importBookmark = importBookmark;
     vm.getPublicBookmarks = getPublicBookmarks;
     vm.selectBookmark = selectBookmark;
     vm.openBookmark = openBookmark;
-    vm.publicBookmarks;
-    vm.userBookmarks;
-    vm.selectedBookmark;
-    vm.disableImport;
+    vm.getBookmarkComments = getBookmarkComments;
+    vm.postComment = postComment;
+    vm.deleteComment = deleteComment;
+//    vm.publicBookmarks;
+//    vm.userBookmarks;
+//    vm.selectedBookmark;
+//    vm.disableImport;
 
     init();
 
-    function init() {
+    function init() {     
       if($scope.$parent.vm.user){
         getUserBookmarks($scope.$parent.vm.user.name)
         getPublicBookmarks($scope.$parent.vm.user.name);
+        vm.currentUserUsername = $scope.$parent.vm.user.name;
       };
     }
 
@@ -71,7 +75,7 @@
           if(vm.selectedBookmark.url === bookmark.url) {
             vm.disableImport = true;
           }
-        });
+        });   
       }
     }
 
@@ -79,6 +83,31 @@
       $window.open(bookmark.url, '_blank');
       selectBookmark(bookmark);
       $window.getSelection().removeAllRanges();
+    }
+    
+    function getBookmarkComments() {
+      BookmarkService.getBookmarkComments(vm.selectedBookmark).then(handleSuccessBookmarkComments);
+    }
+    
+    function handleSuccessBookmarkComments(data, status) {
+      vm.comments = data;
+    }
+    
+    function postComment(commentBody) {
+      CommentService.postComment(vm.selectedBookmark, commentBody).then(function(response) {
+        getBookmarkComments();
+        delete vm.commentBody;
+      }, function(error){
+        vm.error = error;
+      })
+    }
+    
+    function deleteComment(commentId){
+      CommentService.deleteComment(commentId).then(function(response){
+        vm.getBookmarkComments();
+      }, function(error){
+        vm.error = error;
+      })
     }
 
   };

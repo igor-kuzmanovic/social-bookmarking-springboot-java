@@ -13,7 +13,8 @@
       getUserBookmarks: getUserBookmarks,
       getPublicBookmarks: getPublicBookmarks,
       importBookmark: importBookmark,
-      rateBookmark: rateBookmark
+      rateBookmark: rateBookmark,
+      getBookmarkComments: getBookmarkComments
     }
 
     return service;
@@ -123,6 +124,22 @@
       })
         .error(function () {
         def.reject("Failed to rate a bookmark");
+      });
+      return def.promise;
+    }
+    
+    function getBookmarkComments(bookmark) {
+      var def = $q.defer();
+      var req = {
+        method: 'GET',
+        url: "bookmarks/" + bookmark.id + "/comments"
+      }
+      $http(req)
+        .success(function (data) {
+        def.resolve(data);
+      })
+        .error(function () {
+        def.reject("Failed to get comments for selected bookmark");
       });
       return def.promise;
     }

@@ -22,7 +22,7 @@
 
   <div ng-show="vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'" title="Bookmark details">
-      <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
+      <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails(); vm.getBookmarkComments()"/>
     </div>
   </div>
 
@@ -138,35 +138,31 @@
             <td style="overflow: auto;">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</td>
           </tr>
         </table>
-          <label class="control-label" style="font-size: 18px;">Comments</label>
+
+        <label class="control-label" style="font-size: 18px;">Comments</label>
         <div class="jumbotron jumbotron-comments">
-          <div class="panel panel-default">
+          <div class="panel panel-default" ng-repeat="comment in vm.comments | orderBy: 'date':true">
             <div class="panel-heading" style="height: 41px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Delete comment" style="color:red">&times;</button>
-              <h5 class="panel-title">Admin</h5>
+              <button type="button" class="close" aria-hidden="true" ng-show="vm.currentUserUsername === comment.user.username" ng-click="vm.deleteComment(comment.id)">&times;</button>
+              <h5 class="panel-title">{{comment.user.username}} | <span style="font-style: italic; font-size: 80%">{{comment.date | date:'medium'}}</span></h5>
             </div>
             <div class="panel-body comment-body">
-              Panel content
+              {{comment.content}}
             </div>
           </div>
-          <div class="panel panel-default">
-            <div class="panel-heading" style="height: 41px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h5 class="panel-title">Admin</h5>
-            </div>
-            <div class="panel-body comment-body">
-              Panel content
-            </div>
-          </div>
+          <span style="font-style: italic" ng-show="vm.comments.length === 0">
+            There are no comments for this bookmark, be the first to add one...
+          </span>
         </div>
         <div class="form-group">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Write a comment...">
+            <input type="text" class="form-control" placeholder="Write a comment..." ng-model="vm.commentBody">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Post</button>
+              <button class="btn btn-default" type="button" ng-click="vm.postComment(vm.commentBody)" ng-disabled="!vm.commentBody" ng-class="{disabled: !vm.commentBody}">Post</button>
             </span>
           </div>
         </div>
+
         <label class="rating" for="stars_rating">Rating</label>
         <div class="rating-stars" id="stars_rating">
           <span ng-class="{'blue-star': vm.selectedBookmark.rating == 5}">{{vm.selectedBookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 4}">{{vm.selectedBookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 3}">{{vm.selectedBookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 2}">{{vm.selectedBookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 1}">{{vm.selectedBookmark.rating >= 1 ? '★' : '☆'}}</span>
@@ -175,12 +171,12 @@
         <div class="rating-stars rate" id="stars_rate">
           <span ng-click="vm.rateBookmark(5)">☆</span><span ng-click="vm.rateBookmark(4)">☆</span><span ng-click="vm.rateBookmark(3)">☆</span><span ng-click="vm.rateBookmark(2)">☆</span><span ng-click="vm.rateBookmark(1)">☆</span>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
+          {{vm.error}}
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <div class="alert-container alert alert-danger" ng-if="vm.error">
-            {{vm.error}}
-          </div>
-        </div>
+      </div>
     </div>
   </div>

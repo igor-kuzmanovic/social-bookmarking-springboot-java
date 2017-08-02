@@ -16,7 +16,7 @@
           <span class="label label-danger" ng-show="vm.loginForm.loginPassword.$error.required && vm.loginForm.loginPassword.$dirty">Please enter your password!</span>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-login" onclick="location.href='#/home'" ng-class="{'btn-danger disabled': vm.loginForm.$dirty && vm.loginForm.$invalid, 'btn-success': vm.loginForm.$valid}" ng-disabled="vm.loginForm.$invalid" ng-click="vm.login(vm.credentials)">Log in</button>
+        <button type="submit" class="btn btn-primary btn-login" onclick="location.href='#/home'" ng-class="{'btn-danger disabled': vm.loginForm.$dirty && vm.loginForm.$invalid, 'btn-success': vm.loginForm.$valid}" ng-disabled="vm.loginForm.$invalid && vm.loginForm.$dirty" ng-click="vm.login(vm.credentials)">Log in</button>
       </fieldset>
     </form>
   </div>
@@ -86,7 +86,7 @@
         </div>
 
         <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm || vm.signup), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$invalid" ng-click="vm.saveUser(vm.registration)">Sign up</button>
+        <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm || vm.signup), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$invalid && vm.signupForm.$dirty" ng-click="vm.saveUser(vm.registration)">Sign up</button>
         </div>
       </fieldset>
     </form>
