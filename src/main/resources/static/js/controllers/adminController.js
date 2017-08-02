@@ -7,25 +7,24 @@
   function AdminController(UserService, BookmarkService, CategoryService, $scope) {
 
     var vm = this;
-    vm.changePanel = changePanel;                               
-    vm.selectBookmark = selectBookmark;                         
+    vm.changePanel = changePanel;
+    vm.selectBookmark = selectBookmark;
     vm.getBookmarks = getBookmarks;
     vm.showBookmarkDetailsModal = showBookmarkDetailsModal;
     vm.editBookmarkModal = editBookmarkModal;
     vm.editBookmark = editBookmark;
     vm.deleteBookmark = deleteBookmark;
-    vm.setBookmarkPrivacy = setBookmarkPrivacy;
-    vm.selectCategory = selectCategory;                         
-    vm.getCategories = getCategories;                           
-    vm.addCategoryModal = addCategoryModal;  
-    vm.addCategory = addCategory;                               
-    vm.editCategoryModal = editCategoryModal; 
-    vm.editCategory = editCategory;;                                            
-    vm.deleteCategory = deleteCategory;                         
-    vm.selectUser = selectUser;                                 
-    vm.getUsers = getUsers;                                     
-    vm.blockUnblockUser = blockUnblockUser;                     
-    vm.deleteUser = deleteUser;                                 
+    vm.selectCategory = selectCategory;
+    vm.getCategories = getCategories;
+    vm.addCategoryModal = addCategoryModal;
+    vm.addCategory = addCategory;
+    vm.editCategoryModal = editCategoryModal;
+    vm.editCategory = editCategory;
+    vm.deleteCategory = deleteCategory;
+    vm.selectUser = selectUser;
+    vm.getUsers = getUsers;
+    vm.blockUnblockUser = blockUnblockUser;
+    vm.deleteUser = deleteUser;
 
     function changePanel(panelId) {
       vm.panel = panelId;
@@ -58,14 +57,7 @@
     }
 
     function showBookmarkDetailsModal() {
-      if(vm.selectedBookmark.tags && !(typeof vm.selectedBookmark.tags === 'string' || vm.selectedBookmark.tags instanceof String)){
-        var tags = [];
-        vm.selectedBookmark.tags.forEach(function(tag) {
-          tags += tag.name + " ";       
-        })
-        vm.selectedBookmark.tags = tags;
-        delete tags;
-      }
+      delete vm.error;
     }
 
     function handleSuccessBookmarks(data, status){
@@ -73,33 +65,15 @@
     }
 
     function editBookmarkModal() {
-      if(vm.selectedBookmark.tags && !(typeof vm.selectedBookmark.tags === 'string' || vm.selectedBookmark.tags instanceof String)){
-        var tags = [];
-        vm.selectedBookmark.tags.forEach(function(tag) {
-          tags += tag.name + " ";       
-        })
-        vm.selectedBookmark.tags = tags;
-        delete tags;
-      }
+      delete vm.error;
+      vm.editedBookmark = angular.copy(vm.selectedBookmark);
     }
 
-    function editBookmark(){
-      if(vm.selectedBookmark.tags.length > 0){
-        var tags = [];      
-        vm.selectedBookmark.tags = vm.selectedBookmark.tags.split(' ');
-        vm.selectedBookmark.tags.forEach(function(tag) {
-          var tagObject = {};
-          tagObject.name = tag;
-          tags.push(tagObject);
-        })
-        vm.selectedBookmark.tags = tags;
-        delete tags;
-      }
-
-      BookmarkService.saveBookmark(vm.selectedBookmark).then(function(response) {
+    function editBookmark(editedBookmark){
+      BookmarkService.saveBookmark(editedBookmark).then(function(response) {
         $('#editBookmarkModal').modal('hide');
         getBookmarks();
-        delete vm.selectedBookmark;
+        delete vm.editedBookmark;
       }, function(error){
         vm.error = error;
       })
@@ -113,10 +87,6 @@
       }, function(error){
         vm.error = error;
       });
-    }
-
-    function setBookmarkPrivacy(state){
-      vm.selectedBookmark.public = state;
     }
 
     function selectCategory(category) {
@@ -138,41 +108,29 @@
       vm.categories = data;
     }
 
-    function addCategoryModal() {
-      vm.categoryOperation = "add";
-    }
-
     function addCategory(category) {
-      if(!category.name) {
-        vm.error = "Please specify a category name!";
-        return;
-      }
-
-      CategoryService.saveCategory(category).then(function(response) {
+        CategoryService.saveCategory(category).then(function(response) {
         $('#addCategoryModal').modal('hide');
         getCategories();
+        delete vm.category;
       }, function(error){
         vm.error = error;
-      })      
+      })
     }
 
     function editCategoryModal() {
-      vm.categoryOperation = "edit";   
+      delete vm.error;
+      vm.editedCategory = angular.copy(vm.selectedCategory);
     }
 
-    function editCategory() {
-      if(!vm.selectedCategory.name) {
-        vm.error = "Please specify a category name!";
-        return;
-      }
-
-      CategoryService.saveCategory(vm.selectedCategory).then(function(response) {
+    function editCategory(editedCategory) {
+      CategoryService.saveCategory(editedCategory).then(function(response) {
         $('#editCategoryModal').modal('hide');
         getCategories();
-        delete vm.selectedCategory;
+        delete vm.editedCategory;
       }, function(error){
         vm.error = error;
-      })      
+      })
     }
 
     function deleteCategory(){

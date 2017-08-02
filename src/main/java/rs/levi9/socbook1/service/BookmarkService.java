@@ -38,7 +38,7 @@ public class BookmarkService  {
     public Bookmark save(Bookmark bookmark) {
         Set<Tag> tagExists = new HashSet<>();
         for (Tag tag : bookmark.getTags()) {
-            Tag foundTag = tagRepository.findByName(tag.getName());
+            Tag foundTag = tagRepository.findByText(tag.getText());
             if (foundTag == null) {
                 tagRepository.save(tag);
                 tagExists.add(tag);

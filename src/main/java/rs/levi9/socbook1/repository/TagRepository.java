@@ -8,5 +8,5 @@ import java.util.Set;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
-    Tag findByName(String name);
+    Tag findByText(String text);
 }

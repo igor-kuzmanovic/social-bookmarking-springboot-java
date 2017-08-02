@@ -86,7 +86,6 @@ img.nav-icons {
 /***********CONTAINERS***********/
 .form-container {
   width: 400px;
-  min-height: 400px;
   border: solid 1px #bdc3c7;
   margin: auto;
   position: relative;
@@ -106,7 +105,6 @@ img.nav-icons {
 }
 .form-container2 {
   width: 400px;
-  height: 250px;
   border: solid 1px #bdc3c7;
   margin: 0 auto;
   position: relative;
@@ -145,7 +143,6 @@ img.nav-icons {
 }
 .login-form {
   width: 350px;
-  height: 250px;
   margin: 0 auto;
   position: relative;
   padding: 5px 5px;
@@ -261,7 +258,7 @@ fieldset legend {
 }
 .search-group {
   height: 38px;
-  margin: 4px 5px;  
+  margin: 4px 5px;
 }
 .search-group1 {
   height: 78px;
@@ -343,7 +340,7 @@ div.jumbotron.jumbotron-comments {
   overflow: auto;
 }
 div.jumbotron.jumbotron-comments div.panel-heading h5 {
-  text-align: left; 
+  text-align: left;
 }
 div.jumbotron.jumbotron-comments div.panel-body.comment-body {
   padding: 10px 15px;

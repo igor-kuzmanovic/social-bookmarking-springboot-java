@@ -19,12 +19,12 @@
     vm.setBookmarkPrivacy = setBookmarkPrivacy;
     vm.openBookmark = openBookmark;
     vm.getBookmarkComments = getBookmarkComments;
-    vm.operation = {};
-    vm.bookmarks = {};
-    vm.bookmark = {};
-    vm.categories = {};
-    vm.tags = {};
-    vm.isSearch = false;
+    // vm.operation = {};
+    // vm.bookmarks = {};
+    // vm.bookmark = {};
+    // vm.categories = {};
+    // vm.tags = {};
+    // vm.isSearch = false;
 
     init();
 
@@ -72,25 +72,25 @@
          || (bookmark.title && !bookmark.url && !vm.category)) {
         vm.error = "Please fill in all fields!";
         return;
-      } 
+      }
 
       if(bookmark.title && bookmark.url && !vm.category) {
         vm.error = "Please choose a category!";
-        return;    
+        return;
       }
 
       if(bookmark.title && !bookmark.url && vm.category) {
         vm.error = "Please specify a URL!";
         return;
-      } 
+      }
 
-      if(!bookmark.title && bookmark.url && vm.category) {		
+      if(!bookmark.title && bookmark.url && vm.category) {
         vm.error = "Please specify a title!";
         return;
       }
 
       if(!bookmark.url.startsWith("www.") && !bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
-        bookmark.url = "www." + bookmark.url;         
+        bookmark.url = "www." + bookmark.url;
       }
 
       if(!bookmark.url.startsWith("http://") && !bookmark.url.startsWith("https://")) {
@@ -126,7 +126,7 @@
         init();
       }, function(error){
         vm.error = error;
-      })         
+      })
     }
 
     function setBookmarkPrivacy(state){
@@ -160,7 +160,7 @@
 
     function editModalOperation() {
       init();
-      vm.operation.name = "edit";           
+      vm.operation.name = "edit";
       vm.bookmark = angular.copy(vm.selectedBookmark);
       vm.tags = "";
       if(vm.bookmark.tags){
@@ -179,7 +179,7 @@
         init();
       }, function(error){
         vm.error = error;
-      }) 
+      })
     }
 
     function openBookmark(bookmark) {

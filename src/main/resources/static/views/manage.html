@@ -63,14 +63,14 @@
       <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_red.png'" ng-mouseout="imgsrc3='images/details.png'" title="Please select a bookmark">
         <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer"/>
       </div>
-    </div> 
+    </div>
     <div ng-show="vm.selectedBookmark">
       <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'" title="Bookmark details">
         <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetailsModal()"/>
       </div>
     </div>
 
-  </div> 
+  </div>
 
   <div ng-show="vm.panel === 2">
     <div ng-show="!vm.selectedUser">
@@ -98,7 +98,7 @@
       <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_red.png'" ng-mouseout="imgsrc4='images/block.png'" title="Please select a regular user">
         <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer"/>
       </div>
-    </div> 
+    </div>
     <div ng-show="vm.selectedUser && vm.selectedUser.roles.length < 2">
       <div class="nav-icons" ng-init="imgsrc4='images/block.png'" ng-mouseover="imgsrc4='images/block_blue.png'" ng-mouseout="imgsrc4='images/block.png'" title="Block a user">
         <img class="nav-icons" src="{{imgsrc4}}" style="cursor: pointer" data-toggle="modal" data-target="#blockUnblockUserModal"/>
@@ -168,7 +168,7 @@
   </table>
 </div>
 
-<div class="bookmark-container" ng-show="vm.panel === 2 && vm.users.length != 0"> 
+<div class="bookmark-container" ng-show="vm.panel === 2 && vm.users.length != 0">
   <table class="table table-striped table-hover ">
     <thead>
       <tr>
@@ -190,7 +190,7 @@
         <td>{{user.userStatus.id === 1 ? "Active" : "Inactive"}}</td>
       </tr>
     </tbody>
-  </table>   
+  </table>
 </div>
 
 <div class="bookmark-container" ng-show="vm.panel === 3 && vm.categories.length != 0">
@@ -223,96 +223,16 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-click="vm.deleteBookmark()">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="showBookmarkDetails" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Bookmark details</h4>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped table-hover ">
-          <tr class="active" style="overflow: auto;">
-            <td>Title</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.title}}</td>
-          </tr>
-          <tr class="active" style="overflow: auto;">
-            <td>URL</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.url}}</td>
-          </tr>
-          <tr class="active" style="overflow: auto;">
-            <td>Description</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.description}}</td>
-          </tr>
-          <tr class="active" style="overflow: auto;">
-            <td>Category</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.category.name}}</td>
-          </tr>
-          <tr class="active" style="overflow: auto;">
-            <td>Privacy</td>
-            <td style="overflow: auto;" ng-show="vm.selectedBookmark.public">public</td>
-            <td style="overflow: auto;" ng-show="!vm.selectedBookmark.public">private</td>
-          </tr>
-          <tr class="active" style="overflow: auto;">
-            <td>Tags</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.tags}}</td>
-          </tr>
-          <tr class="active" style="overflow: auto;">
-            <td>Date</td>
-            <td style="overflow: auto;">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</td>
-          </tr>
-        </table>
-          <label class="control-label" style="font-size: 18px;">Comments</label>
-        <div class="jumbotron jumbotron-comments">
-          <div class="panel panel-default">
-            <div class="panel-heading" style="height: 41px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Delete comment" style="color:red">&times;</button>
-              <h5 class="panel-title">Admin</h5>
-            </div>
-            <div class="panel-body comment-body">
-              Panel content
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading" style="height: 41px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h5 class="panel-title">Admin</h5>
-            </div>
-            <div class="panel-body comment-body">
-              Panel content
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Write a comment...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Post</button>
-            </span>
-          </div>
-        </div>
-        <label class="rating" for="stars_rating">Rating</label>
-        <div class="rating-stars" id="stars_rating">
-          <span ng-class="{'blue-star': vm.selectedBookmark.rating == 5}">{{vm.selectedBookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 4}">{{vm.selectedBookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 3}">{{vm.selectedBookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 2}">{{vm.selectedBookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 1}">{{vm.selectedBookmark.rating >= 1 ? '★' : '☆'}}</span>
-        </div>
-        <label class="rating" for="stars_rate">Rate</label>
-        <div class="rating-stars rate" id="stars_rate">
-          <span ng-click="vm.rateBookmark(5)">☆</span><span ng-click="vm.rateBookmark(4)">☆</span><span ng-click="vm.rateBookmark(3)">☆</span><span ng-click="vm.rateBookmark(2)">☆</span><span ng-click="vm.rateBookmark(1)">☆</span>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <div class="alert-container alert alert-danger" ng-if="vm.error">
           {{vm.error}}
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="showBookmarkDetails" role="dialog">
+
 </div>
 
 <div class="modal fade" id="editBookmarkModal" role="dialog">
@@ -327,47 +247,47 @@
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Title</label>
-              <div class="col-lg-10" ng-class="{'has-error': editBookmark.bookmarkTitle.$invalid}">
-                <input name="bookmarkTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedBookmark.title" required>
+              <div class="col-lg-10" ng-class="{'has-error': editBookmark.bookmarkTitle.$invalid && editBookmark.bookmarkTitle.$dirty}">
+                <input name="bookmarkTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.editedBookmark.title" required ng-minlength="2" ng-maxlength="30">
                 <span class="label label-danger" ng-show="editBookmark.bookmarkTitle.$error.required && editBookmark.bookmarkTitle.$dirty">Please enter a title!</span>
                 <span class="label label-danger" ng-show="!editBookmark.bookmarkTitle.$error.required && editBookmark.bookmarkTitle.$dirty && editBookmark.bookmarkTitle.$error.minlength">Please enter a longer title!</span>
                 <span class="label label-danger" ng-show="!editBookmark.bookmarkTitle.$error.required && editBookmark.bookmarkTitle.$dirty && editBookmark.bookmarkTitle.$error.maxlength">Please enter a shorter title!</span>
               </div>
 
               <label for="inputURL" class="col-lg-2 control-label">URL</label>
-              <div class="col-lg-10" ng-class="{'has-error': editBookmark.bookmarkUrl.$invalid}">
-                <input name="bookmarkUrl" class="form-control" id="inputURL" placeholder="http:///www.example.com" type="url" ng-model="vm.selectedBookmark.url" required>
+              <div class="col-lg-10" ng-class="{'has-error': editBookmark.bookmarkUrl.$invalid && editBookmark.bookmarkUrl.$dirty}">
+                <input name="bookmarkUrl" class="form-control" id="inputURL" placeholder="http:///www.example.com" type="url" ng-model="vm.editedBookmark.url" required>
                 <span class="label label-danger" ng-show="editBookmark.bookmarkUrl.$error.required && editBookmark.bookmarkUrl.$dirty">Please enter a URL!</span>
                 <span class="label label-danger" ng-show="editBookmark.bookmarkUrl.$error.invalid && editBookmark.bookmarkUrl.$dirty">Please enter a valid URL!</span>
               </div>
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
               <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.selectedBookmark.description"></textarea>
+                <textarea class="form-control" rows="3" id="inputDescription" placeholder="Description" ng-model="vm.editedBookmark.description"></textarea>
               </div>
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
               <div class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.selectedBookmark.category" ng-options="category as category.name for category in vm.categories track by category.id">              
+                <select class="form-control" id="selectCategory" ng-model="vm.editedBookmark.category" ng-options="category as category.name for category in vm.categories track by category.id">
                 </select>
               </div>
 
               <label for="inputTags" class="col-lg-2 control-label">Tags</label>
               <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.selectedBookmark.tags"></textarea>
+                <tags-input id="inputTags" placeholder="Tags" ng-model="vm.editedBookmark.tags"></tags-input>
               </div>
 
               <label class="col-lg-2 control-label">Privacy</label>
               <div class="col-lg-10">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="!vm.editedBookmark.public" type="radio" ng-click="vm.editedBookmark.public = false">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.editedBookmark.public" type="radio" ng-click="vm.editedBookmark.public = true">
                     Public
                   </label>
                 </div>
@@ -377,7 +297,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" ng-class="{disabled: editBookmark.$dirty && editBookmark.$invalid}" ng-click="vm.editBookmark()">Save changes</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: editBookmark.$dirty && editBookmark.$invalid}" ng-disabled="editBookmark.$invalid && editBookmark.$dirty" ng-click="vm.editBookmark(vm.editedBookmark)">Save changes</button>
+          <div class="alert-container alert alert-danger" ng-if="vm.error">
+            {{vm.error}}
+          </div>
         </div>
       </form>
     </div>
@@ -399,6 +322,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-click="vm.blockUnblockUser()">Confirm</button>
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
+          {{vm.error}}
+        </div>
       </div>
     </div>
   </div>
@@ -419,6 +345,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-click="vm.deleteUser()">Confirm</button>
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
+          {{vm.error}}
+        </div>
       </div>
     </div>
   </div>
@@ -436,7 +365,7 @@
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Name</label>
-              <div class="col-lg-10" ng-class="{'has-error': addCategory.categoryTitle.$invalid}">
+              <div class="col-lg-10" ng-class="{'has-error': addCategory.categoryTitle.$invalid && addCategory.categoryTitle.$dirty}">
                 <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.category.name" required ng-minlength="2" ng-maxlength="30">
                 <span class="label label-danger" ng-show="addCategory.categoryTitle.$error.required && addCategory.categoryTitle.$dirty">Please enter a title!</span>
                 <span class="label label-danger" ng-show="!addCategory.categoryTitle.$error.required && addCategory.categoryTitle.$dirty && addCategory.categoryTitle.$error.minlength">Please enter a longer title!</span>
@@ -447,7 +376,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" ng-class="{disabled: addCategory.$dirty && addCategory.$invalid}" ng-click="vm.addCategory(vm.category)">Confirm</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: addCategory.$dirty && addCategory.$invalid}" ng-disabled="addCategory.$invalid && addCategory.$dirty" ng-click="vm.addCategory(vm.category)">Confirm</button>
+          <div class="alert-container alert alert-danger" ng-if="vm.error">
+            {{vm.error}}
+          </div>
         </div>
       </form>
     </div>
@@ -466,8 +398,8 @@
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Name</label>
-              <div class="col-lg-10" ng-class="{'has-error': editCategory.categoryTitle.$invalid}">
-                <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.selectedCategory.name" required>
+              <div class="col-lg-10" ng-class="{'has-error': editCategory.categoryTitle.$invalid && editCategory.categoryTitle.$dirty}">
+                <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.editedCategory.name" required ng-minlength="2" ng-maxlength="30">
                 <span class="label label-danger" ng-show="editCategory.categoryTitle.$error.required && editCategory.categoryTitle.$dirty">Please enter a title!</span>
                 <span class="label label-danger" ng-show="!editCategory.categoryTitle.$error.required && editCategory.categoryTitle.$dirty && editCategory.categoryTitle.$error.minlength">Please enter a longer title!</span>
                 <span class="label label-danger" ng-show="!editCategory.categoryTitle.$error.required && editCategory.categoryTitle.$dirty && editCategory.categoryTitle.$error.maxlength">Please enter a shorter title!</span>
@@ -477,7 +409,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" ng-class="{disabled: editCategory.$dirty && editCategory.$invalid}" ng-click="vm.editCategory()">Confirm</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: editCategory.$dirty && editCategory.$invalid}" ng-disabled="editCategory.$invalid && editCategory.$dirty" ng-click="vm.editCategory(vm.editedCategory)">Confirm</button>
+          <div class="alert-container alert alert-danger" ng-if="vm.error">
+            {{vm.error}}
+          </div>
         </div>
       </form>
     </div>
@@ -499,6 +434,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-click="vm.deleteCategory()">Confirm</button>
+        <div class="alert-container alert alert-danger" ng-if="vm.error">
+          {{vm.error}}
+        </div>
       </div>
     </div>
   </div>

@@ -16,11 +16,13 @@
           <span class="label label-danger" ng-show="vm.loginForm.loginPassword.$error.required && vm.loginForm.loginPassword.$dirty">Please enter your password!</span>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-login" onclick="location.href='#/home'" ng-class="{'btn-danger disabled': vm.loginForm.$dirty && vm.loginForm.$invalid, 'btn-success': vm.loginForm.$valid}" ng-disabled="vm.loginForm.$invalid && vm.loginForm.$dirty" ng-click="vm.login(vm.credentials)">Log in</button>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-login" onclick="location.href='#/home'" ng-class="{'btn-danger disabled': vm.loginForm.$dirty && vm.loginForm.$invalid, 'btn-success': vm.loginForm.$valid}" ng-disabled="vm.loginForm.$invalid && vm.loginForm.$dirty" ng-click="vm.login(vm.credentials)">Log in</button>
+        </div>
       </fieldset>
     </form>
   </div>
-  
+
   <div class="alert-container alert alert-danger" ng-if="vm.error">
     {{vm.error}}
   </div>
@@ -78,7 +80,7 @@
           <span class="label label-danger" ng-show="!vm.signupForm.signupPassword.$error.required && vm.signupForm.signupPassword.$dirty && vm.signupForm.signupPassword.$error.minlength">Please enter a longer password!</span>
           <span class="label label-danger" ng-show="!vm.signupForm.signupPassword.$error.required && vm.signupForm.signupPassword.$dirty && vm.signupForm.signupPassword.$error.maxlength">Please enter a shorter password!</span>
         </div>
-        
+
         <div class="form-group" ng-show="vm.signupForm.signupPassword.$valid" ng-class="{'has-error': (vm.registration.password !== vm.registration.passwordConfirm || vm.signupForm.signupPasswordConfirm.$invalid) && vm.signupForm.signupPasswordConfirm.$dirty}">
           <input name="signupPasswordConfirm" class="form-control" id="focusedInput" type="password" placeholder="Confirm your password"  ng-model="vm.registration.passwordConfirm" required>
           <span class="label label-danger" ng-show="vm.signupForm.signupPasswordConfirm.$error.required && vm.signupForm.signupPasswordConfirm.$dirty">Please confirm your password!</span>
@@ -86,7 +88,7 @@
         </div>
 
         <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm || vm.signup), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$invalid && vm.signupForm.$dirty" ng-click="vm.saveUser(vm.registration)">Sign up</button>
+          <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm || vm.signup), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$invalid && vm.signupForm.$dirty" ng-click="vm.saveUser(vm.registration)">Sign up</button>
         </div>
       </fieldset>
     </form>

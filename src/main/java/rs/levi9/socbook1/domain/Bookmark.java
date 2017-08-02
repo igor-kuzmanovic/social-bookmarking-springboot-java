@@ -19,7 +19,7 @@ public class Bookmark extends BaseEntity {
 	@Column(nullable = false)
 	private String url;
 
-	@Length(min = 2, max = 100)
+	@Length(min = 2, max = 30)
 	@Column(nullable = false)
 	private String title;
 

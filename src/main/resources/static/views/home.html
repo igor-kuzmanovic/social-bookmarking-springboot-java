@@ -79,17 +79,17 @@
         <h4 class="modal-title">Bookmark {{vm.operation.name}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="addEditBookmarkForm">
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Title</label>
               <div class="col-lg-10">
-                <input class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.bookmark.title">
+                <input name="title" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.bookmark.title">
               </div>
 
               <label for="inputURL" class="col-lg-2 control-label">URL</label>
               <div class="col-lg-10">
-                <input class="form-control" id="inputURL" placeholder="http:///www.example.com" type="text" ng-model="vm.bookmark.url">
+                <input name="url" class="form-control" id="inputURL" placeholder="http:///www.example.com" type="text" ng-model="vm.bookmark.url">
               </div>
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
@@ -98,33 +98,27 @@
               </div>
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
-              <div ng-show="vm.operation.name === 'add'"class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.category" ng-options="category.id as category.name for category in vm.categories">
-                  <option value="" disabled>-- Must select a category --</option>
-                </select>
-              </div>
-              <div ng-show="vm.operation.name === 'edit'"class="col-lg-10">
-                <select class="form-control" id="selectCategory" ng-model="vm.category" ng-options="category.id as category.name for category in vm.categories | categoryFilter:vm.bookmark.category">
-                  <option value="">{{vm.selectedBookmark.category.name}}</option>
+              <div class="col-lg-10">
+                <select name="category" class="form-control" id="selectCategory" ng-model="vm.bookmark.category" ng-options="category as category.name for category in vm.categories track by category.id">
                 </select>
               </div>
 
               <label for="inputTags" class="col-lg-2 control-label">Tags</label>
               <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="inputTags" placeholder="Tags" ng-model="vm.tags"></textarea>
+                <tags-input id="inputTags" placeholder="Tags" ng-model="vm.bookmark.tags"></tags-input>
               </div>
 
               <label class="col-lg-2 control-label">Privacy</label>
               <div class="col-lg-10">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="vm.operation.name == 'add' || !vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(false)">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="vm.operation.name == 'add' || !vm.selectedBookmark.public" type="radio" ng-click="vm.bookmark.public = false">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.operation.name == 'edit' && vm.selectedBookmark.public" type="radio" ng-click="vm.setBookmarkPrivacy(true)">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.operation.name == 'edit' && vm.selectedBookmark.public" type="radio" ng-click="vm.bookmark.public = true">
                     Public
                   </label>
                 </div>
@@ -161,9 +155,7 @@
           <span class="label label-default" style="display: inline; margin:0; float: right">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</span>
         </div>
 
-        <div class="label label-primary" ng-repeat="tag in vm.selectedBookmark.tags" style="margin-right: 5px; display:inline-block;">#{{tag.name}}</div>
-
-
+        <div class="label label-primary" ng-repeat="tag in vm.selectedBookmark.tags" style="margin-right: 5px; display:inline-block;">#{{tag.text}}</div>
 
         <label class="control-label" style="font-size: 18px; display: block; margin: 10px 0">Description</label>
         <div class="panel panel-default" style="margin: 0 0 10px 0;">

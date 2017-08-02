@@ -4,9 +4,9 @@ INSERT INTO `socbook1`.`role`(`type`) VALUES ('ROLE_USER');
 INSERT INTO `socbook1`.`user_status`(`type`) VALUES ('STATUS_ACTIVE');
 INSERT INTO `socbook1`.`user_status`(`type`) VALUES ('STATUS_INACTIVE');
 
-INSERT INTO `socbook1`.`tag`(`name`) VALUES ('fast');
-INSERT INTO `socbook1`.`tag`(`name`) VALUES ('modern');
-INSERT INTO `socbook1`.`tag`(`name`) VALUES ('cool');
+INSERT INTO `socbook1`.`tag`(`text`) VALUES ('fast');
+INSERT INTO `socbook1`.`tag`(`text`) VALUES ('modern');
+INSERT INTO `socbook1`.`tag`(`text`) VALUES ('cool');
 
 INSERT INTO `socbook1`.`category`(`name`) VALUES ('Search engine');
 INSERT INTO `socbook1`.`category`(`name`) VALUES ('Social network');
