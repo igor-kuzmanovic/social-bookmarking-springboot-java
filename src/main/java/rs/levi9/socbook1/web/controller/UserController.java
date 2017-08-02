@@ -67,20 +67,20 @@ public class UserController {
         User foundUser = userService.findOne(userId);
 
         if (foundUser == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
         foundUser.setUserStatus(resolveStatus(foundUser));
 
         for (Role role : foundUser.getRoles()) {
             if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
             }
         }
 
         userService.save(foundUser);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

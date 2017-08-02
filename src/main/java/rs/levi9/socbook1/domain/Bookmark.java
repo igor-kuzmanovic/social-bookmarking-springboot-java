@@ -29,7 +29,6 @@ public class Bookmark extends BaseEntity {
 	@Column(nullable = false)
 	private boolean imported;
 
-	@Column(nullable = true)
 	private String description;
 
 	@Column(nullable = false)

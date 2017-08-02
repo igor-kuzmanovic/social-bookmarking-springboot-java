@@ -22,13 +22,11 @@ import java.util.Set;
 public class BookmarkController {
 
     private BookmarkService bookmarkService;
-    private TagService tagService;
     private UserService userService;
 
     @Autowired
-    public BookmarkController(BookmarkService bookmarkService, TagService tagService, UserService userService) {
+    public BookmarkController(BookmarkService bookmarkService, UserService userService) {
         this.bookmarkService = bookmarkService;
-        this.tagService = tagService;
         this.userService = userService;
     }
 
@@ -49,7 +47,7 @@ public class BookmarkController {
         }
 
         if (!loggedUserEqualsRequestUserOrAdmin(bookmark.getUser())) {
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<>(bookmark, HttpStatus.OK);
