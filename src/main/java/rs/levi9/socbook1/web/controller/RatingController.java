@@ -29,38 +29,38 @@ public class RatingController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @RequestMapping(path = "/{bookmark_id}/{user_id}", method = RequestMethod.POST)
-    public ResponseEntity save(@RequestBody Rating rating, @PathVariable("user_id") Long userId, @PathVariable("bookmark_id") Long bookmarkId) {
-        User userRating = userService.findOne(userId);
+    @RequestMapping(path = "/{bookmark_id}", method = RequestMethod.POST)
+    public ResponseEntity<Bookmark> save(@RequestBody Rating rating, @PathVariable("bookmark_id") Long bookmarkId) {
+        User userRating = userService.findByUserName(getLoggedUserName());
         Bookmark bookmarkRated = bookmarkService.findOne(bookmarkId);
 
-        if (!userRating.equals(userService.findByUserName(getLoggedUserName())) || bookmarkRated.getUser().equals(userRating)) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (bookmarkRated.getUser().equals(userRating)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         for (Rating r : bookmarkRated.getRatings()) {
             if (userRating.equals(r.getUser())) {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
 
         bookmarkRated.setTimesRated(bookmarkRated.getTimesRated() + 1);
         rating.setUser(userRating);
         bookmarkRated.getRatings().add(rating);
+        bookmarkRated.setRating(calculateRating(bookmarkRated));
 
         ratingService.save(rating);
         bookmarkService.save(bookmarkRated);
 
-        //Maybe return whole getBookmarkRating body (avg)?
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(bookmarkRated, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @RequestMapping(path = "/{bookmark_id}/{user_id}", method = RequestMethod.PUT)
-    public ResponseEntity updateRating(@RequestBody Rating rating, @PathVariable("bookmark_id") Long bookmarkId, @PathVariable("user_id") Long userId) {
+    @RequestMapping(path = "/{bookmark_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Bookmark> updateRating(@RequestBody Rating rating, @PathVariable("bookmark_id") Long bookmarkId) {
         Rating ratingForUpdate = new Rating();
         Bookmark bookmark = bookmarkService.findOne(bookmarkId);
-        User userUpdating = userService.findOne(userId);
+        User userUpdating = userService.findByUserName(getLoggedUserName());
 
         for (Rating r : bookmark.getRatings()) {
             if (r.getUser().equals(userUpdating)) {
@@ -71,21 +71,9 @@ public class RatingController {
         ratingForUpdate.setRate(rating.getRate());
 
         ratingService.save(ratingForUpdate);
+        bookmark.setRating(calculateRating(bookmark));
 
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @RequestMapping(path = "/{bookmark_id}", method = RequestMethod.GET)
-    public ResponseEntity<Integer> getBookmarkRating(@PathVariable("bookmark_id") Long id) {
-        Bookmark bookmark = bookmarkService.findOne(id);
-        Integer rateSum = 0;
-
-        for (Rating r : bookmark.getRatings()) {
-            rateSum = rateSum + r.getRate();
-        }
-
-        return new ResponseEntity<>(rateSum / bookmark.getTimesRated(), HttpStatus.OK);
+        return new ResponseEntity<>(bookmark, HttpStatus.OK);
     }
 
     private String getLoggedUserName() {
@@ -93,12 +81,13 @@ public class RatingController {
         return auth.getName();
     }
 
-    private boolean isUserAdmin(User user) {
-        for (Role role : user.getRoles()) {
-            if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
-                return true;
-            }
+    private Integer calculateRating(Bookmark bookmark) {
+        Integer rateSum = 0;
+
+        for (Rating r : bookmark.getRatings()) {
+            rateSum = rateSum + r.getRate();
         }
-        return false;
+
+        return rateSum / bookmark.getTimesRated();
     }
 }

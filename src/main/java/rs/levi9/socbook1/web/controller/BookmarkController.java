@@ -58,7 +58,6 @@ public class BookmarkController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Bookmark> save(@RequestBody Bookmark bookmark) {
-        bookmark.setTimesRated(0);
         Bookmark bookmarkForSave;
         Bookmark uniqueBookmark = bookmarkService.findByUrl(bookmark.getUrl());
         bookmark.setImported(false);
