@@ -31,7 +31,6 @@
 
       if(vm.panel === 1){
         getBookmarks();
-        getCategories();
       }
       else if(vm.panel === 2){
         getUsers();
@@ -67,6 +66,7 @@
     function editBookmarkModal() {
       delete vm.error;
       vm.editedBookmark = angular.copy(vm.selectedBookmark);
+      getCategories();
     }
 
     function editBookmark(editedBookmark){

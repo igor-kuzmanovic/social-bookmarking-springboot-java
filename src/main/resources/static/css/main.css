@@ -331,11 +331,11 @@ label.rating {
 }
 div.jumbotron.jumbotron-comments {
   border-style: solid;
-  border-color: #a9a9a9;
+  border-color: #cccccc;
   border-width: 2px;
-  margin: 0px 0px 10px 0px;
+  margin: 10px 5px 10px 5px;
   padding: 8px 8px;
-  background-color: #ecf0f1;
+  background-color: #eeeeee;
   height: 215px;
   overflow: auto;
 }

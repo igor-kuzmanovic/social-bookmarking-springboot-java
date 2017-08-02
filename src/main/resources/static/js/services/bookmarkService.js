@@ -49,7 +49,7 @@
       });
       return def.promise;
     }
-    
+
     function getBookmarks() {
       var def = $q.defer();
       var req = {
@@ -112,7 +112,7 @@
       })
       return def.promise;
     }
-    
+
     function rateBookmark(bookmarkId, rating, isNewRating) {
       var def = $q.defer();
       var req = {
@@ -128,7 +128,7 @@
       });
       return def.promise;
     }
-    
+
     function getBookmarkComments(bookmark) {
       var def = $q.defer();
       var req = {
