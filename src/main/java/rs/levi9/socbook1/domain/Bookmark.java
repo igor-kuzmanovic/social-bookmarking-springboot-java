@@ -36,7 +36,10 @@ public class Bookmark extends BaseEntity {
 	private boolean isPublic;
 
 	@Column(name = "times_rated")
-	private Integer timesRated;
+	private int timesRated;
+
+	@Column(name = "rating")
+	private int rating;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -61,12 +64,20 @@ public class Bookmark extends BaseEntity {
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "rating_id"))
 	private Set<Rating> ratings;
 
-	public Integer getTimesRated() {
+	public int getTimesRated() {
 		return timesRated;
 	}
 
-	public void setTimesRated(Integer timesRated) {
+	public void setTimesRated(int timesRated) {
 		this.timesRated = timesRated;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	public Set<Rating> getRatings() {

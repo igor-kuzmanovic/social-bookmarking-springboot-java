@@ -42,7 +42,7 @@ public class UserController {
         User user = userService.findOne(id);
 
         if(user == null) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -58,12 +58,12 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
 
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/block/{user_id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> changeStatus(@PathVariable("user_id") Long userId) {
+    public ResponseEntity changeStatus(@PathVariable("user_id") Long userId) {
         User foundUser = userService.findOne(userId);
 
         if (foundUser == null) {
@@ -74,13 +74,13 @@ public class UserController {
 
         for (Role role : foundUser.getRoles()) {
             if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
-                return new ResponseEntity(HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
         }
 
         userService.save(foundUser);
 
-        return new ResponseEntity<>(foundUser, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
