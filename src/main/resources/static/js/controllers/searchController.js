@@ -14,10 +14,12 @@
     vm.getBookmarkComments = getBookmarkComments;
     vm.postComment = postComment;
     vm.deleteComment = deleteComment;
-//    vm.publicBookmarks;
-//    vm.userBookmarks;
-//    vm.selectedBookmark;
-//    vm.disableImport;
+    vm.rateBookmark = rateBookmark;
+    vm.showRating = showRating;
+    //    vm.publicBookmarks;
+    //    vm.userBookmarks;
+    //    vm.selectedBookmark;
+    //    vm.disableImport;
 
     init();
 
@@ -84,15 +86,15 @@
       selectBookmark(bookmark);
       $window.getSelection().removeAllRanges();
     }
-    
+
     function getBookmarkComments() {
       BookmarkService.getBookmarkComments(vm.selectedBookmark).then(handleSuccessBookmarkComments);
     }
-    
+
     function handleSuccessBookmarkComments(data, status) {
       vm.comments = data;
     }
-    
+
     function postComment(commentBody) {
       CommentService.postComment(vm.selectedBookmark, commentBody).then(function(response) {
         getBookmarkComments();
@@ -101,13 +103,37 @@
         vm.error = error;
       })
     }
-    
+
     function deleteComment(commentId){
       CommentService.deleteComment(commentId).then(function(response){
         vm.getBookmarkComments();
       }, function(error){
         vm.error = error;
       })
+    }
+
+    function rateBookmark(rating) {
+      if(vm.yourCurrentRating){
+        var isNewRating = false;
+      } else {
+        var isNewRating = true;
+      }
+      BookmarkService.rateBookmark(vm.selectedBookmark.id, rating, isNewRating).then(function(response) {
+        getPublicBookmarks($scope.$parent.vm.user.name);
+        vm.selectedBookmark = response;
+        showRating();
+      }, function(error){
+        vm.error = error;
+      })
+    }
+    
+    function showRating() {
+      delete vm.yourCurrentRating;
+      vm.selectedBookmark.ratings.forEach(function(rating) {
+        if(rating.user.username === vm.currentUserUsername){
+          vm.yourCurrentRating = rating.rate;
+        }
+      });
     }
 
   };

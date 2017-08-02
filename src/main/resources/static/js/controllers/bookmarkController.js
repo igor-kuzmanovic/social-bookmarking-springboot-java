@@ -18,7 +18,7 @@
     vm.editModalOperation = editModalOperation;
     vm.setBookmarkPrivacy = setBookmarkPrivacy;
     vm.openBookmark = openBookmark;
-    vm.rateBookmark = rateBookmark;
+    vm.getBookmarkComments = getBookmarkComments;
     vm.operation = {};
     vm.bookmarks = {};
     vm.bookmark = {};
@@ -54,13 +54,6 @@
 
     function handleSuccessBookmarks(data, status) {
       vm.bookmarks = data;
-      if(vm.selectedBookmark) {
-        data.forEach(function(bookmark){
-          if(bookmark.id === vm.selectedBookmark.id){
-            vm.selectedBookmark = bookmark;
-          }
-        });
-      }
     }
 
     function saveBookmark(bookmark) {
@@ -195,12 +188,12 @@
       $window.getSelection().removeAllRanges();
     }
 
-    function rateBookmark(rating) {
-      BookmarkService.rateBookmark(vm.selectedBookmark.id, rating).then(function(response) {
-        getUserBookmarks($scope.$parent.vm.user.name);
-      }, function(error){
-        vm.error = error;
-      })
+    function getBookmarkComments() {
+      BookmarkService.getBookmarkComments(vm.selectedBookmark).then(handleSuccessBookmarkComments);
+    }
+
+    function handleSuccessBookmarkComments(data, status) {
+      vm.comments = data;
     }
 
   };

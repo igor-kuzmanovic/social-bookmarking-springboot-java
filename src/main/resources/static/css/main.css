@@ -300,6 +300,9 @@ textarea.form-control {
 .blue-star {
   color: #5fb9ec;
 }
+.yellow-star {
+  color: #f1c40f;
+}
 .rating-stars {
   unicode-bidi: bidi-override;
   direction: rtl;
@@ -331,7 +334,7 @@ label.rating {
 }
 div.jumbotron.jumbotron-comments {
   border-style: solid;
-  border-color: #5fb9ec;
+  border-color: #a9a9a9;
   border-width: 2px;
   margin: 0px 0px 10px 0px;
   padding: 8px 8px;

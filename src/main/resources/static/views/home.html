@@ -67,14 +67,6 @@
     <div class="panel-content">
       <div class="panel-body">{{bookmark.url}}</div>
     </div>
-    <div class="panel-footer" ng-show="">
-      <div class="panel-footer1">
-        <a ng-href="{{bookmark.url}}" target="_blank"><img class="panel" src="images/tab.png"></a>
-      </div>
-      <div class="panel-footer2">
-        <img class="panel" src="images/details.png" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()">
-      </div>
-    </div>
   </div>
   <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </div>
@@ -160,46 +152,48 @@
         <h4 class="modal-title">{{vm.selectedBookmark.title}}</h4>
       </div>
       <div class="modal-body" style="padding-top: 10px;">
-          <label ng-click="vm.openBookmark(selectedBookmark)" class="url-field" style="display: inline; color: #2fa4e7; cursor: pointer;">{{vm.selectedBookmark.url}}</label>
-          <span class="label label-primary"  ng-show="vm.selectedBookmark.public" style="display:inline; margin: 0;; float: right;" title="Everyone can see this">Public</span>
-          <span class="label label-info" ng-show="!vm.selectedBookmark.public" style="display:inline; margin: 0; float: right;" title="Only you can see this">Private</span>
-          <div class="description" style="margin: 20px 0;">
-          <span class="label label-info" style="display:inline;">Description</span>
-          <div class="panel panel-default" style="border: 1px solid #033c73; margin: 0;">
-              <div class="panel-body" style="padding: 10px 10px; text-align: left;" default="no description">
-               {{vm.selectedBookmark.description}}
-              </div>
-            </div>
-              </div>
-          <div class="category-name"><span class="label label-info">{{vm.selectedBookmark.category.name}}</span></div>
-          <span class="label label-primary" ng-repeat="tag in vm.selectedBookmark.tags" style="margin-right: 5px; display:inline-block;">#{{tag.name}}</span>
-        
-        <label class="control-label" style="font-size: 18px; margin-top: 20px; width: 558px;">Comments</label>
+        <a href="{{vm.selectedBookmark.url}}" class="url-field" style="display: inline">{{vm.selectedBookmark.url}}</a>
+        <span class="label label-primary label-success"  ng-show="vm.selectedBookmark.public" style="display:inline; margin: 0; float: right" title="Everyone can see this bookmark">Shared</span>
+        <span class="label label-primary label-danger" ng-show="!vm.selectedBookmark.public" style="display:inline; margin: 0; float: right" title="Only you can see this bookmark">Private</span>
+
+
+        <div class="category-name" style="margin-top: 10px"><span class="label label-info">{{vm.selectedBookmark.category.name}}</span>
+          <span class="label label-default" style="display: inline; margin:0; float: right">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</span>
+        </div>
+
+        <div class="label label-primary" ng-repeat="tag in vm.selectedBookmark.tags" style="margin-right: 5px; display:inline-block;">#{{tag.name}}</div>
+
+
+
+        <label class="control-label" style="font-size: 18px; display: block; margin: 10px 0">Description</label>
+        <div class="panel panel-default" style="margin: 0 0 10px 0;">
+          <div class="panel-body" style="padding: 10px 10px; text-align: left" default="no description">
+            {{vm.selectedBookmark.description}}
+          </div>
+        </div>
+
+        <label class="control-label" style="font-size: 18px; display: block; margin: 10px 0">Comments</label>
         <div class="jumbotron jumbotron-comments">
-          <div class="panel panel-default" style="border: 2px solid #bbe1f7">
-            <div class="panel-heading" style="height: 41px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Delete comment" style="color:red">&times;</button>
-              <h5 class="panel-title" style="font-size: 14px;">Admin</h5>
-            </div>
-            <div class="panel-body comment-body">
-              Panel content
+          <div class="panel panel-default" ng-repeat="comment in vm.selectedBookmark.comments | orderBy: 'date':true">
+            <div class="panel-body comment-body" style="padding-top: 8px; padding-bottom: 8px">
+              <span style="font-weight: bold">{{comment.user.username}}</span> | <span style="font-style: italic; font-size: 80%">{{comment.date | date:'medium'}}</span>
+              <br>
+              {{comment.content}}
             </div>
           </div>
-          <div class="panel panel-default" style="border: 2px solid #5fb9ec;">
-            <div class="panel-heading" style="height: 41px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h5 class="panel-title" style="font-size: 14px;">Admin</h5>
-            </div>
-            <div class="panel-body comment-body">
-              Panel content
+          <div class="panel panel-default" ng-show="vm.selectedBookmark.comments.length === 0">
+            <div class="panel-body comment-body" style="padding-top: 8px; padding-bottom: 8px">
+              <span style="font-style: italic" >
+                There are no comments for this bookmark...
+              </span>
             </div>
           </div>
         </div>
+
         <label class="rating" for="stars_rating">Rating</label>
         <div class="rating-stars" id="stars_rating">
           <span ng-class="{'blue-star': vm.selectedBookmark.rating == 5}">{{vm.selectedBookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 4}">{{vm.selectedBookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 3}">{{vm.selectedBookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 2}">{{vm.selectedBookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 1}">{{vm.selectedBookmark.rating >= 1 ? '★' : '☆'}}</span>
         </div>
-           <span class="label label-default" style="display: inline; float: right;">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

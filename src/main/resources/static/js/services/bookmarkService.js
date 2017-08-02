@@ -113,11 +113,12 @@
       return def.promise;
     }
     
-    function rateBookmark(bookmarkId, rating) {
+    function rateBookmark(bookmarkId, rating, isNewRating) {
       var def = $q.defer();
       var req = {
-        method: 'PUT',
-        url: "bookmarks/rate/" + bookmarkId + "/" + rating
+        method: isNewRating ? 'POST' : 'PUT',
+        url: "rating/" + bookmarkId,
+        data: {"rate" : rating}
       }
       $http(req).success(function (data) {
         def.resolve(data);
