@@ -33,14 +33,15 @@ public class CommentController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @RequestMapping(path = "/{bookmark_id}/{user_id}", method = RequestMethod.POST)
-    public ResponseEntity<Comment> save(@RequestBody Comment comment, @PathVariable("bookmark_id") Long bookmarkId, @PathVariable("user_id") Long userId) {
-        User userPosting = userService.findOne(userId);
+    @RequestMapping(path = "/{bookmark_id}", method = RequestMethod.POST)
+    public ResponseEntity<Comment> save(@RequestBody Comment comment, @PathVariable("bookmark_id") Long bookmarkId) {
+        User userPosting = userService.findByUserName(getLoggedUserName());
         Bookmark commentedBookmark = bookmarkService.findOne(bookmarkId);
 
-        if (!userService.findByUserName(getLoggedUserName()).equals(userPosting)) {
+        if (commentedBookmark.getUser().equals(userPosting)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         comment.setUser(userPosting);
         comment.setDate(new Date());
         commentedBookmark.getComments().add(comment);

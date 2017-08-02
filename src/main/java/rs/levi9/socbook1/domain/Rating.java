@@ -4,35 +4,27 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.util.Date;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
-public class Comment extends BaseEntity {
+public class Rating extends BaseEntity {
 
+    @Min(1)
+    @Max(5)
     @Column(nullable = false)
-    private String content;
-
-    @Column(nullable = false)
-    private Date date;
+    private Integer rate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public String getContent() {
-        return content;
+    public Integer getRate() {
+        return rate;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setRate(Integer rate) {
+        this.rate = rate;
     }
 
     public User getUser() {

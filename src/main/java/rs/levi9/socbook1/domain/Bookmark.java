@@ -35,15 +35,8 @@ public class Bookmark extends BaseEntity {
 	@Column(nullable = false)
 	private boolean isPublic;
 
-	@Min(0)
-	@Max(5)
-	private Integer rating;
-
 	@Column(name = "times_rated")
 	private Integer timesRated;
-
-	@Column(name = "rate_sum")
-	private Integer rateSum;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -62,6 +55,27 @@ public class Bookmark extends BaseEntity {
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
 	private Set<Comment> comments;
+
+	@Cascade(CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "rating_id"))
+	private Set<Rating> ratings;
+
+	public Integer getTimesRated() {
+		return timesRated;
+	}
+
+	public void setTimesRated(Integer timesRated) {
+		this.timesRated = timesRated;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
+	}
 
 	public Set<Comment> getComments() {
 		return comments;
@@ -141,29 +155,5 @@ public class Bookmark extends BaseEntity {
 
 	public void setImported(boolean imported) {
 		this.imported = imported;
-	}
-
-	public Integer getRating() {
-		return rating;
-	}
-
-	public void setRating(Integer rating) {
-		this.rating = rating;
-	}
-
-	public Integer getTimesRated() {
-		return timesRated;
-	}
-
-	public void setTimesRated(Integer timesRated) {
-		this.timesRated = timesRated;
-	}
-
-	public Integer getRateSum() {
-		return rateSum;
-	}
-
-	public void setRateSum(Integer rateSum) {
-		this.rateSum = rateSum;
 	}
 }
