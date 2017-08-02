@@ -88,6 +88,7 @@ public class UserController {
     public ResponseEntity delete(@PathVariable("id") Long id) {
         List<Bookmark> bookmarks = bookmarkService.findAll();
         User userToDelete = userService.findOne(id);
+        List<Bookmark> bookmarksToDelete = new ArrayList<>();
 
         for (Role role : userToDelete.getRoles()) {
             if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
@@ -97,8 +98,12 @@ public class UserController {
 
         for (Bookmark b : bookmarks) {
             if (b.getUser().equals(userToDelete)) {
-                bookmarkService.delete(b.getId());
+                bookmarksToDelete.add(b);
             }
+        }
+
+        for (Bookmark b : bookmarksToDelete) {
+            bookmarkService.delete(b.getId());
         }
 
         userService.delete(id);

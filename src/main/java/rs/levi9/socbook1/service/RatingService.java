@@ -23,4 +23,8 @@ public class RatingService {
     public Rating findOne(Long id) {
         return ratingRepository.findOne(id);
     }
+
+    public void delete(Long id) {
+        ratingRepository.delete(id);
+    }
 }

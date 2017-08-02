@@ -18,7 +18,6 @@ public class Rating extends BaseEntity {
     @Column(nullable = false)
     private Integer rate;
 
-    @Cascade(CascadeType.ALL)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
