@@ -58,13 +58,10 @@ public class BookmarkController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Bookmark> save(@RequestBody Bookmark bookmark) {
+        bookmark.setTimesRated(0);
         Bookmark bookmarkForSave;
         Bookmark uniqueBookmark = bookmarkService.findByUrl(bookmark.getUrl());
         bookmark.setImported(false);
-
-        bookmark.setRating(0);
-        bookmark.setTimesRated(0);
-        bookmark.setRateSum(0);
 
         User tempUser = userService.findByUserName(bookmark.getUser().getUsername());
         if (tempUser == null) {
@@ -206,15 +203,6 @@ public class BookmarkController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/rate/{id}/{new_rating}", method = RequestMethod.PUT)
     public ResponseEntity rate(@PathVariable("id") Long id, @PathVariable("new_rating") Integer newRating) {
-        Bookmark bookmarkToRate = bookmarkService.findOne(id);
-
-        Integer rate = (bookmarkToRate.getRateSum() + newRating) / (bookmarkToRate.getTimesRated() + 1);
-
-        bookmarkToRate.setTimesRated(bookmarkToRate.getTimesRated() + 1);
-        bookmarkToRate.setRateSum(bookmarkToRate.getRateSum() + newRating);
-        bookmarkToRate.setRating(rate);
-
-        bookmarkService.save(bookmarkToRate);
 
         return new ResponseEntity(HttpStatus.OK);
     }
