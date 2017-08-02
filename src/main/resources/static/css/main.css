@@ -331,12 +331,12 @@ label.rating {
 }
 div.jumbotron.jumbotron-comments {
   border-style: solid;
-  border-color: #ecf0f1;
-  border-width: 10px 1px;
+  border-color: #5fb9ec;
+  border-width: 2px;
   margin: 0px 0px 10px 0px;
   padding: 8px 8px;
   background-color: #ecf0f1;
-  height: 180px;
+  height: 215px;
   overflow: auto;
 }
 div.jumbotron.jumbotron-comments div.panel-heading h5 {
@@ -354,15 +354,13 @@ div.jumbotron.jumbotron-comments a.btn-primary {
   float: right;
   margin-right: 10px;
 }
-.modal-body span.url-field {
-    cursor: pointer;
-    display:block;
-    margin: 10px 0;
-}
 .modal-body h3 {
     margin: 0;
     color: #033c73;
 }
-h3, h4 {
+h3, h4, h5 {
     font-weight: bold;
+}
+.label-info, .label-primary {
+    font-size: 80%;
 }
