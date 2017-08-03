@@ -110,6 +110,24 @@ public class UserController {
         }
 
         for (Rating r : ratings) {
+            Bookmark bookmark = bookmarkService.findBookmarkByRatingId(r.getId());
+
+            bookmark.setTimesRated(bookmark.getTimesRated() - 1);
+//            int sumOfRatings = 0;
+//
+//            for (Rating rating : bookmark.getRatings()) {
+//                sumOfRatings = sumOfRatings + rating.getRate();
+//            }
+//
+//            if (bookmark.getTimesRated() == 0) {
+//                bookmark.setRating(0);
+//            }
+//            else {
+//                bookmark.setRating(sumOfRatings / bookmark.getTimesRated());
+//            }
+
+            bookmarkService.save(bookmark);
+
             ratingService.delete(r.getId());
         }
 

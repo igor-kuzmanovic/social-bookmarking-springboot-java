@@ -99,4 +99,8 @@ public class BookmarkService  {
     public Bookmark findBookmarkByCommentId(Long id) {
         return bookmarkRepository.findBookmarkByCommentsId(id);
     }
+
+    public Bookmark findBookmarkByRatingId(Long id) {
+        return bookmarkRepository.findBookmarkByRatingsId(id);
+    }
 }

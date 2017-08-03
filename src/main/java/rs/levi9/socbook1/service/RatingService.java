@@ -31,8 +31,6 @@ public class RatingService {
     }
 
     public void delete(Long id) {
-        //bookmark.setTimesRated(bookmark.getTimesRated() - 1);
-        //bookmarkRepository.save(bookmark);
 
         ratingRepository.delete(id);
     }
