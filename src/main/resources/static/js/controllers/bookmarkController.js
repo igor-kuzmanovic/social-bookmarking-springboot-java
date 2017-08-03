@@ -85,6 +85,7 @@
     }
 
     function editModalOperation() {
+      getUserBookmarks();
       getCategories();
       delete vm.error;
       vm.operation = "edit";
@@ -93,7 +94,12 @@
     }
 
     function detailsModalOperation() {
+      getUserBookmarks();
+      getCategories();
+      delete vm.error;
       vm.operation = "details";
+      vm.bookmark = angular.copy(vm.selectedBookmark);
+      vm.bookmark.date = new Date(vm.bookmark.date);
     }
 
     function shareBookmark() {
