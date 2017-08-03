@@ -2,18 +2,20 @@
   angular.module('app')
     .controller('AdminController', AdminController);
 
-  AdminController.$inject = ['UserService', 'BookmarkService', 'CategoryService', '$scope'];
+  AdminController.$inject = ['UserService', 'BookmarkService', 'CommentService', 'CategoryService', '$scope', '$filter'];
 
-  function AdminController(UserService, BookmarkService, CategoryService, $scope) {
+  function AdminController(UserService, BookmarkService, CommentService, CategoryService, $scope, $filter) {
 
     var vm = this;
     vm.changePanel = changePanel;
     vm.selectBookmark = selectBookmark;
     vm.getBookmarks = getBookmarks;
-    vm.showBookmarkDetailsModal = showBookmarkDetailsModal;
-    vm.editBookmarkModal = editBookmarkModal;
+    vm.bookmarkEditModal = bookmarkEditModal;
+    vm.bookmarkDetailsModal = bookmarkDetailsModal;
     vm.editBookmark = editBookmark;
     vm.deleteBookmark = deleteBookmark;
+    vm.deleteComment = deleteComment;
+    vm.getBookmarkComments = getBookmarkComments;
     vm.selectCategory = selectCategory;
     vm.getCategories = getCategories;
     vm.addCategoryModal = addCategoryModal;
@@ -38,6 +40,10 @@
       else if(vm.panel === 3){
         getCategories();
       }
+
+      if($scope.$parent.vm.user) {
+        vm.currentUser = $scope.$parent.vm.user;
+      }
     }
 
     function selectBookmark(bookmark) {
@@ -55,25 +61,36 @@
       }
     }
 
-    function showBookmarkDetailsModal() {
+    function bookmarkEditModal() {
+      getBookmarks();
+      getCategories();
       delete vm.error;
+      vm.operation = "edit";
+      vm.bookmark = angular.copy(vm.selectedBookmark);
+      vm.bookmark.date = new Date(vm.bookmark.date);
+      vm.bookmark.date = vm.bookmark.date.toDateString();      
+    }
+
+    function bookmarkDetailsModal() {
+      getBookmarks();
+      getCategories();
+      delete vm.error;
+      vm.operation = "details";
+      vm.bookmark = angular.copy(vm.selectedBookmark);
+      vm.bookmark.date = new Date(vm.bookmark.date);
+      vm.bookmark.date = vm.bookmark.date.toDateString();
     }
 
     function handleSuccessBookmarks(data, status){
       vm.bookmarks = data;
     }
 
-    function editBookmarkModal() {
-      delete vm.error;
-      vm.editedBookmark = angular.copy(vm.selectedBookmark);
-      getCategories();
-    }
-
-    function editBookmark(editedBookmark){
-      BookmarkService.saveBookmark(editedBookmark).then(function(response) {
-        $('#editBookmarkModal').modal('hide');
+    function editBookmark(bookmark){
+      bookmark.date = $filter('date')(new Date(), "yyyy-MM-dd");
+      BookmarkService.saveBookmark(bookmark).then(function(response) {
+        $('#detailsBookmarkModal').modal('hide');
         getBookmarks();
-        delete vm.editedBookmark;
+        delete vm.bookmark;
       }, function(error){
         vm.error = error;
       })
@@ -87,6 +104,22 @@
       }, function(error){
         vm.error = error;
       });
+    }
+
+    function deleteComment(commentId){
+      CommentService.deleteComment(commentId).then(function(response){
+        vm.getBookmarkComments();
+      }, function(error){
+        vm.error = error;
+      })
+    }
+
+    function getBookmarkComments() {
+      BookmarkService.getBookmarkComments(vm.selectedBookmark).then(handleSuccessBookmarkComments);
+    }
+
+    function handleSuccessBookmarkComments(data, status) {
+      vm.comments = data;
     }
 
     function selectCategory(category) {
@@ -109,7 +142,7 @@
     }
 
     function addCategory(category) {
-        CategoryService.saveCategory(category).then(function(response) {
+      CategoryService.saveCategory(category).then(function(response) {
         $('#addCategoryModal').modal('hide');
         getCategories();
         delete vm.category;
