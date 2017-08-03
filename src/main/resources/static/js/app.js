@@ -13,17 +13,16 @@
 		return function(input, searchText) {
 			if (searchText) {
 				var returnArray = [];
-				var splitText = searchText.toLowerCase().split(/\s+/);
 				for (var x = 0; x < input.length; x++) {
 					var count = 0;
-					for (var y = 0; y < splitText.length; y++) {
+					for (var y = 0; y < searchText.length; y++) {
 						angular.forEach(input[x].tags, function(tag) {
-							if (tag.name.indexOf(splitText[y]) !== -1) {
+							if (tag.text == searchText[y].text) {
 								count++;
 							}
 						})
 					}
-					if (count == splitText.length) {
+					if (count == searchText.length) {
 						returnArray.push(input[x]);
 					}
 				}

@@ -40,13 +40,13 @@
   <div class="form-group search-group">
     <label class="col-lg-2 control-label control-label1" for="inputDefault">User</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control resized-height" id="inputDefault" ng-model="search.user.username">
+      <input type="text" class="form-control resized-height" id="inputDefault" placeholder="Username" ng-model="search.user.username">
     </div>
   </div>
   <div class="form-group search-group">
     <label class="col-lg-2 control-label control-label1" for="inputDefault">Title</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control resized-height" id="inputDefault" ng-model="search.title">
+      <input type="text" class="form-control resized-height" id="inputDefault" placeholder="Title" ng-model="search.title">
     </div>
   </div>
   <div class="form-group search-group">
@@ -62,13 +62,13 @@
   <div class="form-group search-group">
     <label for="textArea" class="col-lg-2 control-label control-label1">Tags</label>
     <div class="col-lg-4">
-      <input type="text" class="form-control resized-height" id="inputDefault" ng-model="tagsearch.tags.name">
+      <tags-input type="text" id="inputDefault" placeholder="Tags" ng-model="tagsearch.tags"></tags-input>
     </div>
   </div>
 </nav>
 
 <div class="bookmark-container" ng-show="vm.publicBookmarks.length != 0">
-  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks | filter:search:strict | tagFilter:tagsearch.tags.name" ng-click="vm.selectBookmark(bookmark)" ng-dblclick="vm.openBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
+  <div class="panel panel-primary" style="cursor: pointer" ng-repeat="bookmark in vm.publicBookmarks | filter:search:strict | tagFilter:tagsearch.tags" ng-click="vm.selectBookmark(bookmark)" ng-dblclick="vm.openBookmark(bookmark)" ng-class="{selected: bookmark === vm.selectedBookmark}">
     <div class="panel-heading">
       <h3 class="panel-title">{{bookmark.title}}</h3>
     </div>
