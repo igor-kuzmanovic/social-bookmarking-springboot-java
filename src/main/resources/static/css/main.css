@@ -333,8 +333,9 @@ div.jumbotron.jumbotron-comments {
   border-style: solid;
   border-color: #cccccc;
   border-width: 2px;
-  margin: 10px 5px 10px 5px;
-  padding: 8px 8px;
+  width: 461px;
+  margin-left: 113px;
+  margin-right: 20px;
   background-color: #eeeeee;
   height: 215px;
   overflow: auto;

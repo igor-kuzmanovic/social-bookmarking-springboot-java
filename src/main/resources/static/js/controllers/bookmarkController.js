@@ -89,7 +89,8 @@
       delete vm.error;
       vm.operation = "edit";
       vm.bookmark = angular.copy(vm.selectedBookmark);
-      vm.bookmark.date = new Date(vm.bookmark.date);
+      vm.bookmark.date = new Date.parse(vm.bookmark.date);
+        //vm.bookmark.date.getFullYear() + "/" + (vm.bookmark.date.getMonth() + 1) + "/" + vm.bookmark.date.getDate();
     }
 
     function detailsModalOperation() {
