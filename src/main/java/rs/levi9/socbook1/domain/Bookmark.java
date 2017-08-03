@@ -1,5 +1,6 @@
 package rs.levi9.socbook1.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
@@ -45,7 +46,6 @@ public class Bookmark extends BaseEntity {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
