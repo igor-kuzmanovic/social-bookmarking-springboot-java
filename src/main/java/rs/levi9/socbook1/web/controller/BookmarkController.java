@@ -11,10 +11,7 @@ import rs.levi9.socbook1.domain.*;
 import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.UserService;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/bookmarks")
@@ -137,6 +134,7 @@ public class BookmarkController {
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<Bookmark> importBookmark(@PathVariable("id") Long id) {
         Bookmark bookmarkSource = bookmarkService.findOne(id);
+        Set<Rating> ratingsSet = new HashSet<>();
 
         bookmarkSource.setImported(true);
 
@@ -160,7 +158,9 @@ public class BookmarkController {
         bookmarkToImport.setUrl(bookmarkSource.getUrl());
         bookmarkToImport.setRating(bookmarkSource.getRating());
         bookmarkToImport.setTimesRated(bookmarkSource.getTimesRated());
-        bookmarkToImport.setRatings(bookmarkSource.getRatings());
+
+        ratingsSet.addAll(bookmarkSource.getRatings());
+        bookmarkToImport.setRatings(ratingsSet);
 
         Bookmark bookmarkForSave = bookmarkService.save(bookmarkToImport);
 
