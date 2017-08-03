@@ -145,7 +145,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="bookmark in vm.bookmarks" style="cursor: pointer" ng-click="vm.selectBookmark(bookmark)" ng-class="{listSelected: bookmark === vm.selectedBookmark}">
+      <tr ng-repeat="bookmark in vm.bookmarks" style="cursor: pointer" ng-click="vm.selectBookmark(bookmark)" ng-class="{listSelected: bookmark.id === vm.selectedBookmark.id}">
         <td><img src="https://www.google.com/s2/favicons?domain={{bookmark.url}}"/></td>
         <td>{{bookmark.title}}</td>
         <td>{{bookmark.url}}</td>
@@ -169,7 +169,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in vm.users" style="cursor: pointer" ng-click="vm.selectUser(user)" ng-class="{listSelected: user === vm.selectedUser}">
+      <tr ng-repeat="user in vm.users" style="cursor: pointer" ng-click="vm.selectUser(user)" ng-class="{listSelected: user.id === vm.selectedUser.id}">
         <td>{{user.roles.length == 2 ? "A" : "U"}}</td>
         <td>{{user.username}}</td>
         <td>{{user.email}}</td>
@@ -189,7 +189,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="category in vm.categories" style="cursor: pointer" ng-click="vm.selectCategory(category)" ng-class="{listSelected: category === vm.selectedCategory}">
+      <tr ng-repeat="category in vm.categories" style="cursor: pointer" ng-click="vm.selectCategory(category)" ng-class="{listSelected: category.id === vm.selectedCategory.id}">
         <td>{{category.name}}</td>
       </tr>
     </tbody>

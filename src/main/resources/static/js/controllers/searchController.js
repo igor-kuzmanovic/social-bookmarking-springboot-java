@@ -63,10 +63,7 @@
     }
 
     function selectBookmark(bookmark) {
-      if(vm.selectedBookmark == bookmark) {
-        vm.selectedBookmark = null;
-      }
-      else {
+      if(!vm.selectedBookmark || vm.selectedBookmark.id != bookmark.id) {
         vm.selectedBookmark = bookmark;
         vm.disableImport = false;
         vm.userBookmarks.forEach(function(bookmark) {
@@ -76,6 +73,9 @@
         });
         vm.selectedBookmark.date = new Date(vm.selectedBookmark.date);
         vm.selectedBookmark.date = vm.selectedBookmark.date.toDateString();
+      }
+      else {
+        vm.selectedBookmark = null;
       }
     }
 

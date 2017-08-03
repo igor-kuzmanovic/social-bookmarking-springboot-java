@@ -47,11 +47,11 @@
     }
 
     function selectBookmark(bookmark) {
-      if(vm.selectedBookmark == bookmark) {
-        vm.selectedBookmark = null;
+      if(!vm.selectedBookmark || vm.selectedBookmark.id != bookmark.id) {
+        vm.selectedBookmark = bookmark;
       }
       else {
-        vm.selectedBookmark = bookmark;
+        vm.selectedBookmark = null;
       }
     }
 
@@ -90,6 +90,7 @@
       BookmarkService.saveBookmark(bookmark).then(function(response) {
         $('#detailsBookmarkModal').modal('hide');
         getBookmarks();
+        vm.selectedBookmark = vm.bookmark;
         delete vm.bookmark;
       }, function(error){
         vm.error = error;
@@ -123,11 +124,11 @@
     }
 
     function selectCategory(category) {
-      if(vm.selectedCategory == category) {
-        vm.selectedCategory = null;
+      if(!vm.selectedCategory || vm.selectedCategory.id != category.id) {
+        vm.selectedCategory = category;
       }
       else {
-        vm.selectedCategory = category;
+        vm.selectedCategory = null;
       }
     }
 
@@ -160,6 +161,7 @@
       CategoryService.saveCategory(editedCategory).then(function(response) {
         $('#editCategoryModal').modal('hide');
         getCategories();
+        vm.selectedCategory = vm.editedCategory;
         delete vm.editedCategory;
       }, function(error){
         vm.error = error;
@@ -177,11 +179,11 @@
     }
 
     function selectUser(user) {
-      if(vm.selectedUser == user) {
-        vm.selectedUser = null;
+      if(!vm.selectedUser || vm.selectedUser.id != user.id) {
+        vm.selectedUser = user;
       }
       else {
-        vm.selectedUser = user;
+        vm.selectedUser = null;
       }
     }
 

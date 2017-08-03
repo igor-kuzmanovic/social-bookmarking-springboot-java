@@ -28,11 +28,11 @@
     }
 
     function selectBookmark(bookmark) {
-      if(vm.selectedBookmark == bookmark) {
-        vm.selectedBookmark = null;
+      if(!vm.selectedBookmark || vm.selectedBookmark.id != bookmark.id) {
+        vm.selectedBookmark = bookmark;
       }
       else {
-        vm.selectedBookmark = bookmark;
+        vm.selectedBookmark = null;
       }
     }
 
@@ -52,6 +52,7 @@
       BookmarkService.saveBookmark(bookmark).then(function(response){
         $('#addBookmarkModal').modal('hide');
         getUserBookmarks();
+        vm.selectedBookmark = vm.bookmark;
         delete vm.bookmark;
       }, function(error){
         vm.error = error;
