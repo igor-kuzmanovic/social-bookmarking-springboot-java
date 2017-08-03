@@ -72,14 +72,6 @@ public class BookmarkService  {
             }
         }
 
-        for (Comment comment : forDelete.getComments()) {
-            commentRepository.delete(comment.getId());
-        }
-
-        for (Rating rating : forDelete.getRatings()) {
-            ratingRepository.delete(rating.getId());
-        }
-
         bookmarkRepository.delete(id);
     }
 
