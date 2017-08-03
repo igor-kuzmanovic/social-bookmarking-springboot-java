@@ -102,13 +102,13 @@
               <div class="col-lg-10" style="margin-bottom: 10px">
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="vm.operation == 'add' || !vm.selectedBookmark.public" type="radio" ng-disabled="vm.operation == 'details'" ng-click="vm.bookmark.public = false">
+                    <input name="optionsRadios" id="optionsRadios1" value="option1" ng-checked="vm.operation == 'add' || !vm.bookmark.public" type="radio" ng-disabled="vm.operation == 'details'" ng-click="vm.bookmark.public = false">
                     Private
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.selectedBookmark.public" type="radio" ng-disabled="vm.operation == 'details'" ng-click="vm.bookmark.public = true">
+                    <input name="optionsRadios" id="optionsRadios2" value="option2" ng-checked="vm.bookmark.public" type="radio" ng-disabled="vm.operation == 'details'" ng-click="vm.bookmark.public = true">
                     Public
                   </label>
                 </div>
@@ -122,7 +122,7 @@
               <div ng-show="vm.operation == 'details'">
                 <label class="col-lg-2 control-label">Comments</label>
                 <div class="jumbotron jumbotron-comments">
-                  <div class="panel panel-default" ng-repeat="comment in vm.selectedBookmark.comments | orderBy: 'date':true">
+                  <div class="panel panel-default" ng-repeat="comment in vm.bookmark.comments | orderBy: 'date':true">
                     <div class="panel-body comment-body" style="padding-top: 8px; padding-bottom: 8px">
                       <span style="font-weight: bold">{{comment.user.username}}</span> | <span style="font-style: italic; font-size: 80%">{{comment.date | date:'medium'}}</span>
                       <br>
@@ -133,12 +133,12 @@
 
                 <label class="col-lg-2 control-label" for="stars_rating" style="padding-top:15px">Rating</label>
                 <div class="rating-stars" id="stars_rating" style="display:inline">
-                  <span ng-class="{'blue-star': vm.selectedBookmark.rating == 5}">{{vm.selectedBookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 4}">{{vm.selectedBookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 3}">{{vm.selectedBookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 2}">{{vm.selectedBookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 1}">{{vm.selectedBookmark.rating >= 1 ? '★' : '☆'}}</span>
+                  <span ng-class="{'blue-star': vm.bookmark.rating == 5}">{{vm.bookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.bookmark.rating >= 4}">{{vm.bookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.bookmark.rating >= 3}">{{vm.bookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.bookmark.rating >= 2}">{{vm.bookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.bookmark.rating >= 1}">{{vm.bookmark.rating >= 1 ? '★' : '☆'}}</span>
                 </div>               
               </div>
               
-              <div class="col-lg-10" ng-show="vm.operation == 'details' && vm.selectedBookmark.timesRated > 0" style="float:right">Rated by {{vm.selectedBookmark.timesRated}} user{{vm.selectedBookmark.timesRated > 1 ? "s" : ""}}</div>
-              <div class="col-lg-10" ng-show="vm.operation == 'details' && vm.selectedBookmark.timesRated == 0" style="float:right">This bookmark hasn't been rated yet</div>
+              <div class="col-lg-10" ng-show="vm.operation == 'details' && vm.bookmark.timesRated > 0" style="float:right">Rated by {{vm.bookmark.timesRated}} user{{vm.bookmark.timesRated > 1 ? "s" : ""}}</div>
+              <div class="col-lg-10" ng-show="vm.operation == 'details' && vm.bookmark.timesRated == 0" style="float:right">This bookmark hasn't been rated yet</div>
             </div>
           </fieldset>
         </form>

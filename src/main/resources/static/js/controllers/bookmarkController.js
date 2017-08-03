@@ -81,6 +81,7 @@
     function addModalOperation() {
       getCategories();
       delete vm.error;
+      delete vm.bookmark;
       vm.operation = "add";
     }
 
