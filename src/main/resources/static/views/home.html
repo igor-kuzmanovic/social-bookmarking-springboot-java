@@ -31,19 +31,8 @@
   </div>
 
   <div ng-show="vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit a bookmark">
-      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.editModalOperation()"/>
-    </div>
-  </div>
-  <div ng-show="!vm.selectedBookmark">
-    <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_red.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Please select a bookmark">
-      <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer"/>
-    </div>
-  </div>
-
-  <div ng-show="vm.selectedBookmark">
     <div class="nav-icons" ng-init="imgsrc3='images/details.png'" ng-mouseover="imgsrc3='images/details_blue.png'" ng-mouseout="imgsrc3='images/details.png'" title="Bookmark details">
-      <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#showBookmarkDetails" ng-click="vm.showBookmarkDetails()"/>
+      <img class="nav-icons" src="{{imgsrc3}}" style="cursor: pointer" data-toggle="modal" data-target="#addBookmarkModal" ng-click="vm.detailsModalOperation()"/>
     </div>
   </div>
   <div ng-show="!vm.selectedBookmark">
@@ -100,6 +89,7 @@
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
               <div class="col-lg-10">
                 <select name="category" class="form-control" id="selectCategory" ng-disabled="vm.operation == 'details'" ng-model="vm.bookmark.category" ng-options="category as category.name for category in vm.categories track by category.id">
+                  <option value="" selected="selected" disabled="true" ng-show="vm.operation == 'add'">- Please select a category -</option>
                 </select>
               </div>
 
@@ -124,8 +114,8 @@
                 </div>
               </div>
 
-              <label class="col-lg-2 control-label">Date</label>
-              <div class="col-lg-10">
+              <label class="col-lg-2 control-label" ng-show="vm.operation != 'add'">Date</label>
+              <div class="col-lg-10" ng-show="vm.operation != 'add'">
                 <input class="form-control" ng-disabled="true" ng-model="vm.bookmark.date">
               </div>
 
@@ -144,8 +134,11 @@
                 <label class="col-lg-2 control-label" for="stars_rating">Rating</label>
                 <div class="rating-stars" id="stars_rating" style="display:inline">
                   <span ng-class="{'blue-star': vm.selectedBookmark.rating == 5}">{{vm.selectedBookmark.rating == 5 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 4}">{{vm.selectedBookmark.rating >= 4 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 3}">{{vm.selectedBookmark.rating >= 3 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 2}">{{vm.selectedBookmark.rating >= 2 ? '★' : '☆'}}</span><span ng-class="{'blue-star': vm.selectedBookmark.rating >= 1}">{{vm.selectedBookmark.rating >= 1 ? '★' : '☆'}}</span>
-                </div>
+                </div>               
               </div>
+              
+              <div class="col-lg-10" ng-show="vm.operation == 'details' && vm.selectedBookmark.timesRated > 0" style="float:right">Rated by {{vm.selectedBookmark.timesRated}} user{{vm.selectedBookmark.timesRated > 1 ? "s" : ""}}</div>
+              <div class="col-lg-10" ng-show="vm.operation == 'details' && vm.selectedBookmark.timesRated == 0" style="float:right">This bookmark hasn't been rated yet</div>
             </div>
           </fieldset>
         </form>
@@ -155,44 +148,7 @@
         <button type="button" class="btn btn-primary" ng-show="vm.operation == 'details'" ng-click="vm.editModalOperation()">Edit</button>
         <button type="button" class="btn btn-primary" ng-show="vm.operation == 'edit'" ng-click="vm.detailsModalOperation()">Details</button>
         <button type="submit" class="btn btn-primary" ng-show="vm.operation == 'edit'" ng-click="vm.saveBookmark(vm.bookmark)">Save changes</button>
-        <div class="alert-container alert alert-danger" ng-if="vm.error">
-          {{vm.error}}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="showBookmarkDetails" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{vm.selectedBookmark.title}}</h4>
-      </div>
-      <div class="modal-body" style="padding-top: 10px;">
-        <a href="{{vm.selectedBookmark.url}}" class="url-field" style="display: inline">{{vm.selectedBookmark.url}}</a>
-        <span class="label label-primary label-success"  ng-show="vm.selectedBookmark.public" style="display:inline; margin: 0; float: right" title="Everyone can see this bookmark">Shared</span>
-        <span class="label label-primary label-danger" ng-show="!vm.selectedBookmark.public" style="display:inline; margin: 0; float: right" title="Only you can see this bookmark">Private</span>
-
-
-        <div class="category-name" style="margin-top: 10px"><span class="label label-info">{{vm.selectedBookmark.category.name}}</span>
-          <span class="label label-default" style="display: inline; margin:0; float: right">{{vm.selectedBookmark.date | date:'dd-MM-yyyy'}}</span>
-        </div>
-
-        <div class="label label-primary" ng-repeat="tag in vm.selectedBookmark.tags" style="margin-right: 5px; display:inline-block;">#{{tag.text}}</div>
-
-        <label class="control-label" style="font-size: 18px; display: block; margin: 10px 0">Description</label>
-        <div class="panel panel-default" style="margin: 0 0 10px 0;">
-          <div class="panel-body" style="padding: 10px 10px; text-align: left" default="no description">
-            {{vm.selectedBookmark.description}}
-          </div>
-        </div>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" ng-show="vm.operation == 'add'" ng-click="vm.saveBookmark(vm.bookmark)">Submit</button>
         <div class="alert-container alert alert-danger" ng-if="vm.error">
           {{vm.error}}
         </div>
