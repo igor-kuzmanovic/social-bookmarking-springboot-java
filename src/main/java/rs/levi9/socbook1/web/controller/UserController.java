@@ -7,11 +7,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import rs.levi9.socbook1.domain.Bookmark;
-import rs.levi9.socbook1.domain.Role;
-import rs.levi9.socbook1.domain.User;
-import rs.levi9.socbook1.domain.UserStatus;
+import rs.levi9.socbook1.domain.*;
 import rs.levi9.socbook1.service.BookmarkService;
+import rs.levi9.socbook1.service.CommentService;
+import rs.levi9.socbook1.service.RatingService;
 import rs.levi9.socbook1.service.UserService;
 import org.springframework.security.core.authority.AuthorityUtils;
 
@@ -23,11 +22,16 @@ public class UserController {
 
     private UserService userService;
     private BookmarkService bookmarkService;
+    private CommentService commentService;
+    private RatingService ratingService;
 
     @Autowired
-    public UserController(UserService userService, BookmarkService bookmarkService) {
+    public UserController(UserService userService, BookmarkService bookmarkService,
+                          CommentService commentService, RatingService ratingService) {
         this.userService = userService;
         this.bookmarkService = bookmarkService;
+        this.commentService = commentService;
+        this.ratingService = ratingService;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -86,9 +90,11 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        List<Bookmark> bookmarks = bookmarkService.findAll();
         User userToDelete = userService.findOne(id);
+        List<Bookmark> bookmarks = bookmarkService.findAll();
         List<Bookmark> bookmarksToDelete = new ArrayList<>();
+        List<Comment> comments = commentService.findAllCommentsByUser(userToDelete);
+        List<Rating> ratings = ratingService.findAllRatingsByUser(userToDelete);
 
         for (Role role : userToDelete.getRoles()) {
             if (role.getType().equals(Role.RoleType.ROLE_ADMIN)) {
@@ -100,6 +106,14 @@ public class UserController {
             if (b.getUser().equals(userToDelete)) {
                 bookmarksToDelete.add(b);
             }
+        }
+
+        for (Rating r : ratings) {
+            ratingService.delete(r.getId());
+        }
+
+        for (Comment c : comments) {
+            commentService.delete(c.getId());
         }
 
         for (Bookmark b : bookmarksToDelete) {

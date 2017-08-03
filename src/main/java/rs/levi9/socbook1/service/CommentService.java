@@ -2,6 +2,7 @@ package rs.levi9.socbook1.service;
 
 import org.springframework.stereotype.Service;
 import rs.levi9.socbook1.domain.Comment;
+import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.repository.CommentRepository;
 
 import javax.transaction.Transactional;
@@ -31,5 +32,9 @@ public class CommentService {
 
     public Comment findOne(Long id) {
         return commentRepository.findOne(id);
+    }
+
+    public List<Comment> findAllCommentsByUser(User user) {
+        return commentRepository.findAllByUser(user);
     }
 }

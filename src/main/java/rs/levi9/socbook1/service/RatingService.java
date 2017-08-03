@@ -2,9 +2,11 @@ package rs.levi9.socbook1.service;
 
 import org.springframework.stereotype.Service;
 import rs.levi9.socbook1.domain.Rating;
+import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.repository.RatingRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -26,5 +28,9 @@ public class RatingService {
 
     public void delete(Long id) {
         ratingRepository.delete(id);
+    }
+
+    public List<Rating> findAllRatingsByUser(User user) {
+        return ratingRepository.findAllByUser(user);
     }
 }

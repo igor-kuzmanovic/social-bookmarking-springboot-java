@@ -87,7 +87,7 @@ public class BookmarkController {
         }
 
         bookmark.setUser(tempUser);
-        //Change(add every field)
+
         Bookmark updatedBookmark = bookmarkService.save(bookmark);
 
         if (updatedBookmark == null) {
@@ -120,12 +120,6 @@ public class BookmarkController {
         }
 
         List<Bookmark> bookmarks = bookmarkService.findAllByPublicWithoutUser(user);
-
-        if (!isUserAdmin(userService.findByUserName(getLoggedUserName()))) {
-            for (Bookmark b : bookmarks) {
-                b.getUser().setPassword("********");
-            }
-        }
 
         return new ResponseEntity<>(bookmarks, HttpStatus.OK);
     }
@@ -178,10 +172,6 @@ public class BookmarkController {
 
         if (bookmark == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        for (Comment c : bookmark.getComments()) {
-            c.getUser().setPassword("********");
         }
 
         return new ResponseEntity<>(bookmark.getComments(), HttpStatus.OK);
