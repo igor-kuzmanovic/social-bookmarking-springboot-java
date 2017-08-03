@@ -81,8 +81,8 @@ public class RatingController {
         return auth.getName();
     }
 
-    private Integer calculateRating(Bookmark bookmark) {
-        Integer rateSum = 0;
+    private int calculateRating(Bookmark bookmark) {
+        int rateSum = 0;
 
         for (Rating r : bookmark.getRatings()) {
             rateSum = rateSum + r.getRate();
