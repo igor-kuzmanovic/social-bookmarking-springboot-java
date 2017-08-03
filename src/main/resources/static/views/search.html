@@ -122,7 +122,7 @@
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
               <div class="col-lg-10">
-                <input class="form-control" id="inputDescription" placeholder="Description" ng-disabled="true" ng-model="vm.Selectedbookmark.description">
+                <input class="form-control" id="inputDescription" placeholder="Description" ng-disabled="true" ng-model="vm.selectedBookmark.description">
               </div>
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
@@ -187,10 +187,10 @@
               <div class="col-lg-10" ng-show="vm.selectedBookmark.timesRated == 0" style="float:right">This bookmark hasn't been rated yet</div>
 
               <label class="col-lg-2 control-label" for="stars_rate" style="padding-top:16px;">Rate</label>
-              <div ng-show="!vm.yourCurrentRating" class="rating-stars" id="stars_rate" style="display:inline">
+              <div ng-show="!vm.yourCurrentRating" class="rating-stars rate" id="stars_rate" style="display:inline">
                 <span ng-click="vm.rateBookmark(5)">☆</span><span ng-click="vm.rateBookmark(4)">☆</span><span ng-click="vm.rateBookmark(3)">☆</span><span ng-click="vm.rateBookmark(2)">☆</span><span ng-click="vm.rateBookmark(1)">☆</span>
               </div>
-              <div ng-show="vm.yourCurrentRating" class="rating-stars" id="stars_rate" style="display:inline">
+              <div ng-show="vm.yourCurrentRating" class="rating-stars rate" id="stars_rate" style="display:inline">
                 <span ng-click="vm.rateBookmark(5)" ng-class="{'yellow-star': vm.yourCurrentRating == 5}">☆</span><span ng-click="vm.rateBookmark(4)" ng-class="{'yellow-star': vm.yourCurrentRating >= 4}">☆</span><span ng-click="vm.rateBookmark(3)" ng-class="{'yellow-star': vm.yourCurrentRating >= 3}">☆</span><span ng-click="vm.rateBookmark(2)" ng-class="{'yellow-star': vm.yourCurrentRating >= 2}">☆</span><span ng-click="vm.rateBookmark(1)" ng-class="{'yellow-star': vm.yourCurrentRating >= 1}">☆</span>
               </div>
             </div>

@@ -21,7 +21,7 @@
 
     function init() {     
       if($scope.$parent.vm.user){
-        getUserBookmarks()
+        getUserBookmarks();
         getPublicBookmarks();
         vm.currentUserUsername = $scope.$parent.vm.user.name;
       };
@@ -73,7 +73,9 @@
           if(vm.selectedBookmark.url === bookmark.url) {
             vm.disableImport = true;
           }
-        });   
+        });
+        vm.selectedBookmark.date = new Date(vm.selectedBookmark.date);
+        vm.selectedBookmark.date = vm.selectedBookmark.date.toDateString();
       }
     }
 
@@ -117,6 +119,8 @@
       BookmarkService.rateBookmark(vm.selectedBookmark.id, rating, isNewRating).then(function(response) {
         getPublicBookmarks();
         vm.selectedBookmark = response;
+        vm.selectedBookmark.date = new Date(vm.selectedBookmark.date);
+        vm.selectedBookmark.date = vm.selectedBookmark.date.toDateString();
         showRating();
       }, function(error){
         vm.error = error;
