@@ -118,6 +118,11 @@
               <div class="col-lg-10" ng-show="vm.operation != 'add'">
                 <input class="form-control" ng-disabled="true" ng-model="vm.bookmark.date">
               </div>
+              
+              <label class="col-lg-2 control-label" ng-show="vm.operation != 'add'">Author</label>
+              <div class="col-lg-10" ng-show="vm.operation != 'add'">
+                <input class="form-control" ng-disabled="true" ng-model="vm.bookmark.user.username">
+              </div>
 
               <div ng-show="vm.operation == 'details'">
                 <label class="col-lg-2 control-label">Comments</label>
