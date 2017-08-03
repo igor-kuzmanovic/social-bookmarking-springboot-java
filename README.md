@@ -29,7 +29,7 @@ Users should be allowed to share, rate and comment on bookmarks added by other u
 
 - [x] Second link opens the bookmark details page.
 
-- [ ] On the bookmark details page users can import, rate, comment.
+- [x] On the bookmark details page users can import, rate, comment.
 
 - [x] Admin user has same functionalities as a regular user.
 
