@@ -16,28 +16,24 @@
     vm.deleteComment = deleteComment;
     vm.rateBookmark = rateBookmark;
     vm.showRating = showRating;
-    //    vm.publicBookmarks;
-    //    vm.userBookmarks;
-    //    vm.selectedBookmark;
-    //    vm.disableImport;
 
     init();
 
     function init() {     
       if($scope.$parent.vm.user){
-        getUserBookmarks($scope.$parent.vm.user.name)
-        getPublicBookmarks($scope.$parent.vm.user.name);
+        getUserBookmarks()
+        getPublicBookmarks();
         vm.currentUserUsername = $scope.$parent.vm.user.name;
       };
     }
 
-    function getPublicBookmarks(username){
+    function getPublicBookmarks(){
       getCategories();
-      BookmarkService.getPublicBookmarks(username).then(handleSuccessPublicBookmarks);
+      BookmarkService.getPublicBookmarks().then(handleSuccessPublicBookmarks);
     }
 
-    function getUserBookmarks(username){
-      BookmarkService.getUserBookmarks(username).then(handleSuccessUserBookmarks);
+    function getUserBookmarks(){
+      BookmarkService.getUserBookmarks().then(handleSuccessUserBookmarks);
     }
 
     function handleSuccessPublicBookmarks(data, status) {
@@ -57,10 +53,10 @@
     }
 
     function importBookmark(bookmarkId) {
-      BookmarkService.importBookmark($scope.$parent.vm.user.name, bookmarkId).then(function(response){
+      BookmarkService.importBookmark(bookmarkId).then(function(response){
         $('#importBookmarkModal').modal('hide');
-        getPublicBookmarks($scope.$parent.vm.user.name);
-        getUserBookmarks($scope.$parent.vm.user.name);
+        getPublicBookmarks();
+        getUserBookmarks();
       }, function(error){
         vm.error = error;
       }) 
@@ -119,7 +115,7 @@
         var isNewRating = true;
       }
       BookmarkService.rateBookmark(vm.selectedBookmark.id, rating, isNewRating).then(function(response) {
-        getPublicBookmarks($scope.$parent.vm.user.name);
+        getPublicBookmarks();
         vm.selectedBookmark = response;
         showRating();
       }, function(error){

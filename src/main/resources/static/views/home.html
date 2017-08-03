@@ -94,7 +94,7 @@
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
               <div class="col-lg-10">
-                <input class="form-control" id="inputDescription" placeholder="Description" ng-disabled="vm.operation == 'details'" ng-model="vm.bookmark.description"></input>
+                <input class="form-control" id="inputDescription" placeholder="Description" ng-disabled="vm.operation == 'details'" ng-model="vm.bookmark.description">
               </div>
 
               <label for="selectCategory" class="col-lg-2 control-label">Category</label>
@@ -126,7 +126,7 @@
 
               <label class="col-lg-2 control-label">Date</label>
               <div class="col-lg-10">
-                <input class="form-control" ng-disabled="true" ng-model="vm.bookmark.date|date:'medium'"></input>
+                <input class="form-control" ng-disabled="true" ng-model="vm.bookmark.date">
               </div>
 
               <div ng-show="vm.operation == 'details'">

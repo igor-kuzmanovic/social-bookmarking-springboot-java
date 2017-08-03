@@ -23,7 +23,7 @@
 
     function init(){
       if($scope.$parent.vm.user){
-        getUserBookmarks($scope.$parent.vm.user.name);
+        getUserBookmarks();
       }
     }
 
@@ -36,9 +36,9 @@
       }
     }
 
-    function getUserBookmarks(username){
+    function getUserBookmarks(){
       if($scope.$parent.vm.user.name) {
-        BookmarkService.getUserBookmarks(username).then(handleSuccessBookmarks);
+        BookmarkService.getUserBookmarks().then(handleSuccessBookmarks);
       }
     }
 
@@ -51,7 +51,7 @@
       bookmark.date = $filter('date')(new Date(), "yyyy-MM-dd");
       BookmarkService.saveBookmark(bookmark).then(function(response){
         $('#addBookmarkModal').modal('hide');
-        getUserBookmarks($scope.$parent.vm.user.name);
+        getUserBookmarks();
         delete vm.bookmark;
       }, function(error){
         vm.error = error;
@@ -71,7 +71,7 @@
     function deleteBookmark(){
       BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
         $('#deleteBookmarkModal').modal('hide');
-        getUserBookmarks($scope.$parent.vm.user.name);
+        getUserBookmarks();
         delete vm.selectedBookmark;
       }, function(error){
         vm.error = error;
@@ -89,6 +89,7 @@
       delete vm.error;
       vm.operation = "edit";
       vm.bookmark = angular.copy(vm.selectedBookmark);
+      vm.bookmark.date = new Date(vm.bookmark.date);
     }
 
     function detailsModalOperation() {
@@ -99,7 +100,7 @@
       vm.selectedBookmark.public = !vm.selectedBookmark.public;
       BookmarkService.saveBookmark(vm.selectedBookmark).then(function(response){
         $('#shareBookmarkModal').modal('hide');
-        getUserBookmarks($scope.$parent.vm.user.name);
+        getUserBookmarks();
       }, function(error){
         vm.error = error;
       })

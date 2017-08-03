@@ -66,11 +66,11 @@
       return def.promise;
     }
 
-    function getUserBookmarks(username) {
+    function getUserBookmarks() {
       var def = $q.defer();
       var req = {
         method: 'GET',
-        url: "bookmarks/user/" + username
+        url: "bookmarks/user"
       }
       $http(req)
         .success(function (data) {
@@ -82,11 +82,11 @@
       return def.promise;
     }
 
-    function getPublicBookmarks(username) {
+    function getPublicBookmarks() {
       var def = $q.defer();
       var req = {
         method: 'GET',
-        url: "bookmarks/public/" + username
+        url: "bookmarks/public"
       }
       $http(req)
         .success(function (data) {
@@ -98,11 +98,11 @@
       return def.promise;
     }
 
-    function importBookmark(username, bookmarkId) {
+    function importBookmark(bookmarkId) {
       var def = $q.defer();
       var req = {
         method: 'POST',
-        url: "bookmarks/" + username + "/" + bookmarkId
+        url: "bookmarks/" + bookmarkId
       }
       $http(req).success(function (data) {
         def.resolve(data);
