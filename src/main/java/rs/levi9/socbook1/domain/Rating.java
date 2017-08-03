@@ -1,5 +1,7 @@
 package rs.levi9.socbook1.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,6 +17,7 @@ public class Rating extends BaseEntity {
     @Column(nullable = false)
     private Integer rate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

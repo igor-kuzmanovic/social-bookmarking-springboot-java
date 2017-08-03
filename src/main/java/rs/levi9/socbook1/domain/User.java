@@ -8,6 +8,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,7 +18,8 @@ public class User extends BaseEntity {
 	@Length(min=2, max=30)
 	@Column(nullable = false)
 	private String username;
-	
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Length(min=5, max=30)
 	@Column(nullable = false)
 	private String password;
