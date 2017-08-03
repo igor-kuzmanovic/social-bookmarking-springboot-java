@@ -62,6 +62,7 @@
     }
 
     function bookmarkEditModal() {
+      vm.editBookmarkModal.$setPristine();
       getBookmarks();
       getCategories();
       delete vm.error;
@@ -72,6 +73,7 @@
     }
 
     function bookmarkDetailsModal() {
+      vm.editBookmarkModal.$setPristine();
       getBookmarks();
       getCategories();
       delete vm.error;

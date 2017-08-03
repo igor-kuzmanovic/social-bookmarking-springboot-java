@@ -227,22 +227,22 @@
         <h4 class="modal-title">Bookmark {{vm.operation}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" name="vm.editBookmark">
+        <form class="form-horizontal" name="vm.editBookmarkModal">
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Title</label>
-              <div class="col-lg-10" ng-class="{'has-error': vm.editBookmark.title.$invalid && vm.editBookmark.title.$dirty}">
+              <div class="col-lg-10" ng-class="{'has-error': vm.editBookmarkModal.title.$invalid && vm.editBookmarkModal.title.$dirty}">
                 <input name="title" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-disabled="vm.operation == 'details'" ng-model="vm.bookmark.title" required ng-minlength="2" ng-maxlength="30">
-                <span class="label label-danger" ng-show="vm.editBookmark.title.$error.required && vm.editBookmark.title.$dirty">Please enter a title!</span>
-                <span class="label label-danger" ng-show="!vm.editBookmark.title.$error.required && vm.editBookmark.title.$dirty && vm.editBookmark.title.$error.minlength">Please enter a longer title!</span>
-                <span class="label label-danger" ng-show="!vm.editBookmark.title.$error.required && vm.editBookmark.title.$dirty && vm.editBookmark.title.$error.maxlength">Please enter a shorter title!</span>
+                <span class="label label-danger" ng-show="vm.editBookmarkModal.title.$error.required && vm.editBookmarkModal.title.$dirty">Please enter a title!</span>
+                <span class="label label-danger" ng-show="!vm.editBookmarkModal.title.$error.required && vm.editBookmarkModal.title.$dirty && vm.editBookmarkModal.title.$error.minlength">Please enter a longer title!</span>
+                <span class="label label-danger" ng-show="!vm.editBookmarkModal.title.$error.required && vm.editBookmarkModal.title.$dirty && vm.editBookmarkModal.title.$error.maxlength">Please enter a shorter title!</span>
               </div>
 
               <label for="inputURL" class="col-lg-2 control-label">URL</label>
-              <div class="col-lg-10" ng-class="{'has-error': vm.editBookmark.url.$invalid && vm.editBookmark.url.$dirty}">
+              <div class="col-lg-10" ng-class="{'has-error': vm.editBookmarkModal.url.$invalid && vm.editBookmarkModal.url.$dirty}">
                 <input name="url" class="form-control" id="inputURL" placeholder="http:///www.example.com" type="url" ng-disabled="vm.operation == 'details'" ng-model="vm.bookmark.url" required>
-                <span class="label label-danger" ng-show="vm.editBookmark.url.$error.required && vm.editBookmark.url.$dirty">Please enter a URL!</span>
-                <span class="label label-danger" ng-show="vm.editBookmark.url.$error.invalid && vm.editBookmark.url.$dirty">Please enter a valid URL!</span>
+                <span class="label label-danger" ng-show="vm.editBookmarkModal.url.$error.required && vm.editBookmarkModal.url.$dirty">Please enter a URL!</span>
+                <span class="label label-danger" ng-show="!vm.editBookmarkModal.url.$error.required && vm.editBookmarkModal.url.$invalid-url && vm.editBookmarkModal.url.$dirty">Please enter a valid URL!</span>
               </div>
 
               <label for="inputDescription" class="col-lg-2 control-label">Description</label>
@@ -316,7 +316,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-show="vm.operation == 'details'" ng-click="vm.bookmarkEditModal()">Edit</button>
         <button type="button" class="btn btn-primary" ng-show="vm.operation == 'edit'" ng-click="vm.bookmarkDetailsModal()">Details</button>
-        <button type="submit" class="btn btn-primary" ng-show="vm.operation == 'edit'" ng-class="{disabled: vm.editBookmark.$dirty && vm.editBookmark.$invalid}" ng-disabled="vm.editBookmark.$invalid && vm.editBookmark.$dirty" ng-click="vm.vm.editBookmark(vm.bookmark)">Save changes</button>
+        <button type="submit" class="btn btn-primary" ng-show="vm.operation == 'edit'" ng-class="{disabled: vm.editBookmarkModal.$dirty && vm.editBookmarkModal.$invalid}" ng-disabled="vm.editBookmarkModal.$invalid && vm.editBookmarkModal.$dirty" ng-click="vm.editBookmark(vm.bookmark)">Save changes</button>
         <div class="alert-container alert alert-danger" ng-if="vm.error">
           {{vm.error}}
         </div>
