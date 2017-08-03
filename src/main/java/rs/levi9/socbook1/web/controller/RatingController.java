@@ -6,13 +6,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import rs.levi9.socbook1.domain.Bookmark;
-import rs.levi9.socbook1.domain.Rating;
-import rs.levi9.socbook1.domain.Role;
-import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.domain.*;
 import rs.levi9.socbook1.service.BookmarkService;
 import rs.levi9.socbook1.service.RatingService;
 import rs.levi9.socbook1.service.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rating")
@@ -26,6 +25,11 @@ public class RatingController {
         this.ratingService = ratingService;
         this.userService = userService;
         this.bookmarkService = bookmarkService;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Rating> findAllRatings() {
+        return ratingService.findAll();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

@@ -56,14 +56,22 @@ public class Bookmark extends BaseEntity {
 	private Set<Tag> tags;
 
 	@Cascade(CascadeType.ALL)
-	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
+	@OneToMany
+	@JoinColumn(name = "bookmark_id", nullable = false)
 	private Set<Comment> comments;
 
 	@Cascade(CascadeType.ALL)
-	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "rating_id"))
+	@OneToMany
+	@JoinColumn(name = "bookmark_id", nullable = false)
 	private Set<Rating> ratings;
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public int getTimesRated() {
 		return timesRated;
@@ -87,14 +95,6 @@ public class Bookmark extends BaseEntity {
 
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
-	}
-
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
 	}
 
 	public String getUrl() {

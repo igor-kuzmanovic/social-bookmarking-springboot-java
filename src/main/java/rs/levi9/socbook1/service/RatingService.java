@@ -1,8 +1,10 @@
 package rs.levi9.socbook1.service;
 
 import org.springframework.stereotype.Service;
+import rs.levi9.socbook1.domain.Bookmark;
 import rs.levi9.socbook1.domain.Rating;
 import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.repository.BookmarkRepository;
 import rs.levi9.socbook1.repository.RatingRepository;
 
 import javax.transaction.Transactional;
@@ -13,9 +15,11 @@ import java.util.List;
 public class RatingService {
 
     private RatingRepository ratingRepository;
+    private BookmarkRepository bookmarkRepository;
 
-    public RatingService(RatingRepository ratingRepository) {
+    public RatingService(RatingRepository ratingRepository, BookmarkRepository bookmarkRepository) {
         this.ratingRepository = ratingRepository;
+        this.bookmarkRepository = bookmarkRepository;
     }
 
     public Rating save(Rating rating) {
@@ -27,7 +31,14 @@ public class RatingService {
     }
 
     public void delete(Long id) {
+        //bookmark.setTimesRated(bookmark.getTimesRated() - 1);
+        //bookmarkRepository.save(bookmark);
+
         ratingRepository.delete(id);
+    }
+
+    public List<Rating> findAll() {
+        return ratingRepository.findAll();
     }
 
     public List<Rating> findAllRatingsByUser(User user) {

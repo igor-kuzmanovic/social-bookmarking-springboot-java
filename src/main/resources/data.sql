@@ -37,8 +37,5 @@ INSERT INTO `socbook1`.`bookmark_tags`(`bookmark_id`,`tag_id`) VALUES (4,1);
 INSERT INTO `socbook1`.`bookmark_tags`(`bookmark_id`,`tag_id`) VALUES (5,2);
 INSERT INTO `socbook1`.`bookmark_tags`(`bookmark_id`,`tag_id`) VALUES (5,3);
 
-INSERT INTO `socbook1`.`comment`(`content`,`date`,`user_id`) VALUES ('bookmark is good','2016-12-03 23:59:59',1);
-INSERT INTO `socbook1`.`comment`(`content`,`date`,`user_id`) VALUES ('bookmark is better','2016-12-03 23:59:59',1);
-
-INSERT INTO `socbook1`.`bookmark_comments`(`bookmark_id`,`comment_id`) VALUES (1,1);
-INSERT INTO `socbook1`.`bookmark_comments`(`bookmark_id`,`comment_id`) VALUES (1,2);
+INSERT INTO `socbook1`.`comment`(`content`,`date`,`user_id`, `bookmark_id`) VALUES ('bookmark is good','2016-12-03 23:59:59',1, 1);
+INSERT INTO `socbook1`.`comment`(`content`,`date`,`user_id`, `bookmark_id`) VALUES ('bookmark is better','2016-12-03 23:59:59',1, 1);

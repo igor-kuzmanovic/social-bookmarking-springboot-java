@@ -18,10 +18,6 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public List<Comment> findAll() {
-        return commentRepository.findAll();
-    }
-
     public Comment save(Comment comment) {
         return commentRepository.save(comment);
     }

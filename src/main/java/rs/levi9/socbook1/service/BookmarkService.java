@@ -40,7 +40,6 @@ public class BookmarkService  {
         Set<Tag> tagExists = new HashSet<>();
         if(bookmark.getTags() != null)
         for (Tag tag : bookmark.getTags()) {
-        	System.out.println("asdasd");
             Tag foundTag = tagRepository.findByText(tag.getText());
             if (foundTag == null) {
                 tagRepository.save(tag);

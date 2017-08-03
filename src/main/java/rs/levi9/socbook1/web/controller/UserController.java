@@ -91,6 +91,7 @@ public class UserController {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {
         User userToDelete = userService.findOne(id);
+        //By user?
         List<Bookmark> bookmarks = bookmarkService.findAll();
         List<Bookmark> bookmarksToDelete = new ArrayList<>();
         List<Comment> comments = commentService.findAllCommentsByUser(userToDelete);
