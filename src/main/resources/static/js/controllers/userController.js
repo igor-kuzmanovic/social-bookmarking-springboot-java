@@ -1,124 +1,86 @@
 (function(){
-    angular.module('app')
+  angular.module('app')
     .controller('UserController', UserController);
 
-    UserController.$inject = ['UserService', 'BookmarkService', '$http', '$location', '$route'];
+  UserController.$inject = ['UserService', 'BookmarkService', '$http'];
 
-    function UserController(UserService, BookmarkService, $http, $location, $route) {
+  function UserController(UserService, BookmarkService, $http) {
 
-        var vm = this;       
-        vm.login = login;
-        vm.logout = logout;
-        vm.saveUser = saveUser;
-        vm.toggleLoginPage = toggleLoginPage;
-        vm.user;
-        vm.error;
-        vm.success;
-        //vm.displayBookmarks;
-        vm.showLoginPage;
-        
-        var roles = [];
-        var userstatus;
-        var role;
-        
-        init();
-        
-        function init() {
-        	vm.showLoginPage = false;
-        	vm.displayBookmarks = false;
-        	userStatus = {id: 1, type:"STATUS_ACTIVE"};
-            role = {id: 2, type:"ROLE_USER"};
-            roles = [role];
-            if (vm.user) {
-                $route.reload();
-            }
-        }
-        
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
-        }
+    var vm = this;       
+    vm.login = login;
+    vm.logout = logout;
+    vm.saveUser = saveUser;
+    vm.toggleLoginPage = toggleLoginPage;
+    vm.navbarControl = navbarControl;
+    vm.refresh = refresh;
 
-        function saveUser(registration) {
-        	vm.error = null;
-        	if(registration == null ||
-        			registration.firstName == null ||
-        			registration.lastName == null ||
-        			registration.email == null ||
-        			registration.username == null ||
-        			registration.password == null) {
-        		vm.error = "Please fill in all fields!";
-        		return;
-        	}     	
-            if(!validateEmail(registration.email)) {
-            	vm.error = "Invalid email format!"
-            	return;
-            }
-            registration.userStatus = userStatus;
-            registration.roles = roles;
-            UserService.saveUser(registration).then(handleSuccessUser,
-            		function(error){
-            	vm.error = "Username already exists!";
-            });
-        }
+    init();
 
-        function handleSuccessUser() {
-            vm.showLoginPage = true;
-            delete vm.error;
-            delete vm.registration;
-            vm.success = "User created!";
-        }
+    function init() {
+      vm.showLoginPage = false;
+      vm.displayBookmarks = false;
+      refresh();
+    }
 
-        function toggleLoginPage() {
-        	vm.registration = null;
-        	vm.credentials = null;      	
-            vm.error = null;
-            if (vm.showLoginPage)
-        		vm.success = null;
-        	vm.showLoginPage = !vm.showLoginPage;       	
-        }
+    function refresh() {
+      if(vm.signupForm)
+      vm.signupForm.$setPristine();
+      if(vm.loginForm)
+      vm.loginForm.$setPristine();
+      delete vm.registration;
+      delete vm.credentials;
+      delete vm.error;
+      delete vm.success;
+    }
 
-        function login(credentials) {
-        	vm.error = null;
-        	vm.success = null;
-        	if(!credentials) {
-        		vm.error = "Please fill in all fields!";
-        		return;
-        	}
-        	if(credentials.username && !credentials.password){
-        		vm.error = "Please enter your password!";
-        		return;
-        	}
-        	if(!credentials.username && credentials.password){
-        		vm.error = "Please enter your username!";
-        		return;
-        	}
-            var base64Credential = btoa(credentials.username + ':' + credentials.password);
-            $http.get('users/login', {
-                headers: {
-                    'Authorization': 'Basic ' + base64Credential
-                }
-            }).success(function (response) {
-            	delete credentials;
-                $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
-                vm.user = response;
-                vm.displayBookmarks = true;
-            }).error(function (error) {               
-                vm.error = 'Bad credentials!';
-            });
+    function saveUser(registration) {
+      registration.userStatus = {id: 1, type:"STATUS_ACTIVE"};
+      registration.roles = [{id: 2, type:"ROLE_USER"}];
+      UserService.saveUser(registration).then(handleSuccessUser,
+                                              function(error){
+        vm.error = "Username already exists!";
+      });
+    }
+
+    function handleSuccessUser() {
+      refresh();
+      vm.showLoginPage = true;
+      vm.success = "User created!";
+    }
+
+    function toggleLoginPage() {
+      refresh();
+      vm.showLoginPage = !vm.showLoginPage;       	
+    }
+
+    function login(credentials) {
+      var base64Credential = btoa(credentials.username + ':' + credentials.password);
+      $http.get('users/login', {
+        headers: {
+          'Authorization': 'Basic ' + base64Credential
         }
-        
-        function logout() {
-        	$http.defaults.headers.common['Authorization'] = null;
-        	vm.showLoginPage = false;
-        	vm.displayBookmarks = false;            
-            delete vm.user;
-            delete vm.error;
-        }
-        
-        function validateEmail(email) {
-       	 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-       	 	return re.test(email);
-        }
-        
-    };
+      }).success(function (response) {       
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
+        vm.user = response;
+        refresh();
+        navbarControl(1);    
+        vm.displayBookmarks = true;
+      }).error(function (error) {   
+        vm.error = 'Bad credentials!';
+      });
+    }
+
+    function logout() {
+      $http.defaults.headers.common['Authorization'] = null;
+      vm.showLoginPage = false;
+      vm.displayBookmarks = false;
+      delete vm.user;
+      refresh();
+    }
+
+    function navbarControl(selectedNavItem) {
+      vm.currentNavItem = selectedNavItem;
+    }
+
+  };
 })();

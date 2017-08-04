@@ -1,6 +1,7 @@
 package rs.levi9.socbook1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.UserDetailsManagerConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,8 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import rs.levi9.socbook1.domain.Role;
 import rs.levi9.socbook1.domain.User;
+import rs.levi9.socbook1.domain.UserStatus;
 import rs.levi9.socbook1.repository.UserRepository;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +33,14 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(name);
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void delete(Long id) {
+        userRepository.delete(id);
+    }
+
     public User findOne(Long id) {
         return userRepository.findOne(id);
     }
@@ -40,15 +51,21 @@ public class UserService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            User user = userRepository.findByUsername(username);
-            if (user == null) {
-                return null;
-            }
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
-        } catch (Exception e) {
-            throw new UsernameNotFoundException("User not found");
-        }
+    	User user = userRepository.findByUsername(username);
+    	if (user == null) {
+    		throw new UsernameNotFoundException("User not found");
+    	}
+
+    	org.springframework.security.core.userdetails.User authUser =
+    			new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
+
+    	if (user.getUserStatus().getType().equals(UserStatus.UserStatusType.STATUS_INACTIVE)) {
+    		return org.springframework.security.core.userdetails.User.withUsername(user.getUsername()).password(user.getPassword())
+    				.accountLocked(true).roles(getAuthorities(user).toString())
+    				.build();
+    	}
+
+    	return authUser;
     }
     
     private Set<GrantedAuthority> getAuthorities(User user){

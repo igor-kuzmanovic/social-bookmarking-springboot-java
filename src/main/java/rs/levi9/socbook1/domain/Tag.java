@@ -8,16 +8,16 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class Tag extends BaseEntity {
 	
-	@Length(max=30)
+	@Length(min=2, max=30)
 	@Column(nullable = false)
-	private String name;
+	private String text;
 
-	public String getName() {
-		return name;
+	public String getText() {
+		return text;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 }

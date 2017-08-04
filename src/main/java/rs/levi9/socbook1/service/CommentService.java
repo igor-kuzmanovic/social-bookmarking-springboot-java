@@ -2,6 +2,7 @@ package rs.levi9.socbook1.service;
 
 import org.springframework.stereotype.Service;
 import rs.levi9.socbook1.domain.Comment;
+import rs.levi9.socbook1.domain.User;
 import rs.levi9.socbook1.repository.CommentRepository;
 
 import javax.transaction.Transactional;
@@ -17,11 +18,19 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public List<Comment> findAllByBookmarkId(Long id) {
-        return this.commentRepository.findAllByBookmarkId(id);
+    public Comment save(Comment comment) {
+        return commentRepository.save(comment);
     }
 
-    public Comment save(Comment comment) {
-        return this.commentRepository.save(comment);
+    public void delete(Long id) {
+        commentRepository.delete(id);
+    }
+
+    public Comment findOne(Long id) {
+        return commentRepository.findOne(id);
+    }
+
+    public List<Comment> findAllCommentsByUser(User user) {
+        return commentRepository.findAllByUser(user);
     }
 }

@@ -1,35 +1,46 @@
 package rs.levi9.socbook1.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Bookmark extends BaseEntity {
 
 	@Column(nullable = false)
 	private String url;
-	
-	@Length(min=2, max=100)
+
+	@Length(min = 2, max = 30)
 	@Column(nullable = false)
 	private String title;
-	
+
 	@Column(nullable = false)
 	private Date date;
-	
-	@Length(min=1)
+
 	@Column(nullable = false)
+	private boolean imported;
+
 	private String description;
-	 
+
 	@Column(nullable = false)
-	private boolean visibility;
+	private boolean isPublic;
+
+	@Column(name = "times_rated")
+	private int timesRated;
+
+	@Column(name = "rating")
+	private int rating;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -43,6 +54,48 @@ public class Bookmark extends BaseEntity {
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;
+
+	@Cascade(CascadeType.ALL)
+	@OneToMany
+	@JoinColumn(name = "bookmark_id", nullable = false)
+	private Set<Comment> comments;
+
+	@Cascade(CascadeType.ALL)
+	@OneToMany
+	@JoinColumn(name = "bookmark_id", nullable = false)
+	private Set<Rating> ratings;
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public int getTimesRated() {
+		return timesRated;
+	}
+
+	public void setTimesRated(int timesRated) {
+		this.timesRated = timesRated;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
+	}
 
 	public String getUrl() {
 		return url;
@@ -84,12 +137,12 @@ public class Bookmark extends BaseEntity {
 		this.tags = tags;
 	}
 
-	public boolean isVisibility() {
-		return visibility;
+	public boolean isPublic() {
+		return isPublic;
 	}
 
-	public void setVisibility(boolean visibility) {
-		this.visibility = visibility;
+	public void setPublic(boolean aPublic) {
+		isPublic = aPublic;
 	}
 
 	public Category getCategory() {
@@ -106,5 +159,13 @@ public class Bookmark extends BaseEntity {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isImported() {
+		return imported;
+	}
+
+	public void setImported(boolean imported) {
+		this.imported = imported;
 	}
 }

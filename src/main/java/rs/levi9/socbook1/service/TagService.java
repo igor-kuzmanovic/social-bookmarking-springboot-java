@@ -31,7 +31,7 @@ public class TagService {
         tagRepository.delete(id);
     }
 
-    public Tag findByName(String name) {
-        return tagRepository.findByName(name);
+    public Tag findByText(String text) {
+        return tagRepository.findByText(text);
     }
 }

@@ -6,4 +6,5 @@ import rs.levi9.socbook1.domain.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
+    Category findByName(String name);
 }

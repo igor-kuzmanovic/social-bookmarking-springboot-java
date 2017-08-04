@@ -1,167 +1,130 @@
 (function(){
-angular.module('app')
+  angular.module('app')
     .controller('BookmarkController', BookmarkController);
-    
-    BookmarkController.$inject = ['$filter', 'BookmarkService', 'CategoryService', 'uibDateParser', '$scope'];
-   
-    function BookmarkController($filter, BookmarkService, CategoryService, uibDateParser, $scope) {
-        
-        var vm = this;
-        vm.saveBookmark = saveBookmark;
-        vm.bookmarkShare = bookmarkShare;
-        vm.getCategories = getCategories;
-        vm.getBookmarks = getBookmarks;
-        vm.deleteBookmark = deleteBookmark;
-        vm.selectBookmark = selectBookmark;
-        vm.addModalOperation = addModalOperation;
-        vm.editModalOperation = editModalOperation;
-        vm.shareBookmark = shareBookmark;
-        vm.operation = {};
-        vm.selectedBookmark = {};
-        vm.bookmarks = {};
-        vm.bookmark = {};
-        vm.categories = {};
-        vm.tags = {};
-        vm.category = {};
 
-        init();
-    
-        function init() {
-        	delete vm.tags;
-            delete vm.category;
-            delete vm.bookmark;
-            delete vm.error;
-            vm.closeModal = false;
-            getCategories();
-            if($scope.$parent.vm.user){
-            	getBookmarks();
-            }
-        }
+  BookmarkController.$inject = ['$filter', 'BookmarkService', 'CategoryService', 'uibDateParser', '$scope', '$location', '$window'];
 
-        function selectBookmark(bookmark) {
-        	if(vm.selectedBookmark == bookmark) {
-        		vm.selectedBookmark = null;
-        	}
-        	else {
-        		vm.selectedBookmark = bookmark;
-        	}
-        }
-        
-        function getBookmarks(){
-            BookmarkService.getBookmarks($scope.$parent.vm.user.name).then(handleSuccessBookmarks);
-        }
-        
-        function handleSuccessBookmarks(data, status) {
-            vm.bookmarks = data;
-        }
+  function BookmarkController($filter, BookmarkService, CategoryService, uibDateParser, $scope, $location, $window) {
 
-        function saveBookmark(bookmark) {
-          if(vm.operation.name == "Edit bookmark") {
-                bookmark.id = vm.selectedBookmark.id;
-            }          
-                  console.log(vm.category);
-        	vm.error = null;
-          
-        	if((!bookmark.title && !bookmark.url && !vm.category)
-        		|| (!bookmark.title && !bookmark.url && vm.category)
-        		|| (!bookmark.title && bookmark.url && !vm.category)
-        		|| (bookmark.title && !bookmark.url && !vm.category)) {
-        		vm.error = "Please fill in all fields!";
-        		return;
-        	}         
-          if(bookmark.title && bookmark.url && !vm.category) {
-            vm.error = "Please choose a category!";
-            return;
-          }         
-          if(bookmark.title && !bookmark.url && vm.category) {
-            vm.error = "Please specify a URL!";
-            return;
-          }      
-          if(!bookmark.title && bookmark.url && vm.category) {		
-            vm.error = "Please specify a title!";
-            return;
-          }
+    var vm = this;
+    vm.init = init;
+    vm.addModalOperation = addModalOperation;
+    vm.editModalOperation = editModalOperation;
+    vm.detailsModalOperation = detailsModalOperation;
+    vm.getUserBookmarks = getUserBookmarks;
+    vm.saveBookmark = saveBookmark;
+    vm.deleteBookmark = deleteBookmark;
+    vm.shareBookmark = shareBookmark;
+    vm.selectBookmark = selectBookmark;
+    vm.openBookmark = openBookmark;
+    vm.getCategories = getCategories;
 
-        	var username = {};
-        	username.username = $scope.$parent.vm.user.name;
-        	bookmark.user = username;
-        	
-        	if(vm.tags){
-	        	var tagsToSend = [];
-	            var temp = vm.tags.split(' ');
-	
-	            temp.forEach(function(t) {
-	                var tag = {};
-	                tag.name = t;
-	                tagsToSend.push(tag);
-	            });
-	            
-	            bookmark.tags = tagsToSend;
-        	}
-        	else{
-        		bookmark.tags = [];
-        	}
-        	
-        	if(!bookmark.description){
-        		bookmark.description = "default";
-        	}
+    init();
 
-            bookmark.date = new Date();
-            bookmark.date = $filter('date')(bookmark.date, "yyyy-MM-dd");
+    function init(){
+      if($scope.$parent.vm.user){
+        getUserBookmarks();
+      }
+    }
 
-            bookmark.category = vm.categories[vm.category - 1];    
+    function selectBookmark(bookmark) {
+      if(!vm.selectedBookmark || vm.selectedBookmark.id != bookmark.id) {
+        vm.selectedBookmark = bookmark;
+      }
+      else {
+        vm.selectedBookmark = null;
+      }
+    }
 
-            BookmarkService.saveBookmark(bookmark).then(function(response){
-                $('#addBookmarkModal').modal('hide');
-                init();
-            }, function(error){
-                vm.error = error;
-            })         
-        }
+    function getUserBookmarks(){
+      if($scope.$parent.vm.user.name) {
+        BookmarkService.getUserBookmarks().then(handleSuccessBookmarks);
+      }
+    }
 
-        function bookmarkShare(state){
-        	vm.bookmark.visibility = state;
-        }
+    function handleSuccessBookmarks(data, status) {
+      vm.bookmarks = data;
+    }
 
-        function getCategories() {
-            CategoryService.getCategories().then(handleSuccessCategories);
-        }
+    function saveBookmark(bookmark) {
+      bookmark.user = {username:$scope.$parent.vm.user.name};
+      bookmark.date = $filter('date')(new Date(), "yyyy-MM-dd");
+      BookmarkService.saveBookmark(bookmark).then(function(response){
+        vm.editBookmarkModal.$setPristine();
+        $('#addBookmarkModal').modal('hide');
+        getUserBookmarks();
+        vm.selectedBookmark = vm.bookmark;
+        delete vm.bookmark;
+      }, function(error){
+        vm.error = error;
+      })
+    }
 
-        function handleSuccessCategories(data, status){
-            vm.categories = data;
-        }
+    function getCategories() {
+      if($scope.$parent.vm.user.name) {
+        CategoryService.getCategories().then(handleSuccessCategories);
+      }
+    }
 
-        function deleteBookmark(){
-            BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
-                getBookmarks();
-            }, function(error){
+    function handleSuccessCategories(data, status){
+      vm.categories = data;
+    }
 
-            });
-            vm.selectedBookmark= {};
-        }
-        
-        function addModalOperation() {
-            delete vm.bookmark;
-            vm.operation.name = "Add bookmark";
-            console.log(vm.operation.name);
-        }
-        
-        function editModalOperation() {
-        	delete vm.error;
-            vm.operation.name = "Edit bookmark";
-            vm.category = null;
-            console.log(vm.category);
-            vm.bookmark = angular.copy(vm.selectedBookmark);
-            vm.bookmark.date = new Date();
-            vm.bookmark.date = $filter('date')(vm.bookmark.date, "yyyy-MM-dd");
-        }
-        
-        function shareBookmark() {
-            vm.bookmark = angular.copy(vm.selectedBookmark);
-            vm.bookmark.id = vm.selectedBookmark.id;
-            vm.bookmark.visibility = true;
-            BookmarkService.saveBookmark(vm.bookmark);
-            console.log("changed?");
-        }
-    };
+    function deleteBookmark(){
+      BookmarkService.deleteBookmark(vm.selectedBookmark.id).then(function(response){
+        $('#deleteBookmarkModal').modal('hide');
+        getUserBookmarks();
+        delete vm.selectedBookmark;
+      }, function(error){
+        vm.error = error;
+      });
+    }
+
+    function addModalOperation() {
+      vm.editBookmarkModal.$setPristine();
+      getCategories();
+      delete vm.error;
+      delete vm.bookmark;
+      vm.operation = "add";
+    }
+
+    function editModalOperation() {
+      vm.editBookmarkModal.$setPristine();
+      getUserBookmarks();
+      getCategories();
+      delete vm.error;
+      vm.operation = "edit";
+      vm.bookmark = angular.copy(vm.selectedBookmark);
+      vm.bookmark.date = new Date(vm.bookmark.date);
+      vm.bookmark.date = vm.bookmark.date.toDateString();
+      
+    }
+
+    function detailsModalOperation() {
+      getUserBookmarks();
+      getCategories();
+      delete vm.error;
+      vm.operation = "details";
+      vm.bookmark = angular.copy(vm.selectedBookmark);
+      vm.bookmark.date = new Date(vm.bookmark.date);
+      vm.bookmark.date = vm.bookmark.date.toDateString();
+    }
+
+    function shareBookmark() {
+      vm.selectedBookmark.public = !vm.selectedBookmark.public;
+      BookmarkService.saveBookmark(vm.selectedBookmark).then(function(response){
+        $('#shareBookmarkModal').modal('hide');
+        getUserBookmarks();
+      }, function(error){
+        vm.error = error;
+      })
+    }
+
+    function openBookmark(bookmark) {
+      $window.open(bookmark.url, '_blank');
+      selectBookmark(bookmark);
+      $window.getSelection().removeAllRanges();
+    }
+
+  };
 })();

@@ -1,99 +1,108 @@
- <div class="wrapper">
-	<header>
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand">Social bookmarking</a>
-				</div>
-			</div>
-		</nav>
-	</header>
+<div class="space"></div>
+
+<div ng-show="vm.showLoginPage">
+  <div class="form-container2">
+    <form name="vm.loginForm">
+      <fieldset class="login-form">
+        <legend>Log In</legend>
+
+        <div class="form-group" ng-class="{'has-error': vm.loginForm.loginUsername.$invalid && vm.loginForm.loginUsername.$dirty}">
+          <input name="loginUsername" class="form-control" id="focusedInput" type="text" placeholder="Username" ng-model="vm.credentials.username" required auto-focus="vm.showLoginPage">
+          <span class="label label-danger" ng-show="vm.loginForm.loginUsername.$error.required && vm.loginForm.loginUsername.$dirty">Please enter your username!</span>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': vm.loginForm.loginPassword.$invalid && vm.loginForm.loginPassword.$dirty}">
+          <input name="loginPassword" class="form-control" id="focusedInput" type="password" placeholder="Password" ng-model="vm.credentials.password" required>
+          <span class="label label-danger" ng-show="vm.loginForm.loginPassword.$error.required && vm.loginForm.loginPassword.$dirty">Please enter your password!</span>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-login" onclick="location.href='#/home'" ng-class="{'btn-danger disabled': vm.loginForm.$dirty && vm.loginForm.$invalid, 'btn-success': vm.loginForm.$valid}" ng-disabled="vm.loginForm.$invalid && vm.loginForm.$dirty" ng-click="vm.login(vm.credentials)">Log in</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="alert-container alert alert-danger" ng-if="vm.error">
+    {{vm.error}}
+  </div>
+
+  <div class="alert-container alert alert-success alert-dismissible" ng-if="vm.success">
+    <button type="button" class="close" ng-click="vm.success = null">&times;</button>
+    {{vm.success}}
+  </div>
+
+  <div class="space1"></div>
+
+  <div class="form-container1">
+    <p>Don't have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage()">Sign up</a></p>
+  </div>
+
+  <div class="space"></div>
 </div>
 
-<div class="container">
-    <div class="space"></div>
-    
-    <div ng-show="vm.showLoginPage">
-    
-        <div class="form-container2">
-        	<form>
-            <fieldset class="login-form">
-                <legend>Log In</legend>
-                
-                <div class="form-group">
-                    <input class="form-control" autofocus="" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.credentials.username">
-                </div>
-                
-                <div class="form-group">
-                    <input class="form-control" id="focusedInput" type="password" placeholder="Password"  ng-model="vm.credentials.password">
-                </div>
-                
-                <button type="submit" class="btn btn-primary btn-success" ng-click="vm.login(vm.credentials)">Log in</button>
-            </fieldset>
-            </form>
+<div ng-show="!vm.showLoginPage">
+  <div class="form-container">
+    <form name="vm.signupForm">
+      <fieldset class="register-form">
+        <legend>Don't have an account? Sign up!</legend>
+
+        <div class="form-group" ng-class="{'has-error': vm.signupForm.signupFirstName.$invalid && vm.signupForm.signupFirstName.$dirty}">
+          <input name="signupFirstName" class="form-control" id="focusedInput" type="text" placeholder="First Name"  ng-model="vm.registration.firstName" required ng-minlength="2" ng-maxlength="30" auto-focus="!vm.showLoginPage">
+          <span class="label label-danger" ng-show="vm.signupForm.signupFirstName.$error.required && vm.signupForm.signupFirstName.$dirty">Please enter your first name!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupFirstName.$error.required && vm.signupForm.signupFirstName.$dirty && vm.signupForm.signupFirstName.$error.minlength">Please enter a longer first name!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupFirstName.$error.required && vm.signupForm.signupFirstName.$dirty && vm.signupForm.signupFirstName.$error.maxlength">Please enter a shorter first name!</span>
         </div>
-        
-        <div class="alert-container alert alert-danger" ng-if="vm.error">
-        	{{vm.error}}
+
+        <div class="form-group" ng-class="{'has-error': vm.signupForm.signupLastName.$invalid && vm.signupForm.signupLastName.$dirty}">
+          <input name="signupLastName" class="form-control" id="focusedInput" type="text" placeholder="Last Name"  ng-model="vm.registration.lastName" required ng-minlength="2" ng-maxlength="30">
+          <span class="label label-danger" ng-show="vm.signupForm.signupLastName.$error.required && vm.signupForm.signupLastName.$dirty">Please enter your last name!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupLastName.$error.required && vm.signupForm.signupLastName.$dirty && vm.signupForm.signupLastName.$error.minlength">Please enter a longer last name!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupLastName.$error.required && vm.signupForm.signupLastName.$dirty && vm.signupForm.signupLastName.$error.maxlength">Please enter a shorter last name!</span>
         </div>
-        
-        <div class="alert-container alert alert-success alert-dismissible" ng-if="vm.success">
-        	<button type="button" class="close" ng-click="vm.success = null">&times;</button>
-        		{{vm.success}}
+
+        <div class="form-group" ng-class="{'has-error': vm.signupForm.signupEmail.$invalid && vm.signupForm.signupEmail.$dirty}">
+          <input name="signupEmail" class="form-control" id="focusedInput" type="email" placeholder="Email"  ng-model="vm.registration.email" required>
+          <span class="label label-danger" ng-show="vm.signupForm.signupEmail.$error.required && vm.signupForm.signupEmail.$dirty">Please enter your email address!</span>
+          <span class="label label-danger" ng-show="vm.signupForm.signupEmail.$invalid-email && !vm.signupForm.signupEmail.$error.required && vm.signupForm.signupEmail.$dirty">Please enter a valid email address!</span>
         </div>
-        
-        <div class="space1"></div>
-        
-        <div class="form-container1">
-            <p>Don't have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage()">Sign up</a></p>
+
+        <div class="form-group" ng-class="{'has-error': vm.signupForm.signupUsername.$invalid && vm.signupForm.signupUsername.$dirty}">
+          <input name="signupUsername" class="form-control" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.registration.username" required ng-minlength="2" ng-maxlength="30">
+          <span class="label label-danger" ng-show="vm.signupForm.signupUsername.$error.required && vm.signupForm.signupUsername.$dirty">Please enter a username!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupUsername.$error.required && vm.signupForm.signupUsername.$dirty && vm.signupForm.signupUsername.$error.minlength">Please enter a longer username!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupUsername.$error.required && vm.signupForm.signupUsername.$dirty && vm.signupForm.signupUsername.$error.maxlength">Please enter a shorter username!</span>
         </div>
-        
-        <div class="space"></div>
-        
-    </div>
-    
-    <div ng-show="!vm.showLoginPage">
-    
-        <div class="form-container">
-        	<form>
-            <fieldset class="register-form">
-                <legend>Don't have an account? Sign up!</legend>
-                
-                <div class="form-group">
-                    <input name="first_name" autofocus="" class="form-control" id="focusedInput" type="text" placeholder="First Name"  ng-model="vm.registration.firstName">
-                </div>
-                
-                <div class="form-group">
-                    <input name="last_name" class="form-control" id="focusedInput" type="text" placeholder="Last Name"  ng-model="vm.registration.lastName">
-                </div>
-                
-                <div class="form-group">
-				    <input name="email" class="form-control" id="focusedInput" type="text" placeholder="Email"  ng-model="vm.registration.email">
-				</div>
-                                         
-                <div class="form-group">
-                    <input name="username" class="form-control" id="focusedInput" type="text" placeholder="Username"  ng-model="vm.registration.username">
-                </div>
-                
-                <div class="form-group">
-                    <input name="password" class="form-control" id="focusedInput" type="password" placeholder="Password"  ng-model="vm.registration.password">
-                </div>
-                
-                <button type="submit" class="btn btn-primary btn-success" ng-click="vm.saveUser(vm.registration)">Sign up</button>                         
-            </fieldset>  
-            </form>          
+
+        <div class="form-group" ng-class="{'has-error': vm.signupForm.signupPassword.$invalid && vm.signupForm.signupPassword.$dirty}">
+          <input name="signupPassword" class="form-control" id="focusedInput" type="password" placeholder="Password"  ng-model="vm.registration.password" required ng-minlength="5" ng-maxlength="30">
+          <span class="label label-danger" ng-show="vm.signupForm.signupPassword.$error.required && vm.signupForm.signupPassword.$dirty">Please enter a password!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupPassword.$error.required && vm.signupForm.signupPassword.$dirty && vm.signupForm.signupPassword.$error.minlength">Please enter a longer password!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupPassword.$error.required && vm.signupForm.signupPassword.$dirty && vm.signupForm.signupPassword.$error.maxlength">Please enter a shorter password!</span>
         </div>
-        
-        <div class="alert-container alert alert-danger" ng-if="vm.error">
-        	{{vm.error}}
+
+        <div class="form-group" ng-show="vm.signupForm.signupPassword.$valid" ng-class="{'has-error': (vm.registration.password !== vm.registration.passwordConfirm || vm.signupForm.signupPasswordConfirm.$invalid) && vm.signupForm.signupPasswordConfirm.$dirty}">
+          <input name="signupPasswordConfirm" class="form-control" id="focusedInput" type="password" placeholder="Confirm your password"  ng-model="vm.registration.passwordConfirm" required>
+          <span class="label label-danger" ng-show="vm.signupForm.signupPasswordConfirm.$error.required && vm.signupForm.signupPasswordConfirm.$dirty">Please confirm your password!</span>
+          <span class="label label-danger" ng-show="!vm.signupForm.signupPasswordConfirm.$error.required && vm.signupForm.signupPasswordConfirm.$dirty && vm.registration.password !== vm.registration.passwordConfirm">Your password doesn't match!</span>
         </div>
-        
-        <div class="space1"></div>
-        
-        <div class="form-container1">
-            <p>Have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage()">Log in</a></p>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm || vm.signup), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$invalid && vm.signupForm.$dirty" ng-click="vm.saveUser(vm.registration)">Sign up</button>
         </div>
-        
-        <div class="space"></div>
-    </div>  
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="alert-container alert alert-danger" ng-if="vm.error">
+    {{vm.error}}
+  </div>
+
+  <div class="space1"></div>
+
+  <div class="form-container1">
+    <p>Have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage()">Log in</a></p>
+  </div>
+
+  <div class="space"></div>
 </div>
