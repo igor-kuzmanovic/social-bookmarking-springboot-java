@@ -36,3 +36,5 @@ Users should be allowed to share, rate and comment on bookmarks added by other u
 - [x] He can also create, read, update, delete categories and bookmarks.
 
 - [x] Admin user can block and delete regular users.
+
+FINISHED
