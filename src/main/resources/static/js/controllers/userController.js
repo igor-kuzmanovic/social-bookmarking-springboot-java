@@ -12,12 +12,20 @@
     vm.saveUser = saveUser;
     vm.toggleLoginPage = toggleLoginPage;
     vm.navbarControl = navbarControl;
+    vm.refresh = refresh;
 
     init();
 
     function init() {
       vm.showLoginPage = false;
       vm.displayBookmarks = false;
+    }
+    
+    function refresh() {
+      delete vm.registration;
+      delete vm.credentials;
+      delete vm.error;
+      delete vm.success;
     }
 
     function saveUser(registration) {
@@ -31,10 +39,7 @@
 
     function handleSuccessUser() {
       vm.signupForm.$setPristine();
-      delete vm.registration;
-      delete vm.credentials;
-      delete vm.error;
-      delete vm.success;
+      refresh();
       vm.showLoginPage = true;
       vm.success = "User created!";
     }
@@ -42,10 +47,7 @@
     function toggleLoginPage() {
       vm.signupForm.$setPristine();
       vm.loginForm.$setPristine();
-      delete vm.registration;
-      delete vm.credentials;
-      delete vm.error;
-      delete vm.success;
+      refresh();
       vm.showLoginPage = !vm.showLoginPage;       	
     }
 
@@ -60,10 +62,7 @@
         vm.user = response;
         vm.signupForm.$setPristine();
         vm.loginForm.$setPristine();
-        delete vm.registration;
-        delete vm.credentials;
-        delete vm.error;
-        delete vm.sucess;
+        refresh();
         navbarControl(1);    
         vm.displayBookmarks = true;
       }).error(function (error) {   
@@ -77,10 +76,7 @@
       vm.loginForm.$setPristine();
       vm.showLoginPage = false;
       vm.displayBookmarks = false; 
-      delete vm.registration;
-      delete vm.credentials;
-      delete vm.user;
-      delete vm.error;
+      refresh();
     }
 
     function navbarControl(selectedNavItem) {
