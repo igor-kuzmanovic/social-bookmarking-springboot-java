@@ -33,8 +33,15 @@ public class CategoryController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
-    public Category save(@RequestBody Category category) {
-        return categoryService.save(category);
+    public ResponseEntity<Category> save(@RequestBody Category category) {
+        Category foundCategory = categoryService.findByName(category.getName());
+
+        if (foundCategory == null) {
+            Category cat = categoryService.save(category);
+            return new ResponseEntity<>(cat, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
