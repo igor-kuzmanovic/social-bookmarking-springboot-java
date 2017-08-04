@@ -15,11 +15,9 @@ import java.util.List;
 public class RatingService {
 
     private RatingRepository ratingRepository;
-    private BookmarkRepository bookmarkRepository;
 
-    public RatingService(RatingRepository ratingRepository, BookmarkRepository bookmarkRepository) {
+    public RatingService(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
-        this.bookmarkRepository = bookmarkRepository;
     }
 
     public Rating save(Rating rating) {
