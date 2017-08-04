@@ -35,7 +35,7 @@
   <div class="space1"></div>
 
   <div class="form-container1">
-    <p>Don't have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage(); vm.refresh(); vm.loginForm.$setPristine();">Sign up</a></p>
+    <p>Don't have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage(); vm.credentials = null; vm.refresh()">Sign up</a></p>
   </div>
 
   <div class="space"></div>
@@ -101,7 +101,7 @@
   <div class="space1"></div>
 
   <div class="form-container1">
-    <p>Have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage(); vm.refresh(); vm.signupForm.$setPristine();">Log in</a></p>
+    <p>Have an account? <a style="cursor: pointer" ng-click="vm.toggleLoginPage(); vm.registration = null; vm.refresh();">Log in</a></p>
   </div>
 
   <div class="space"></div>
