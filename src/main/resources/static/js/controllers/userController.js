@@ -23,7 +23,9 @@
     }
 
     function refresh() {
+      if(vm.signupForm)
       vm.signupForm.$setPristine();
+      if(vm.loginForm)
       vm.loginForm.$setPristine();
       delete vm.registration;
       delete vm.credentials;
