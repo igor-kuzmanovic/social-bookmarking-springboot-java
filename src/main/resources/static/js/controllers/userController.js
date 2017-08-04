@@ -34,6 +34,7 @@
       delete vm.registration;
       delete vm.credentials;
       delete vm.error;
+      delete vm.success;
       vm.showLoginPage = true;
       vm.success = "User created!";
     }
@@ -59,6 +60,7 @@
         vm.user = response;
         vm.signupForm.$setPristine();
         vm.loginForm.$setPristine();
+        delete vm.registration;
         delete vm.credentials;
         delete vm.error;
         delete vm.sucess;
@@ -76,6 +78,7 @@
       vm.showLoginPage = false;
       vm.displayBookmarks = false; 
       delete vm.registration;
+      delete vm.credentials;
       delete vm.user;
       delete vm.error;
     }
