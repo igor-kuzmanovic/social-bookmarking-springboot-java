@@ -18,9 +18,9 @@
     vm.getBookmarkComments = getBookmarkComments;
     vm.selectCategory = selectCategory;
     vm.getCategories = getCategories;
-    vm.addCategoryModal = addCategoryModal;
+    vm.categoryAddModal = categoryAddModal;
     vm.addCategory = addCategory;
-    vm.editCategoryModal = editCategoryModal;
+    vm.categoryEditModal = categoryEditModal;
     vm.editCategory = editCategory;
     vm.deleteCategory = deleteCategory;
     vm.selectUser = selectUser;
@@ -90,6 +90,7 @@
     function editBookmark(bookmark){
       bookmark.date = $filter('date')(new Date(), "yyyy-MM-dd");
       BookmarkService.saveBookmark(bookmark).then(function(response) {
+        vm.editBookmarkModal.$setPristine();
         $('#detailsBookmarkModal').modal('hide');
         getBookmarks();
         vm.selectedBookmark = vm.bookmark;
@@ -146,6 +147,7 @@
 
     function addCategory(category) {
       CategoryService.saveCategory(category).then(function(response) {
+        vm.addCategoryModal.$setPristine();
         $('#addCategoryModal').modal('hide');
         getCategories();
         delete vm.category;
@@ -153,14 +155,22 @@
         vm.error = error;
       })
     }
+    
+    function categoryAddModal() {
+      delete vm.category;
+      delete vm.error;
+      vm.addCategoryModal.$setPristine();
+    }
 
-    function editCategoryModal() {
+    function categoryEditModal() {
       delete vm.error;
       vm.editedCategory = angular.copy(vm.selectedCategory);
+      vm.editCategoryModal.$setPristine();
     }
 
     function editCategory(editedCategory) {
       CategoryService.saveCategory(editedCategory).then(function(response) {
+        vm.editCategoryModal.$setPristine();
         $('#editCategoryModal').modal('hide');
         getCategories();
         vm.selectedCategory = vm.editedCategory;

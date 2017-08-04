@@ -51,25 +51,21 @@ public class UserService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            User user = userRepository.findByUsername(username);
-            if (user == null) {
-                return null;
-            }
+    	User user = userRepository.findByUsername(username);
+    	if (user == null) {
+    		throw new UsernameNotFoundException("User not found");
+    	}
 
-            org.springframework.security.core.userdetails.User authUser =
-                    new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
+    	org.springframework.security.core.userdetails.User authUser =
+    			new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
 
-            if (user.getUserStatus().getType().equals(UserStatus.UserStatusType.STATUS_INACTIVE)) {
-                return org.springframework.security.core.userdetails.User.withUsername(user.getUsername()).password(user.getPassword())
-                        .accountLocked(true).roles(getAuthorities(user).toString())
-                        .build();
-            }
+    	if (user.getUserStatus().getType().equals(UserStatus.UserStatusType.STATUS_INACTIVE)) {
+    		return org.springframework.security.core.userdetails.User.withUsername(user.getUsername()).password(user.getPassword())
+    				.accountLocked(true).roles(getAuthorities(user).toString())
+    				.build();
+    	}
 
-            return authUser;
-        } catch (Exception e) {
-            throw new UsernameNotFoundException("User not found");
-        }
+    	return authUser;
     }
     
     private Set<GrantedAuthority> getAuthorities(User user){

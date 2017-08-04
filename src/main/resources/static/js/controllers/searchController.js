@@ -57,6 +57,7 @@
         $('#importBookmarkModal').modal('hide');
         getPublicBookmarks();
         getUserBookmarks();
+        vm.disableImport = true;
       }, function(error){
         vm.error = error;
       }) 

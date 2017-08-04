@@ -123,12 +123,12 @@
     </div>
     <div ng-show="vm.selectedCategory && vm.selectedCategory.name !== 'Uncategorized'">
       <div class="nav-icons" ng-init="imgsrc2='images/edit.png'" ng-mouseover="imgsrc2='images/edit_blue.png'" ng-mouseout="imgsrc2='images/edit.png'" title="Edit a category">
-        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editCategoryModal" ng-click="vm.editCategoryModal()"/>
+        <img class="nav-icons" src="{{imgsrc2}}" style="cursor: pointer" data-toggle="modal" data-target="#editCategoryModal" ng-click="vm.categoryEditModal()"/>
       </div>
     </div>
 
     <div class="nav-icons" ng-init="imgsrc0='images/add.png'" ng-mouseover="imgsrc0='images/add_blue.png'" ng-mouseout="imgsrc0='images/add.png'" title="Add a category">
-      <img class="nav-icons" src="{{imgsrc0}}" style="cursor: pointer" data-toggle="modal" data-target="#addCategoryModal"/>
+      <img class="nav-icons" src="{{imgsrc0}}" style="cursor: pointer" data-toggle="modal" data-target="#addCategoryModal" ng-click="vm.categoryAddModal()"/>
     </div>
   </div>
 </nav>
@@ -374,7 +374,7 @@
 <div class="modal fade" id="addCategoryModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form class="form-horizontal" name="addCategory">
+      <form class="form-horizontal" name="vm.addCategoryModal">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 class="modal-title">Category add</h4>
@@ -383,18 +383,18 @@
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Name</label>
-              <div class="col-lg-10" ng-class="{'has-error': addCategory.categoryTitle.$invalid && addCategory.categoryTitle.$dirty}">
+              <div class="col-lg-10" ng-class="{'has-error': vm.addCategoryModal.categoryTitle.$invalid && vm.addCategoryModal.categoryTitle.$dirty}">
                 <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.category.name" required ng-minlength="2" ng-maxlength="30">
-                <span class="label label-danger" ng-show="addCategory.categoryTitle.$error.required && addCategory.categoryTitle.$dirty">Please enter a title!</span>
-                <span class="label label-danger" ng-show="!addCategory.categoryTitle.$error.required && addCategory.categoryTitle.$dirty && addCategory.categoryTitle.$error.minlength">Please enter a longer title!</span>
-                <span class="label label-danger" ng-show="!addCategory.categoryTitle.$error.required && addCategory.categoryTitle.$dirty && addCategory.categoryTitle.$error.maxlength">Please enter a shorter title!</span>
+                <span class="label label-danger" ng-show="vm.addCategoryModal.categoryTitle.$error.required && vm.addCategoryModal.categoryTitle.$dirty">Please enter a title!</span>
+                <span class="label label-danger" ng-show="!vm.addCategoryModal.categoryTitle.$error.required && vm.addCategoryModal.categoryTitle.$dirty && vm.addCategoryModal.categoryTitle.$error.minlength">Please enter a longer title!</span>
+                <span class="label label-danger" ng-show="!vm.addCategoryModal.categoryTitle.$error.required && vm.addCategoryModal.categoryTitle.$dirty && vm.addCategoryModal.categoryTitle.$error.maxlength">Please enter a shorter title!</span>
               </div>
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" ng-class="{disabled: addCategory.$dirty && addCategory.$invalid}" ng-disabled="addCategory.$invalid && addCategory.$dirty" ng-click="vm.addCategory(vm.category)">Confirm</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: vm.addCategoryModal.$dirty && vm.addCategoryModal.$invalid}" ng-disabled="vm.addCategoryModal.$invalid && vm.addCategoryModal.$dirty" ng-click="vm.addCategory(vm.category)">Confirm</button>
           <div class="alert-container alert alert-danger" ng-if="vm.error">
             {{vm.error}}
           </div>
@@ -407,7 +407,7 @@
 <div class="modal fade" id="editCategoryModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form class="form-horizontal" name="editCategory">
+      <form class="form-horizontal" name="vm.editCategoryModal">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 class="modal-title">Category edit</h4>
@@ -416,18 +416,18 @@
           <fieldset>
             <div class="form-group">
               <label for="inputTitle" class="col-lg-2 control-label">Name</label>
-              <div class="col-lg-10" ng-class="{'has-error': editCategory.categoryTitle.$invalid && editCategory.categoryTitle.$dirty}">
+              <div class="col-lg-10" ng-class="{'has-error': vm.editCategoryModal.categoryTitle.$invalid && vm.editCategoryModal.categoryTitle.$dirty}">
                 <input name="categoryTitle" class="form-control" id="inputTitle" placeholder="Title" type="text" ng-model="vm.editedCategory.name" required ng-minlength="2" ng-maxlength="30">
-                <span class="label label-danger" ng-show="editCategory.categoryTitle.$error.required && editCategory.categoryTitle.$dirty">Please enter a title!</span>
-                <span class="label label-danger" ng-show="!editCategory.categoryTitle.$error.required && editCategory.categoryTitle.$dirty && editCategory.categoryTitle.$error.minlength">Please enter a longer title!</span>
-                <span class="label label-danger" ng-show="!editCategory.categoryTitle.$error.required && editCategory.categoryTitle.$dirty && editCategory.categoryTitle.$error.maxlength">Please enter a shorter title!</span>
+                <span class="label label-danger" ng-show="vm.editCategoryModal.categoryTitle.$error.required && vm.editCategoryModal.categoryTitle.$dirty">Please enter a title!</span>
+                <span class="label label-danger" ng-show="!vm.editCategoryModal.categoryTitle.$error.required && vm.editCategoryModal.categoryTitle.$dirty && vm.editCategoryModal.categoryTitle.$error.minlength">Please enter a longer title!</span>
+                <span class="label label-danger" ng-show="!vm.editCategoryModal.categoryTitle.$error.required && vm.editCategoryModal.categoryTitle.$dirty && vm.editCategoryModal.categoryTitle.$error.maxlength">Please enter a shorter title!</span>
               </div>
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" ng-class="{disabled: editCategory.$dirty && editCategory.$invalid}" ng-disabled="editCategory.$invalid && editCategory.$dirty" ng-click="vm.editCategory(vm.editedCategory)">Confirm</button>
+          <button type="submit" class="btn btn-primary" ng-class="{disabled: vm.editCategoryModal.$dirty && vm.editCategoryModal.$invalid}" ng-disabled="vm.editCategoryModal.$invalid && vm.editCategoryModal.$dirty" ng-click="vm.editCategory(vm.editedCategory)">Confirm</button>
           <div class="alert-container alert alert-danger" ng-if="vm.error">
             {{vm.error}}
           </div>

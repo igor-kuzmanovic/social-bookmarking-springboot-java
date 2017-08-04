@@ -50,6 +50,7 @@
       bookmark.user = {username:$scope.$parent.vm.user.name};
       bookmark.date = $filter('date')(new Date(), "yyyy-MM-dd");
       BookmarkService.saveBookmark(bookmark).then(function(response){
+        vm.editBookmarkModal.$setPristine();
         $('#addBookmarkModal').modal('hide');
         getUserBookmarks();
         vm.selectedBookmark = vm.bookmark;
