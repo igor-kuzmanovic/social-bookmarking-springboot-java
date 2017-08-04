@@ -32,6 +32,7 @@
     function handleSuccessUser() {
       vm.signupForm.$setPristine();
       delete vm.registration;
+      delete vm.credentials;
       delete vm.error;
       vm.showLoginPage = true;
       vm.success = "User created!";
@@ -73,7 +74,8 @@
       vm.signupForm.$setPristine();
       vm.loginForm.$setPristine();
       vm.showLoginPage = false;
-      vm.displayBookmarks = false;           
+      vm.displayBookmarks = false; 
+      delete vm.registration;
       delete vm.user;
       delete vm.error;
     }
