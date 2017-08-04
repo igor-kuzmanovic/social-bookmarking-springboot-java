@@ -157,15 +157,15 @@
     }
     
     function categoryAddModal() {
+      vm.addCategoryModal.$setPristine();
       delete vm.category;
       delete vm.error;
-      vm.addCategoryModal.$setPristine();
     }
 
     function categoryEditModal() {
-      delete vm.error;
-      vm.editedCategory = angular.copy(vm.selectedCategory);
       vm.editCategoryModal.$setPristine();
+      delete vm.error;
+      vm.editedCategory = angular.copy(vm.selectedCategory);      
     }
 
     function editCategory(editedCategory) {

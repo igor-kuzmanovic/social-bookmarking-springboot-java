@@ -88,7 +88,7 @@
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm || vm.signup), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$invalid && vm.signupForm.$dirty" ng-click="vm.saveUser(vm.registration)">Sign up</button>
+          <button type="submit" class="btn btn-primary btn-login" ng-class="{'btn-danger disabled': vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm), 'btn-success': vm.signupForm.$valid && vm.registration.password === vm.registration.passwordConfirm}" ng-disabled="vm.signupForm.$dirty && (vm.signupForm.$invalid || vm.registration.password !== vm.registration.passwordConfirm)" ng-click="vm.saveUser(vm.registration)">Sign up</button>
         </div>
       </fieldset>
     </form>
