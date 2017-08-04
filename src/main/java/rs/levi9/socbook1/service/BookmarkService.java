@@ -2,14 +2,8 @@ package rs.levi9.socbook1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rs.levi9.socbook1.domain.Bookmark;
-import rs.levi9.socbook1.domain.Comment;
-import rs.levi9.socbook1.domain.Tag;
-import rs.levi9.socbook1.domain.User;
-import rs.levi9.socbook1.repository.BookmarkRepository;
-import rs.levi9.socbook1.repository.CommentRepository;
-import rs.levi9.socbook1.repository.TagRepository;
-import rs.levi9.socbook1.repository.UserRepository;
+import rs.levi9.socbook1.domain.*;
+import rs.levi9.socbook1.repository.*;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -21,16 +15,17 @@ import java.util.Set;
 public class BookmarkService  {
 
     private BookmarkRepository bookmarkRepository;
-    private CommentRepository commentRepository;
     private TagRepository tagRepository;
-    private UserRepository userRepository;
+    private CommentRepository commentRepository;
+    private RatingRepository ratingRepository;
 
     @Autowired
-    public BookmarkService(BookmarkRepository bookmarkRepository, CommentRepository commentRepository, TagRepository tagRepository, UserRepository userRepository) {
+    public BookmarkService(BookmarkRepository bookmarkRepository, TagRepository tagRepository,
+                           CommentRepository commentRepository, RatingRepository ratingRepository) {
         this.bookmarkRepository = bookmarkRepository;
-        this.commentRepository = commentRepository;
         this.tagRepository = tagRepository;
-        this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     public List<Bookmark> findAll() {
@@ -43,8 +38,9 @@ public class BookmarkService  {
 
     public Bookmark save(Bookmark bookmark) {
         Set<Tag> tagExists = new HashSet<>();
+        if(bookmark.getTags() != null)
         for (Tag tag : bookmark.getTags()) {
-            Tag foundTag = tagRepository.findByName(tag.getName());
+            Tag foundTag = tagRepository.findByText(tag.getText());
             if (foundTag == null) {
                 tagRepository.save(tag);
                 tagExists.add(tag);
@@ -55,21 +51,56 @@ public class BookmarkService  {
 
         bookmark.setTags(tagExists);
 
-        //Save user when only username is sent.
-        User tempUser = userRepository.findByUsername(bookmark.getUser().getUsername());
-        bookmark.setUser(tempUser);
-
         return bookmarkRepository.save(bookmark);
     }
 
     public void delete(Long id) {
-        //Delete all comments before deleting bookmark.
-        commentRepository.deleteByBookmarkId(id);
+        Bookmark forDelete = bookmarkRepository.findOne(id);
+        List<Bookmark> allBookmarks = bookmarkRepository.findAll();
+        boolean hasBookmark = false;
+
+        for (Tag tag : forDelete.getTags()) {
+            for(Bookmark bookmark: allBookmarks) {
+                Set<Tag> bookmarkTags = bookmark.getTags();
+                for(Tag bookmarkTag: bookmarkTags) {
+                    if(tag.getId() == bookmarkTag.getId()) {
+                        hasBookmark = true;
+                    }
+                }
+            }
+            if(!hasBookmark) {
+                tagRepository.delete(tag.getId());
+            }
+        }
 
         bookmarkRepository.delete(id);
     }
 
-    public List<Bookmark> findByUser(User user) {
+    public List<Bookmark> findAllByUser(User user) {
         return bookmarkRepository.findAllByUser(user);
+    }
+
+    public List<Bookmark> findAllByPublicWithoutUser(User user) {
+        return bookmarkRepository.findAllByIsPublicTrueAndUserNot(user);
+    }
+
+    public Bookmark findByUrl(String url) {
+        return bookmarkRepository.findByUrl(url);
+    }
+
+    public Bookmark findBookmarkByUserAndUrl(User user, String url) {
+        return bookmarkRepository.findByUserAndUrl(user, url);
+    }
+
+    public List<Bookmark> findAllBookmarksByCategory(Long id) {
+        return bookmarkRepository.findAllBookmarksByCategoryId(id);
+    }
+
+    public Bookmark findBookmarkByCommentId(Long id) {
+        return bookmarkRepository.findBookmarkByCommentsId(id);
+    }
+
+    public Bookmark findBookmarkByRatingId(Long id) {
+        return bookmarkRepository.findBookmarkByRatingsId(id);
     }
 }
