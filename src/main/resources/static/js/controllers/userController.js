@@ -19,9 +19,12 @@
     function init() {
       vm.showLoginPage = false;
       vm.displayBookmarks = false;
+      refresh();
     }
-    
+
     function refresh() {
+      vm.signupForm.$setPristine();
+      vm.loginForm.$setPristine();
       delete vm.registration;
       delete vm.credentials;
       delete vm.error;
@@ -38,15 +41,12 @@
     }
 
     function handleSuccessUser() {
-      vm.signupForm.$setPristine();
       refresh();
       vm.showLoginPage = true;
       vm.success = "User created!";
     }
 
     function toggleLoginPage() {
-      vm.signupForm.$setPristine();
-      vm.loginForm.$setPristine();
       refresh();
       vm.showLoginPage = !vm.showLoginPage;       	
     }
@@ -60,8 +60,6 @@
       }).success(function (response) {       
         $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
         vm.user = response;
-        vm.signupForm.$setPristine();
-        vm.loginForm.$setPristine();
         refresh();
         navbarControl(1);    
         vm.displayBookmarks = true;
@@ -72,8 +70,6 @@
 
     function logout() {
       $http.defaults.headers.common['Authorization'] = null;
-      vm.signupForm.$setPristine();
-      vm.loginForm.$setPristine();
       vm.showLoginPage = false;
       vm.displayBookmarks = false; 
       refresh();
