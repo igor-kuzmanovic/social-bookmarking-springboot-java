@@ -73,7 +73,8 @@
     function logout() {
       $http.defaults.headers.common['Authorization'] = null;
       vm.showLoginPage = false;
-      vm.displayBookmarks = false; 
+      vm.displayBookmarks = false;
+      delete vm.user;
       refresh();
     }
 
