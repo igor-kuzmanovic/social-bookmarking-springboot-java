@@ -81,6 +81,7 @@
     }
 
     function addModalOperation() {
+      vm.editBookmarkModal.$setPristine();
       getCategories();
       delete vm.error;
       delete vm.bookmark;
@@ -88,6 +89,7 @@
     }
 
     function editModalOperation() {
+      vm.editBookmarkModal.$setPristine();
       getUserBookmarks();
       getCategories();
       delete vm.error;
