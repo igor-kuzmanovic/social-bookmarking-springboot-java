@@ -1,4 +1,4 @@
-# SocBook1
+# Social Bookmarking
 Repository for tech9 summer class - team 1
 
 ## Tech9 Summer Workshop 2017
@@ -37,4 +37,7 @@ Users should be allowed to share, rate and comment on bookmarks added by other u
 
 - [x] Admin user can block and delete regular users.
 
-FINISHED
+## Authors
+* **Dunja Ajdukovic**
+* **Sasa Dobrilovic**
+* **Igor Kuzmanovic**
